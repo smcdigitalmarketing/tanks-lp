@@ -1,0 +1,353 @@
+@import "tailwindcss";
+
+/*
+ * Every concept page sets data-theme on its wrapper. The utilities below read
+ * the scoped custom properties, so the same section components restyle per
+ * concept without touching their markup.
+ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-ink: var(--brand-ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-highlight: var(--highlight);
+  --color-highlight-ink: var(--highlight-ink);
+  --color-success: var(--success);
+  --color-star: var(--star);
+  --color-footer: var(--footer-bg);
+  --color-footer-ink: var(--footer-ink);
+
+  --font-sans: var(--f-body);
+  --font-display: var(--f-display);
+  --font-button: var(--f-button);
+
+  --radius-card: var(--r-card);
+  --radius-btn: var(--r-btn);
+}
+
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f5f6;
+  --ink: #2e2a39;
+  --muted: #6b6775;
+  --line: #e6e4ea;
+  --brand: #c62828;
+  --brand-strong: #8b1c1c;
+  --brand-ink: #ffffff;
+  --btn-bg: linear-gradient(180deg, #c62828 0%, #8b1c1c 100%);
+  --accent: #2e2a39;
+  --accent-ink: #ffffff;
+  --highlight: #fff1c2;
+  --highlight-ink: #2e2a39;
+  --success: #1f7a4d;
+  --star: #f5a524;
+  --footer-bg: #000000;
+  --footer-ink: #fdfbf7;
+  --f-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --f-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --display-case: none;
+  --display-tracking: 0;
+  --r-card: 12px;
+  --r-btn: 12px;
+}
+
+/* ── Concept A · Hallie: warm cream, muted rose, soft and rounded ─────────── */
+[data-theme="soft"] {
+  --bg: #fbf6ef;
+  --surface: #ffffff;
+  --surface-2: #f3e9df;
+  --ink: #3b2f2c;
+  --muted: #76655e;
+  --line: #e9ddd2;
+  --brand: #b4677a;
+  --brand-strong: #96505f;
+  --brand-ink: #ffffff;
+  --btn-bg: #b4677a;
+  --accent: #6b4a4f;
+  --accent-ink: #fbf6ef;
+  --highlight: #f5e2de;
+  --highlight-ink: #7d3e4c;
+  --success: #5b7a5f;
+  --star: #c4955a;
+  --footer-bg: #3b2f2c;
+  --footer-ink: #fbf6ef;
+  --f-display: "DM Serif Display", Georgia, serif;
+  --f-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.01em;
+  --r-card: 18px;
+  --r-btn: 999px;
+}
+
+/* ── Concept B · Oriel: ivory, charcoal, taupe, square and spacious ─────────── */
+[data-theme="premium"] {
+  --bg: #f7f4ee;
+  --surface: #fffdf9;
+  --surface-2: #ece6dc;
+  --ink: #232323;
+  --muted: #6e6860;
+  --line: #dcd5ca;
+  --brand: #8c7b6b;
+  --brand-strong: #6e5f51;
+  --brand-ink: #f7f4ee;
+  --btn-bg: #232323;
+  --accent: #232323;
+  --accent-ink: #f7f4ee;
+  --highlight: #e6dfd3;
+  --highlight-ink: #232323;
+  --success: #55624e;
+  --star: #232323;
+  --footer-bg: #1e1e1e;
+  --footer-ink: #f7f4ee;
+  --f-display: "Cormorant Garamond", Georgia, serif;
+  --f-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --f-eyebrow: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 500;
+  --display-tracking: -0.015em;
+  --r-card: 0px;
+  --r-btn: 0px;
+}
+
+/* ── Concept C · Daywell: white, warm grey, deep plum, terracotta ────────────── */
+[data-theme="contemporary"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f2efeb;
+  --ink: #1b1720;
+  --muted: #5f5a63;
+  --line: #e4e0db;
+  --brand: #5a2a4e;
+  --brand-strong: #43203a;
+  --brand-ink: #ffffff;
+  --btn-bg: #5a2a4e;
+  --accent: #5a2a4e;
+  --accent-ink: #ffffff;
+  --highlight: #f6dccf;
+  --highlight-ink: #8a3519;
+  --success: #2f7a55;
+  --star: #c2603f;
+  --footer-bg: #1b1720;
+  --footer-ink: #ffffff;
+  --f-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --f-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.035em;
+  --r-card: 8px;
+  --r-btn: 6px;
+}
+
+/*
+ * Early Black Friday: the same brand, with the announcement bar and offer
+ * blocks switched to a dark, high-contrast treatment. Colours only: no
+ * timers, flashing or scarcity.
+ */
+[data-offer="early-black-friday"] {
+  --accent: #141212;
+  --accent-ink: #ffffff;
+}
+[data-theme="soft"][data-offer="early-black-friday"] {
+  --accent: #2c2221;
+  --accent-ink: #f5e2de;
+}
+[data-theme="premium"][data-offer="early-black-friday"] {
+  --accent: #0d0d0d;
+  --accent-ink: #e6dfd3;
+}
+[data-theme="contemporary"][data-offer="early-black-friday"] {
+  --accent: #1b1720;
+  --accent-ink: #f6dccf;
+}
+
+/* Headline type follows the concept: weight, case and tracking are tokens too. */
+@utility display {
+  font-family: var(--f-display);
+  font-weight: var(--display-weight);
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-tracking);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Small uppercase labels above headings; Pulse sets them in mono. */
+@utility eyebrow {
+  font-family: var(--f-eyebrow, var(--f-body));
+}
+
+@utility btn-primary {
+  background: var(--btn-bg);
+  color: var(--brand-ink);
+  font-family: var(--f-button);
+  border-radius: var(--r-btn);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #2e2a39;
+  -webkit-font-smoothing: antialiased;
+}
+
+body:has(> [data-theme="soft"]) {
+  background: #fbf6ef;
+}
+
+body:has(> [data-theme="premium"]) {
+  background: #f7f4ee;
+}
+
+/* Verification flags can be hidden for clean screenshots (preview strip). */
+html[data-flags="off"] [data-flag] {
+  display: none !important;
+}
+
+/* Hallie's letter: a drop cap on the first paragraph. */
+.first-letter-drop > p:first-child::first-letter {
+  float: left;
+  margin: 0.08em 0.12em 0 0;
+  font-family: var(--f-display);
+  font-size: 3.6em;
+  line-height: 0.8;
+  color: var(--brand);
+}
+
+/* Lifestyle strip: two copies of the list scroll left in a loop. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 50s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The SOP page (/sop): rendered markdown. */
+.sop {
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.sop h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+.sop h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.5rem 0 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+.sop p,
+.sop ul,
+.sop ol,
+.sop table {
+  margin: 0 0 1rem;
+}
+.sop ul,
+.sop ol {
+  padding-left: 1.4rem;
+}
+.sop ul {
+  list-style: disc;
+}
+.sop ol {
+  list-style: decimal;
+}
+.sop li {
+  margin: 0.25rem 0;
+}
+.sop li:has(> input[type="checkbox"]) {
+  list-style: none;
+  margin-left: -1.4rem;
+}
+.sop input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+.sop a {
+  color: #c62828;
+  text-decoration: underline;
+}
+.sop code {
+  font-size: 0.85em;
+  background: rgb(0 0 0 / 0.05);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.sop table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.sop th,
+.sop td {
+  border: 1px solid rgb(0 0 0 / 0.1);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+.sop th {
+  background: rgb(0 0 0 / 0.04);
+  font-weight: 600;
+}
+.sop td:first-child:not(:only-child),
+.sop th:first-child {
+  white-space: nowrap;
+}
+.sop td:nth-child(2),
+.sop th:nth-child(2) {
+  min-width: 9rem;
+}
