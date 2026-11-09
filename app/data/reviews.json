@@ -1,0 +1,150 @@
+{
+  "source": "Judge.me review widget on maggies-tanks.com",
+  "sourceUrl": "https://maggies-tanks.com/products/maggies-built-in-comfort-bra-tanktop",
+  "fetchedAt": "2026-11-09",
+  "summary": {
+    "count": 10795,
+    "average": 3.2,
+    "histogram": [
+      {
+        "rating": 5,
+        "frequency": 3848,
+        "percentage": 36
+      },
+      {
+        "rating": 4,
+        "frequency": 1436,
+        "percentage": 13
+      },
+      {
+        "rating": 3,
+        "frequency": 1476,
+        "percentage": 14
+      },
+      {
+        "rating": 2,
+        "frequency": 1147,
+        "percentage": 11
+      },
+      {
+        "rating": 1,
+        "frequency": 2888,
+        "percentage": 27
+      }
+    ]
+  },
+  "recentSample": {
+    "fiveStar": 202,
+    "total": 210
+  },
+  "items": [
+    {
+      "id": "40bee99c-9fa2-4730-b4f8-34369915b71a",
+      "name": "Yutta",
+      "rating": 5,
+      "date": "2026-11-08",
+      "verified": true,
+      "text": "The tank top is exceptionally comfortable, you don’t remember you have it on, l even sleep in mine. I highly recommend it.",
+      "photo": "review-yutta"
+    },
+    {
+      "id": "1b62ef97-23ce-4297-8554-39950fdf19c8",
+      "name": "Carol",
+      "rating": 5,
+      "date": "2026-11-09",
+      "verified": true,
+      "text": "I Love the comfort and gentle support. I had just bought some new bras in the spring; now I need to donate!",
+      "photo": null
+    },
+    {
+      "id": "af03b071-47ad-4c25-b299-ebc67d8107bf",
+      "name": "Eileen",
+      "rating": 5,
+      "date": "2026-11-09",
+      "verified": true,
+      "text": "Light weight,stayed put. After 3 washes,cups are still in place. Very satisfied!",
+      "photo": null
+    },
+    {
+      "id": "4be7ff3d-e6b1-5aef-8ebe-8b00bc6c39fb",
+      "name": "Becki",
+      "rating": 5,
+      "date": "2026-11-09",
+      "verified": true,
+      "text": "I was skeptical when I ordered the tanks because I have tried different cami' and bras and nothing fit well or was comfortable. Glad I found these because they are super comfortable and give me a reasonable amount of support. I would recommend highly",
+      "photo": null
+    },
+    {
+      "id": "1345f495-b86f-4b72-81ab-5d3f4f200a54",
+      "name": "Cathy",
+      "rating": 5,
+      "date": "2026-11-09",
+      "verified": true,
+      "text": "The tank is extremely comfortable giving support without feeling tight at all. I can wear it all day.",
+      "photo": null
+    },
+    {
+      "id": "fddf1e31-3a28-5ff2-878f-d97360ee14f4",
+      "name": "Annmarie",
+      "rating": 5,
+      "date": "2026-11-09",
+      "verified": true,
+      "text": "Perfect fit! The shelf less bra stays in place and the tank top is very comfortable. It’s an easy top for layering or to wear underneath sweaters. Thank you!",
+      "photo": null
+    },
+    {
+      "id": "bfd1735a-9369-45fd-9513-e488f2271d33",
+      "name": "Heather Kurtin",
+      "rating": 5,
+      "date": "2026-11-08",
+      "verified": true,
+      "text": "So soft and comfortable, washes like a dream, holds it shape, doesn’t feel like wearing anything but gives good support",
+      "photo": null
+    },
+    {
+      "id": "3dbc9fa3-769e-5ff7-a8ce-48c617c7ee6d",
+      "name": "Laurel",
+      "rating": 5,
+      "date": "2026-11-08",
+      "verified": true,
+      "text": "This is one of the best fitting tank tops. It has started to get a bit chilly and I love it hugging me and adding some warmth to my torso. The support is great for everyday (not running ect) and I am a size ‘c’. I bought 2 and I am definitely buying more. I also love the soft material,",
+      "photo": null
+    },
+    {
+      "id": "6be2f747-86e7-5853-9082-7ff4e2af08c8",
+      "name": "Diane",
+      "rating": 5,
+      "date": "2026-11-06",
+      "verified": true,
+      "text": "This is every bit as good as I had hoped. Very comfortable support without feeling tight or constricting.",
+      "photo": null
+    },
+    {
+      "id": "e40d00b2-3a87-4caf-aba3-e237a5f6a7e8",
+      "name": "Esskaye",
+      "rating": 5,
+      "date": "2026-11-06",
+      "verified": true,
+      "text": "So comfortable, and the support is good.! I am a DD cup and I have no qualms about wearing this tank when I’m out and about.",
+      "photo": null
+    },
+    {
+      "id": "b7774e16-48cb-43d1-a537-f1ac17cf68ce",
+      "name": "Victoria",
+      "rating": 5,
+      "date": "2026-11-06",
+      "verified": true,
+      "text": "I’m 74 years old and this is the first time I’ve ever had a comfortable bra",
+      "photo": null
+    },
+    {
+      "id": "909016d7-ba13-493d-855d-723462357164",
+      "name": "Barb",
+      "rating": 5,
+      "date": "2026-11-08",
+      "verified": true,
+      "text": "Super comfortable! It's also very light so im not even aware that I'm wearing it.",
+      "photo": null
+    }
+  ]
+}

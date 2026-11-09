@@ -1,0 +1,1388 @@
+{
+  "source": "https://maggies-tanks.com/products/maggies-built-in-comfort-bra-tanktop",
+  "portedAt": "2026-11-09",
+  "product": {
+    "id": 8733905256619,
+    "handle": "maggies-built-in-comfort-bra-tanktop",
+    "title": "Maggie's Built-in Bra Comfort Tank",
+    "price": 34.95,
+    "compareAtValues": [
+      null,
+      "84.95"
+    ],
+    "colours": [
+      {
+        "name": "Nude",
+        "value": "Nude",
+        "stockNote": null,
+        "swatch": "#e6c9a3",
+        "image": "colour-nude"
+      },
+      {
+        "name": "Coffee",
+        "value": "Coffee (running low)",
+        "stockNote": "running low",
+        "swatch": "#6a3a22",
+        "image": "colour-coffee"
+      },
+      {
+        "name": "Black",
+        "value": "Black",
+        "stockNote": null,
+        "swatch": "#1c1c1c",
+        "image": "colour-black"
+      },
+      {
+        "name": "Khaki",
+        "value": "Khaki",
+        "stockNote": null,
+        "swatch": "#c8b48a",
+        "image": "colour-khaki"
+      },
+      {
+        "name": "Red Wine",
+        "value": "Red Wine",
+        "stockNote": null,
+        "swatch": "#b5162b",
+        "image": "colour-red-wine"
+      },
+      {
+        "name": "Blush Pink",
+        "value": "Blush Pink (running low)",
+        "stockNote": "running low",
+        "swatch": "#d8a7a1",
+        "image": "colour-blush-pink"
+      },
+      {
+        "name": "Grey",
+        "value": "Grey",
+        "stockNote": null,
+        "swatch": "#7c7c80",
+        "image": "colour-grey"
+      },
+      {
+        "name": "White",
+        "value": "White (selling out fast)",
+        "stockNote": "selling out fast",
+        "swatch": "#f4f4f2",
+        "image": "colour-white"
+      },
+      {
+        "name": "Pastel Pink",
+        "value": "Pastel Pink",
+        "stockNote": null,
+        "swatch": "#f3c5d2",
+        "image": "colour-pastel-pink"
+      },
+      {
+        "name": "Pastel Yellow",
+        "value": "Pastel Yellow",
+        "stockNote": null,
+        "swatch": "#efe1a6",
+        "image": "colour-pastel-yellow"
+      },
+      {
+        "name": "Pastel Purple",
+        "value": "Pastel Purple",
+        "stockNote": null,
+        "swatch": "#cdb8e6",
+        "image": "colour-pastel-purple"
+      },
+      {
+        "name": "Pastel Blue",
+        "value": "Pastel Blue (running low)",
+        "stockNote": "running low",
+        "swatch": "#1f6fc0",
+        "image": "colour-pastel-blue"
+      },
+      {
+        "name": "Navy Blue",
+        "value": "Navy Blue",
+        "stockNote": null,
+        "swatch": "#1d2747",
+        "image": "colour-navy-blue"
+      }
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL"
+    ],
+    "variants": [
+      {
+        "id": 47896539398315,
+        "colour": "Nude",
+        "size": "S",
+        "sku": "QL1077-Nude-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539431083,
+        "colour": "Nude",
+        "size": "M",
+        "sku": "QL1077-Nude-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539496619,
+        "colour": "Nude",
+        "size": "L",
+        "sku": "QL1077-Nude-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539529387,
+        "colour": "Nude",
+        "size": "XL",
+        "sku": "QL1077-Nude-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539562155,
+        "colour": "Nude",
+        "size": "2XL",
+        "sku": "QL1077-Nude-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539857067,
+        "colour": "Nude",
+        "size": "3XL",
+        "sku": "QL1077-Nude-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539889835,
+        "colour": "Coffee",
+        "size": "S",
+        "sku": "QL1077-Coffee-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896539922603,
+        "colour": "Coffee",
+        "size": "M",
+        "sku": "QL1077-Coffee-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896539955371,
+        "colour": "Coffee",
+        "size": "L",
+        "sku": "QL1077-Coffee-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896539988139,
+        "colour": "Coffee",
+        "size": "XL",
+        "sku": "QL1077-Coffee-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540250283,
+        "colour": "Coffee",
+        "size": "2XL",
+        "sku": "QL1077-Coffee-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540283051,
+        "colour": "Coffee",
+        "size": "3XL",
+        "sku": "QL1077-Coffee-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540348587,
+        "colour": "Black",
+        "size": "S",
+        "sku": "QL1077-Black-S",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540381355,
+        "colour": "Black",
+        "size": "M",
+        "sku": "QL1077-Black-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540446891,
+        "colour": "Black",
+        "size": "L",
+        "sku": "QL1077-Black-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540479659,
+        "colour": "Black",
+        "size": "XL",
+        "sku": "QL1077-Black-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540512427,
+        "colour": "Black",
+        "size": "2XL",
+        "sku": "QL1077-Black-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540545195,
+        "colour": "Black",
+        "size": "3XL",
+        "sku": "QL1077-Black-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540577963,
+        "colour": "Khaki",
+        "size": "S",
+        "sku": "QL1077-Green-S",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540872875,
+        "colour": "Khaki",
+        "size": "M",
+        "sku": "QL1077-Green-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540905643,
+        "colour": "Khaki",
+        "size": "L",
+        "sku": "QL1077-Green-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540938411,
+        "colour": "Khaki",
+        "size": "XL",
+        "sku": "QL1077-Green-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896540971179,
+        "colour": "Khaki",
+        "size": "2XL",
+        "sku": "QL1077-Green-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541003947,
+        "colour": "Khaki",
+        "size": "3XL",
+        "sku": "QL1077-Green-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541036715,
+        "colour": "Red Wine",
+        "size": "S",
+        "sku": "QL1077-Red-S",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541069483,
+        "colour": "Red Wine",
+        "size": "M",
+        "sku": "QL1077-Red-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541102251,
+        "colour": "Red Wine",
+        "size": "L",
+        "sku": "QL1077-Red-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541135019,
+        "colour": "Red Wine",
+        "size": "XL",
+        "sku": "QL1077-Red-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541397163,
+        "colour": "Red Wine",
+        "size": "2XL",
+        "sku": "QL1077-Red-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541429931,
+        "colour": "Red Wine",
+        "size": "3XL",
+        "sku": "QL1077-Red-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541462699,
+        "colour": "Blush Pink",
+        "size": "S",
+        "sku": "QL1077-Beanpaste-S",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541495467,
+        "colour": "Blush Pink",
+        "size": "M",
+        "sku": "QL1077-Beanpaste-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541528235,
+        "colour": "Blush Pink",
+        "size": "L",
+        "sku": "QL1077-Beanpaste-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541561003,
+        "colour": "Blush Pink",
+        "size": "XL",
+        "sku": "QL1077-Beanpaste-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541593771,
+        "colour": "Blush Pink",
+        "size": "2XL",
+        "sku": "QL1077-Beanpaste-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541626539,
+        "colour": "Blush Pink",
+        "size": "3XL",
+        "sku": "QL1077-Beanpaste-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896541823147,
+        "colour": "Grey",
+        "size": "S",
+        "sku": "QL1077-Grey-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896541888683,
+        "colour": "Grey",
+        "size": "M",
+        "sku": "QL1077-Grey-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896541921451,
+        "colour": "Grey",
+        "size": "L",
+        "sku": "QL1077-Grey-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896541954219,
+        "colour": "Grey",
+        "size": "XL",
+        "sku": "QL1077-Grey-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896541986987,
+        "colour": "Grey",
+        "size": "2XL",
+        "sku": "QL1077-Grey-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542019755,
+        "colour": "Grey",
+        "size": "3XL",
+        "sku": "QL1077-Grey-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542150827,
+        "colour": "White",
+        "size": "S",
+        "sku": "QL1077-White-S",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542183595,
+        "colour": "White",
+        "size": "M",
+        "sku": "QL1077-White-M",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542216363,
+        "colour": "White",
+        "size": "L",
+        "sku": "QL1077-White-L",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542249131,
+        "colour": "White",
+        "size": "XL",
+        "sku": "QL1077-White-XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542281899,
+        "colour": "White",
+        "size": "2XL",
+        "sku": "QL1077-White-2XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542314667,
+        "colour": "White",
+        "size": "3XL",
+        "sku": "QL1077-White-3XL",
+        "price": 34.95,
+        "compareAt": 84.95,
+        "available": true
+      },
+      {
+        "id": 47896542347435,
+        "colour": "Nude",
+        "size": "4XL",
+        "sku": "QL1077-Nude-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542380203,
+        "colour": "Black",
+        "size": "4XL",
+        "sku": "QL1077-Black-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542642347,
+        "colour": "Pastel Pink",
+        "size": "S",
+        "sku": "QL1077-Pink-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542675115,
+        "colour": "Pastel Pink",
+        "size": "M",
+        "sku": "QL1077-Pink-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542707883,
+        "colour": "Pastel Pink",
+        "size": "L",
+        "sku": "QL1077-Pink-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542740651,
+        "colour": "Pastel Pink",
+        "size": "XL",
+        "sku": "QL1077-Pink-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542806187,
+        "colour": "Pastel Pink",
+        "size": "2XL",
+        "sku": "QL1077-Pink-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542838955,
+        "colour": "Pastel Pink",
+        "size": "3XL",
+        "sku": "QL1077-Pink-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542871723,
+        "colour": "Pastel Yellow",
+        "size": "S",
+        "sku": "QL1077-Yellow-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896542904491,
+        "colour": "Pastel Yellow",
+        "size": "M",
+        "sku": "QL1077-Yellow-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543101099,
+        "colour": "Pastel Yellow",
+        "size": "L",
+        "sku": "QL1077-Yellow-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543133867,
+        "colour": "Pastel Yellow",
+        "size": "XL",
+        "sku": "QL1077-Yellow-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543166635,
+        "colour": "Pastel Yellow",
+        "size": "2XL",
+        "sku": "QL1077-Yellow-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543199403,
+        "colour": "Pastel Yellow",
+        "size": "3XL",
+        "sku": "QL1077-Yellow-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543232171,
+        "colour": "Pastel Purple",
+        "size": "S",
+        "sku": "QL1077-Purple-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543264939,
+        "colour": "Pastel Purple",
+        "size": "M",
+        "sku": "QL1077-Purple-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": false
+      },
+      {
+        "id": 47896543297707,
+        "colour": "Pastel Purple",
+        "size": "L",
+        "sku": "QL1077-Purple-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543330475,
+        "colour": "Pastel Purple",
+        "size": "XL",
+        "sku": "QL1077-Purple-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543461547,
+        "colour": "Pastel Purple",
+        "size": "2XL",
+        "sku": "QL1077-Purple-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543494315,
+        "colour": "Pastel Purple",
+        "size": "3XL",
+        "sku": "QL1077-Purple-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543527083,
+        "colour": "Pastel Pink",
+        "size": "4XL",
+        "sku": "QL1077-Pink-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543559851,
+        "colour": "Pastel Yellow",
+        "size": "4XL",
+        "sku": "QL1077-Yellow-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543592619,
+        "colour": "Pastel Purple",
+        "size": "4XL",
+        "sku": "QL1077-Purple-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543625387,
+        "colour": "White",
+        "size": "4XL",
+        "sku": "QL1077-White-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543821995,
+        "colour": "Grey",
+        "size": "4XL",
+        "sku": "QL1077-Grey-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543854763,
+        "colour": "Red Wine",
+        "size": "4XL",
+        "sku": "QL1077-Red-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013768875,
+        "colour": "Pastel Blue",
+        "size": "S",
+        "sku": "QL1077-Blue-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013801643,
+        "colour": "Pastel Blue",
+        "size": "M",
+        "sku": "QL1077-Blue-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013834411,
+        "colour": "Pastel Blue",
+        "size": "L",
+        "sku": "QL1077-Blue-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013867179,
+        "colour": "Pastel Blue",
+        "size": "XL",
+        "sku": "QL1077-Blue-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013899947,
+        "colour": "Pastel Blue",
+        "size": "2XL",
+        "sku": "QL1077-Blue-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013932715,
+        "colour": "Pastel Blue",
+        "size": "3XL",
+        "sku": "QL1077-Blue-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47716013965483,
+        "colour": "Pastel Blue",
+        "size": "4XL",
+        "sku": "QL1077-Blue-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543887531,
+        "colour": "Khaki",
+        "size": "4XL",
+        "sku": "QL1077-Green-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543920299,
+        "colour": "Coffee",
+        "size": "4XL",
+        "sku": "QL1077-Coffee-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543953067,
+        "colour": "Blush Pink",
+        "size": "4XL",
+        "sku": "QL1077-Beanpaste-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896543985835,
+        "colour": "Navy Blue",
+        "size": "S",
+        "sku": "QL1077-NavyBlue-S",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544018603,
+        "colour": "Navy Blue",
+        "size": "M",
+        "sku": "QL1077-NavyBlue-M",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544051371,
+        "colour": "Navy Blue",
+        "size": "L",
+        "sku": "QL1077-NavyBlue-L",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544247979,
+        "colour": "Navy Blue",
+        "size": "XL",
+        "sku": "QL1077-NavyBlue-XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544280747,
+        "colour": "Navy Blue",
+        "size": "2XL",
+        "sku": "QL1077-NavyBlue-2XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544313515,
+        "colour": "Navy Blue",
+        "size": "3XL",
+        "sku": "QL1077-NavyBlue-3XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      },
+      {
+        "id": 47896544346283,
+        "colour": "Navy Blue",
+        "size": "4XL",
+        "sku": "QL1077-NavyBlue-4XL",
+        "price": 34.95,
+        "compareAt": null,
+        "available": true
+      }
+    ]
+  },
+  "assets": [
+    {
+      "name": "colour-nude",
+      "file": "app/assets/store/colour-nude.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-nude-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Nude), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-coffee",
+      "file": "app/assets/store/colour-coffee.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-coffee-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Coffee), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-black",
+      "file": "app/assets/store/colour-black.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-black-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Black), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-khaki",
+      "file": "app/assets/store/colour-khaki.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-khaki-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Khaki), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-red-wine",
+      "file": "app/assets/store/colour-red-wine.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-redwine-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Red Wine), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-blush-pink",
+      "file": "app/assets/store/colour-blush-pink.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-blushpink-1024.jpg",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Blush Pink), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-grey",
+      "file": "app/assets/store/colour-grey.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/freepik_use-reference-image-2-as-_2756351475.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (Grey), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-white",
+      "file": "app/assets/store/colour-white.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/freepik_exact-same-just-white-do-_2798868398.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Colour swatch photo (White), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-pastel-pink",
+      "file": "app/assets/store/colour-pastel-pink.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/ChatGPT_Image_Aug_26_2026_12_21_09_PM.png",
+      "width": 1254,
+      "height": 1254,
+      "origin": "product",
+      "use": "Colour swatch photo (Pastel Pink), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-pastel-yellow",
+      "file": "app/assets/store/colour-pastel-yellow.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/comfort-pastelyellow-1254.jpg",
+      "width": 1254,
+      "height": 1254,
+      "origin": "product",
+      "use": "Colour swatch photo (Pastel Yellow), bundle cards, cart",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "colour-pastel-purple",
+      "file": "app/assets/store/colour-pastel-purple.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/ChatGPT_Image_Aug_26_2026_12_21_45_PM.png",
+      "width": 1261,
+      "height": 1247,
+      "origin": "product",
+      "use": "Colour swatch photo (Pastel Purple), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res",
+        "not-square"
+      ]
+    },
+    {
+      "name": "colour-pastel-blue",
+      "file": "app/assets/store/colour-pastel-blue.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/freepik__everything-same-just-different-colour-tanktop-just__63819_480aaa84-a6d1-413f-ac72-6af4285509f3.png",
+      "width": 768,
+      "height": 1376,
+      "origin": "product",
+      "use": "Colour swatch photo (Pastel Blue), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res",
+        "not-square"
+      ]
+    },
+    {
+      "name": "colour-navy-blue",
+      "file": "app/assets/store/colour-navy-blue.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/ChatGPT_Image_Aug_29_2026_11_56_51_AM.png",
+      "width": 1254,
+      "height": 1254,
+      "origin": "product",
+      "use": "Colour swatch photo (Navy Blue), bundle cards, cart",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "front",
+      "file": "app/assets/store/front.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/maggies_first_original.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Gallery 1 (benefit headline), guarantee, advertorial lead",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "back",
+      "file": "app/assets/store/back.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/magnific_a-bit-more-zoomed-in-the-_ubWL3aWQLD_1.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Gallery 5 (how it works), lifestyle strip, value props",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "strap",
+      "file": "app/assets/store/strap.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/magnific_nanobananapro-prompt-v4-n_aQG1xwBfSh.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Gallery 5 (how it works), value props",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "cup-detail",
+      "file": "app/assets/store/cup-detail.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/06_detail_removable_grey.jpg",
+      "width": 1000,
+      "height": 1000,
+      "origin": "product",
+      "use": "Gallery 4 (what's included), details",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "mirror",
+      "file": "app/assets/store/mirror.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/05_lifestyle_mirror.jpg",
+      "width": 1000,
+      "height": 1000,
+      "origin": "product",
+      "use": "Gallery 2 (lifestyle), advertorial",
+      "flags": [
+        "rights",
+        "low-res"
+      ]
+    },
+    {
+      "name": "layers-infographic",
+      "file": "app/assets/store/layers-infographic.webp",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/magnific_without-the-logo-under-ma_TeScLqeVNR.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "product",
+      "use": "Not used: words are baked into the image",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res",
+        "text-baked-in"
+      ]
+    },
+    {
+      "name": "portrait",
+      "file": "app/assets/store/portrait.webp",
+      "source": "https://maggies-tanks.com/cdn/shop/files/hf_20260527_133432_d741e66e-6b29-42b3-bb8d-15c222e09a72_1.png",
+      "width": 1600,
+      "height": 1600,
+      "origin": "page",
+      "use": "Hero / comparison hub cover, lifestyle strip, advertorial",
+      "flags": [
+        "rights",
+        "ai-likely"
+      ]
+    },
+    {
+      "name": "pull-on",
+      "file": "app/assets/store/pull-on.webp",
+      "source": "https://maggies-tanks.com/cdn/shop/files/magnific_nano-banana-sharon-builti_fFVbbbeCDY.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "page",
+      "use": "Gallery 5 (how it works: pull it on), value props, advertorial",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "brown-pair",
+      "file": "app/assets/store/brown-pair.webp",
+      "source": "https://maggies-tanks.com/cdn/shop/files/magnific_nanobananapro-targeted-ed_NZFPYVl6D9.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "page",
+      "use": "Lifestyle strip, value props, advertorial",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "bra-vs-tank",
+      "file": "app/assets/store/bra-vs-tank.webp",
+      "source": "https://maggies-tanks.com/cdn/shop/files/BEFORE_AFTER_BRATANNK.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "page",
+      "use": "Gallery 3 (vs a traditional bra), labelled by construction only",
+      "flags": [
+        "rights",
+        "before-after",
+        "low-res"
+      ]
+    },
+    {
+      "name": "brown-collage",
+      "file": "app/assets/store/brown-collage.webp",
+      "source": "https://maggies-tanks.com/cdn/shop/files/marys_hero1.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "page",
+      "use": "Advertorial (product close-ups)",
+      "flags": [
+        "rights",
+        "ai-likely",
+        "low-res"
+      ]
+    },
+    {
+      "name": "ba-back-linda",
+      "file": "(not downloaded)",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/ba-back-linda_2.jpg",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: before/after that implies a body-shape result",
+      "flags": [
+        "rights",
+        "before-after"
+      ]
+    },
+    {
+      "name": "ba-closet-susan",
+      "file": "(not downloaded)",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/ba-closet-susan_2.jpg",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: before/after that implies a body-shape result",
+      "flags": [
+        "rights",
+        "before-after"
+      ]
+    },
+    {
+      "name": "ba-back",
+      "file": "(not downloaded)",
+      "source": "https://cdn.shopify.com/s/files/1/0962/4692/3588/files/ba-back_1.png",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: before/after; served from a different Shopify store",
+      "flags": [
+        "rights",
+        "before-after",
+        "cross-store"
+      ]
+    },
+    {
+      "name": "ba-closet",
+      "file": "(not downloaded)",
+      "source": "https://cdn.shopify.com/s/files/1/0962/4692/3588/files/ba-closet_1.png",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: before/after; served from a different Shopify store",
+      "flags": [
+        "rights",
+        "before-after",
+        "cross-store"
+      ]
+    },
+    {
+      "name": "size-chart",
+      "file": "(not downloaded)",
+      "source": "https://maggies-tanks.com/cdn/shop/files/maggies-size-chart-true-v2.png",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: baked-in text, and its bust ranges conflict with the size finder",
+      "flags": [
+        "rights",
+        "text-baked-in",
+        "conflicting"
+      ]
+    },
+    {
+      "name": "measure-bust",
+      "file": "(not downloaded)",
+      "source": "https://cdn.shopify.com/s/files/1/0767/9354/4875/files/maggies-how-to-measure-bust.png",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: baked-in text; the size guide writes the steps in HTML",
+      "flags": [
+        "rights",
+        "text-baked-in"
+      ]
+    },
+    {
+      "name": "founder",
+      "file": "(not downloaded)",
+      "source": "https://maggies-tanks.com/cdn/shop/files/bd4e3467ee3debbae4b6e0e59fea618672d741b4.png",
+      "width": 0,
+      "height": 0,
+      "origin": "page",
+      "use": "Not used: the founder story (“Maggie, 67”) is unverified",
+      "flags": [
+        "rights",
+        "unverified-person"
+      ]
+    },
+    {
+      "name": "demo-video",
+      "file": "public/video/demo.mp4",
+      "source": "https://cdn.shopify.com/videos/c/vp/657b921248e74bcd91c4d172538a47a8/657b921248e74bcd91c4d172538a47a8.HD-720p-1.6Mbps-91885939.mp4",
+      "width": 720,
+      "height": 720,
+      "origin": "video",
+      "use": "Gallery item 8 (silent demo loop), after the seven slides",
+      "flags": [
+        "rights",
+        "before-after",
+        "low-res"
+      ]
+    },
+    {
+      "name": "review-yutta",
+      "file": "app/assets/store/review-yutta.webp",
+      "source": "https://review-images.judgeme.com/maggie-s/1794170342__1794170293239-img_1322__original.jpeg",
+      "width": 1024,
+      "height": 1365,
+      "origin": "review",
+      "use": "Gallery 7 (review), review wall",
+      "flags": [
+        "rights",
+        "real-person"
+      ]
+    }
+  ]
+}
