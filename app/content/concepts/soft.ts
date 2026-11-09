@@ -108,7 +108,7 @@ export const soft: Concept = {
     reviews: {
       eyebrow: "From real wearers",
       headline: "Why women are swapping their bras for a tank",
-      sub: "Real reviews of the original built-in bra tank, shown as placeholders until Hallie has reviews of its own.",
+      sub: "Real reviews from women who bought the original built-in bra tank.",
     },
     valueProps: {
       eyebrow: "Made for real days",

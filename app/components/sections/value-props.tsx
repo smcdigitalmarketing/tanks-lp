@@ -178,7 +178,6 @@ export function Comparison({ data }: { data: PdpContent["comparison"] }) {
         </table>
       </div>
       <p className="mx-auto mt-3 max-w-4xl text-center text-xs text-muted">
-        Adapted from the original product's own comparison.
         <Flag flag={data.flag} />
       </p>
     </Section>

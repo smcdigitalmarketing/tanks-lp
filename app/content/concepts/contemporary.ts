@@ -99,7 +99,7 @@ export const contemporary: Concept = {
     reviews: {
       eyebrow: "Reviews",
       headline: "What wearers say about built-in support",
-      sub: "Real reviews of the original built-in bra tank. Placeholders until Daywell has reviews of its own.",
+      sub: "Real reviews from verified buyers of the original built-in bra tank.",
     },
     valueProps: {
       eyebrow: "Why Daywell",

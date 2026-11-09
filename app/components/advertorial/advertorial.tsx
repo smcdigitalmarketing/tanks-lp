@@ -167,10 +167,8 @@ function Article({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
             </p>
           )}
           <p className="mt-12 border-t border-line pt-4 text-xs leading-relaxed text-muted">
-            Brand content from {concept.brand.name} (concept {concept.letter},
-            working name). Photos are research images from the original
-            product's store and need usage approval. Quoted reviews are real
-            reviews of that product, used as placeholders.
+            Brand content from {concept.brand.name}. Quoted reviews are from
+            verified buyers of the original built-in bra tank.
           </p>
         </div>
       </div>

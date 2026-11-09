@@ -213,17 +213,23 @@ async function productPage(
   await page.getByRole("button", { name: "Check out" }).click();
   const demo = page.getByTestId("checkout-demo");
   check(
-    (await demo.textContent())?.includes(`pdp_variant=${concept}`),
+    (await demo.getAttribute("data-pdp-variant")) === concept,
     `${at}: checkout tags pdp_variant`,
   );
   check(
-    (await demo.textContent())?.includes(`offer=${offerId}`),
+    (await demo.getAttribute("data-offer-ids")) === offerId,
     `${at}: checkout tags the offer`,
   );
-  await page.getByRole("button", { name: "Place demo order" }).click();
   check(
-    (await demo.textContent())?.includes("Order placed (demo)"),
-    `${at}: demo order confirmation`,
+    (await demo.textContent())?.includes(
+      money(Math.round(trio.total * 200) / 100),
+    ),
+    `${at}: checkout shows the order total`,
+  );
+  await page.getByRole("button", { name: "Continue to payment" }).click();
+  check(
+    (await demo.textContent())?.includes("Almost there"),
+    `${at}: checkout confirmation step`,
   );
   await page.getByRole("button", { name: /^Back to/ }).click();
 

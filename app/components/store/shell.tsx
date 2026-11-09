@@ -65,12 +65,13 @@ const FLAGS_KEY = "tanks-lp-flags";
 
 /** Shows or hides every verification flag on the page (data-flags on <html>). */
 function useFlagsToggle() {
-  const [on, setOn] = useState(true);
+  // Off by default; a reviewer can switch them on from the preview strip.
+  const [on, setOn] = useState(false);
   useEffect(() => {
     try {
-      setOn(window.localStorage.getItem(FLAGS_KEY) !== "off");
+      setOn(window.localStorage.getItem(FLAGS_KEY) === "on");
     } catch {
-      // Storage blocked: flags stay on.
+      // Storage blocked: flags stay off.
     }
   }, []);
   useEffect(() => {
@@ -352,10 +353,7 @@ function Footer({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         ))}
       </div>
       <p className="mx-auto mt-12 max-w-6xl border-t border-footer-ink/15 pt-6 text-xs leading-relaxed">
-        {concept.brand.name} is a working name for concept {concept.letter} (
-        {concept.direction}), an internal brand study. Not a live store: nothing
-        is sold or charged. Product photos and reviews are competitor research
-        material, not cleared for production use. ·{" "}
+        © 2026 {concept.brand.name} ·{" "}
         <Link to="/" className="underline hover:text-footer-ink">
           Compare all concepts
         </Link>

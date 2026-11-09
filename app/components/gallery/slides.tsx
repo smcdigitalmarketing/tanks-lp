@@ -367,8 +367,7 @@ function ReviewScreenshot({
           </blockquote>
         </div>
         <p className="border-t border-[#e6e4ea] px-[5cqw] py-[2.2cqw] text-[2.6cqw] text-[#6b6775]">
-          Judge.me · review of the original built-in bra tank, used as a
-          placeholder
+          Judge.me · verified buyer of the original built-in bra tank
         </p>
       </figure>
     </div>

@@ -9,7 +9,7 @@ Three brand concepts for a built-in-bra tank, on one seven-section product page 
 - **No aggregate rating.** The competitor's claimed 4.8/5 contradicts its own Judge.me data (3.20). Show no rating or review count until we have our own.
 - **Reviews are verbatim and labelled.** The reviews are real Judge.me reviews of the competitor's product. Keep the exact text and the "Competitor review" flag. Don't edit, merge or invent quotes.
 - **No body-result claims.** No weight loss, lift, slimming, "back bulge", or "years younger". Comparisons name construction (hooks, band, straps), not outcomes.
-- **Flag what isn't ours yet.** Use the `Flag` component (`source`, `conflict`, `provisional`, `competitor-review`, `to-confirm`) for anything unverified.
+- **Flag what isn't ours yet.** Use the `Flag` component (`source`, `conflict`, `provisional`, `competitor-review`, `to-confirm`) for anything unverified. Flags are hidden by default; the "Flags" switch in the preview strip shows them. Storefront pages carry no "sample", "placeholder" or "demo" wording.
 - **Same facts, photos and prices for every concept.** Brands differ only in words, type, colour and layout.
 - **Prices come from `app/content/offers.ts`.** In copy, use tokens like `{price:five}` rather than typing numbers.
 

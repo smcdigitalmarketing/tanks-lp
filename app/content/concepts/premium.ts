@@ -95,7 +95,7 @@ export const premium: Concept = {
     reviews: {
       eyebrow: "Notes from wearers",
       headline: "In their words",
-      sub: "Unedited reviews of the original built-in bra tank, shown as placeholders until Oriel has its own.",
+      sub: "Unedited reviews from verified buyers of the original built-in bra tank.",
     },
     valueProps: {
       eyebrow: "Design notes",

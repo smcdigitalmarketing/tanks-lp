@@ -171,9 +171,6 @@ export function CartDrawer({ concept }: { concept: Concept }) {
             <Lock aria-hidden="true" className="size-4" />
             Check out
           </button>
-          <p className="mt-2 text-center text-xs text-muted">
-            Demo checkout: nothing is charged.
-          </p>
         </div>
       </div>
     </div>
@@ -205,18 +202,20 @@ export function CheckoutDemo({ concept }: { concept: Concept }) {
         aria-modal="true"
         aria-labelledby="checkout-title"
         data-testid="checkout-demo"
+        // The cart attributes a Shopify build would send with this order.
+        data-pdp-variant={concept.slug}
+        data-offer-ids={offerIds.join(",")}
         className="max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-card bg-surface p-6 text-ink shadow-2xl sm:rounded-card"
         onClick={(e) => e.stopPropagation()}
       >
         {placed ? (
           <>
             <p id="checkout-title" className="display text-3xl">
-              Order placed (demo)
+              Almost there
             </p>
             <p className="mt-3 text-sm text-muted">
-              In the real {concept.brand.name} store this is where Shopify's
-              thank-you page would show. Nothing was charged and no order
-              exists.
+              Payment opens here once {concept.brand.name} is connected to
+              Shopify. Nothing has been charged.
             </p>
             <button
               type="button"
@@ -233,9 +232,6 @@ export function CheckoutDemo({ concept }: { concept: Concept }) {
           <>
             <p id="checkout-title" className="display text-3xl">
               Checkout
-            </p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-brand">
-              Demo: no payment is taken
             </p>
             <ul className="mt-5 divide-y divide-line border-y border-line text-sm">
               {lines.map((l) => (
@@ -271,23 +267,12 @@ export function CheckoutDemo({ concept }: { concept: Concept }) {
                 <dd className="tabular-nums">{money(subtotal)}</dd>
               </div>
             </dl>
-            <p className="mt-5 rounded-card bg-surface-2 p-3 text-xs leading-relaxed text-muted">
-              A Shopify build would tag this order{" "}
-              <code className="rounded bg-surface px-1 py-0.5 text-ink">
-                pdp_variant={concept.slug}
-              </code>{" "}
-              and{" "}
-              <code className="rounded bg-surface px-1 py-0.5 text-ink">
-                offer={offerIds.join(",")}
-              </code>{" "}
-              so reports can compare the concepts.
-            </p>
             <button
               type="button"
               onClick={() => setPlaced(true)}
               className="btn-primary mt-5 w-full py-4 font-semibold"
             >
-              Place demo order
+              Continue to payment
             </button>
             <button
               type="button"

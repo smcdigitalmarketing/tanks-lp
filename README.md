@@ -2,7 +2,7 @@
 
 Internal proof of concept: **three brand directions for a women's tank top with built-in bra support**, based on research into [Maggie's Tanks](https://maggies-tanks.com/). Each brand has a storefront product page, a seven-slide product gallery, an advertorial, and a Standard and an Early Black Friday offer. A comparison hub at `/` puts them side by side so we can pick a direction before building the real Shopify store.
 
-All three concepts share the same product facts, photos and prices, so the differences are branding, presentation, copy and design. Cart and checkout are mocked: nothing is charged and nothing is sent to Shopify. Every page is `noindex`.
+All three concepts share the same product facts, photos and prices, so the differences are branding, presentation, copy and design. Cart and checkout run in the browser only: nothing is charged and nothing is sent to Shopify. Every page is `noindex`.
 
 | Concept | Brand (working name) | Direction                 | Product page    | Advertorial                 |
 | ------- | -------------------- | ------------------------- | --------------- | --------------------------- |
@@ -18,7 +18,7 @@ Add `/early-black-friday` to any product or advertorial URL for the Early Black 
 | `/gallery` | All 21 gallery slides plus the demo video, downloadable                                           |
 | `/sop`     | The product landing page SOP, rendered from [docs/pdp-template-sop.md](docs/pdp-template-sop.md)  |
 
-A dark strip at the top of every page switches concept (A/B/C), page (product/advertorial) and offer (Standard/Early Black Friday) while keeping your place. Its **Flags** switch shows or hides the amber tags that mark claims we can't make yet.
+A dark strip at the top of every page switches concept (A/B/C), page (product/advertorial) and offer (Standard/Early Black Friday) while keeping your place. Its **Flags** switch (off by default) shows the amber tags that mark claims we can't make yet.
 
 ## Docs
 
