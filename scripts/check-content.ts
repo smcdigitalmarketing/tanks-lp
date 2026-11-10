@@ -26,7 +26,7 @@ const { values: args } = parseArgs({
 const BASE = args.base!.replace(/\/$/, "");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-const CONCEPTS = ["soft", "premium", "contemporary"];
+const CONCEPTS = ["soft", "premium", "contemporary", "bold", "calm", "heritage"];
 const SOP_ORDER = [
   "above-the-fold",
   "buy-box",

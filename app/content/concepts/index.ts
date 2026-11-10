@@ -4,9 +4,15 @@ import { money } from "~/data/catalog";
 import { soft } from "./soft";
 import { premium } from "./premium";
 import { contemporary } from "./contemporary";
+import { bold } from "./bold";
+import { calm } from "./calm";
+import { heritage } from "./heritage";
 
-/** The three concepts, in the brief's order (A, B, C). */
-export const concepts: Concept[] = [soft, premium, contemporary];
+/** The brief's three concepts (A, B, C), then the three remixes (D, E, F). */
+export const concepts: Concept[] = [soft, premium, contemporary, bold, calm, heritage];
+
+export const originals = concepts.filter((c) => !c.group);
+export const remixes = concepts.filter((c) => c.group === "remix");
 
 export const conceptBySlug = (slug: string | undefined) =>
   concepts.find((c) => c.slug === (slug as ConceptSlug));

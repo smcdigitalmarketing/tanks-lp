@@ -29,6 +29,9 @@ const REVIEW_LEADS: Record<Concept["slug"], string[]> = {
   soft: ["Victoria", "Carol", "Yutta", "Cathy", "Becki"],
   premium: ["Heather Kurtin", "Annmarie", "Diane", "Laurel", "Yutta"],
   contemporary: ["Eileen", "Esskaye", "Laurel", "Barb", "Yutta"],
+  bold: ["Barb", "Esskaye", "Becki", "Eileen", "Yutta"],
+  calm: ["Diane", "Annmarie", "Heather Kurtin", "Cathy", "Yutta"],
+  heritage: ["Victoria", "Becki", "Carol", "Laurel", "Yutta"],
 };
 
 /** The quote under the button: short, about comfort, from a real review. */
@@ -36,6 +39,9 @@ const UNDER_BUTTON_REVIEW: Record<Concept["slug"], string> = {
   soft: "Cathy",
   premium: "Diane",
   contemporary: "Eileen",
+  bold: "Barb",
+  calm: "Annmarie",
+  heritage: "Carol",
 };
 
 export function gallery(concept: Concept): Slide[] {

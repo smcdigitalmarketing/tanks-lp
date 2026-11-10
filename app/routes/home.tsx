@@ -4,6 +4,8 @@ import type { Route } from "./+types/home";
 import type { Concept, OfferId } from "~/content/types";
 import {
   concepts,
+  originals,
+  remixes,
   conceptPath,
   fillPrices,
   type PageKind,
@@ -123,14 +125,16 @@ export default function Home() {
             Internal concept review · not public
           </p>
           <h1 className="mt-3 text-[2.1rem] font-bold leading-tight tracking-tight md:text-5xl">
-            Three brands, one tank. Pick the direction to build.
+            Six brands, one tank. Pick the direction to build.
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-black/65">
             Each concept sells the same women's tank with built-in bra support,
             with the same photos, product facts and prices. Only the brand, the
-            look and the words change, so the comparison is fair. Every concept
-            has a product page, an advertorial, and a Standard and an Early
-            Black Friday offer.
+            look and the words change, so the comparison is fair. A, B and C are
+            the brief's three directions; D, E and F are remixes with new
+            colours, type and layout combinations. Every concept has a product
+            page, a homepage, a 7 Reasons listicle and an advertorial, each in
+            Standard, Early Black Friday and Christmas versions.
           </p>
           <p className="mt-4 text-sm text-black/50">
             Researched from{" "}
@@ -147,14 +151,31 @@ export default function Home() {
           </p>
         </section>
 
-        {/* The three concepts, side by side (swipe on a phone). */}
-        <section aria-label="The three concepts" className="mt-10">
-          <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
-            {concepts.map((c) => (
-              <ConceptCard key={c.slug} concept={c} />
-            ))}
-          </div>
-        </section>
+        {/* The concepts in two groups, side by side (swipe on a phone). */}
+        {[
+          {
+            id: "originals",
+            title: "The brief's three directions",
+            sub: "A, B and C, as specified: soft comfort, premium essentials and contemporary comfortwear.",
+            list: originals,
+          },
+          {
+            id: "remixes",
+            title: "Remixes",
+            sub: "D, E and F: new palettes and font pairings, with the same sections, layouts and offers mixed in new combinations.",
+            list: remixes,
+          },
+        ].map((g) => (
+          <section key={g.id} id={g.id} aria-label={g.title} className="mt-12 scroll-mt-6">
+            <h2 className="text-2xl font-bold tracking-tight">{g.title}</h2>
+            <p className="mt-1 text-black/60">{g.sub}</p>
+            <div className="no-scrollbar -mx-4 mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
+              {g.list.map((c) => (
+                <ConceptCard key={c.slug} concept={c} />
+              ))}
+            </div>
+          </section>
+        ))}
 
         {/* Same slot, three brands. */}
         <section className="mt-16">
@@ -163,7 +184,7 @@ export default function Home() {
             The same place on the page, as each brand writes it.
           </p>
           <div className="no-scrollbar mt-6 overflow-x-auto rounded-xl border border-black/10 bg-white">
-            <table className="w-full min-w-[860px] text-left text-sm">
+            <table className="w-full min-w-[1500px] text-left text-sm">
               <thead>
                 <tr className="border-b border-black/10">
                   <th className="w-44 p-4" />

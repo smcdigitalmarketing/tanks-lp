@@ -1,14 +1,17 @@
 # tanks-lp
 
-Internal proof of concept: **three brand directions for a women's tank top with built-in bra support**, based on research into [Maggie's Tanks](https://maggies-tanks.com/). Each brand has a storefront product page, a seven-slide product gallery, an advertorial, and a Standard and an Early Black Friday offer. A comparison hub at `/` puts them side by side so we can pick a direction before building the real Shopify store.
+Internal proof of concept: **six brand directions for a women's tank top with built-in bra support**: the brief's three (A–C) and three remixes (D–F), based on research into [Maggie's Tanks](https://maggies-tanks.com/). Each brand has a storefront product page, a seven-slide product gallery, an advertorial, and a Standard and an Early Black Friday offer. A comparison hub at `/` puts them side by side so we can pick a direction before building the real Shopify store.
 
-All three concepts share the same product facts, photos and prices, so the differences are branding, presentation, copy and design. Cart and checkout run in the browser only: nothing is charged and nothing is sent to Shopify. Every page is `noindex`.
+All six concepts share the same product facts, photos and prices, so the differences are branding, presentation, copy and design. Cart and checkout run in the browser only: nothing is charged and nothing is sent to Shopify. Every page is `noindex`.
 
 | Concept | Brand (working name) | Direction                 | Product page    | Advertorial                 |
 | ------- | -------------------- | ------------------------- | --------------- | --------------------------- |
 | A       | Hallie               | Soft Everyday Comfort     | `/soft`         | `/soft/advertorial`         |
 | B       | Oriel                | Modern Premium Essentials | `/premium`      | `/premium/advertorial`      |
 | C       | Daywell              | Contemporary Comfortwear  | `/contemporary` | `/contemporary/advertorial` |
+| D       | Juno                 | Colour-block Pop (remix)  | `/bold`         | `/bold/advertorial`         |
+| E       | Linnea               | Scandinavian Calm (remix) | `/calm`         | `/calm/advertorial`         |
+| F       | Mabel & Co.          | Vintage Heritage (remix)  | `/heritage`     | `/heritage/advertorial`     |
 
 Each brand also has a **homepage** (`/<concept>/home`: hero, why bras stop working, reasons, the buy box, reviews, how it works, comparison, guarantee, FAQ) and a **7 Reasons** listicle (`/<concept>/7-reasons`, labelled "Brand content", signed by the brand, every button to the product page).
 
@@ -26,7 +29,7 @@ A dark strip at the top of every page switches concept (A/B/C), page (homepage/p
 
 - [docs/competitor-analysis.md](docs/competitor-analysis.md): the competitor's page structure section by section, customer journey, conversion elements, what we didn't copy, and the contradictions on its own pages.
 - [docs/product-research.md](docs/product-research.md): product facts, variants, pricing and bundles, the claims register (verified / conflicting / unverified), sizing, and open questions before production.
-- [docs/brand-concepts.md](docs/brand-concepts.md): the three brands: rationale, palette, type, voice, layouts, hypotheses and risks.
+- [docs/brand-concepts.md](docs/brand-concepts.md): the six brands: rationale, palette, type, voice, layouts, hypotheses and risks.
 - [docs/asset-manifest.md](docs/asset-manifest.md): every photo, the video and the reviews, with source URL, size, where it's used and rights flags (generated).
 - [docs/pdp-template-sop.md](docs/pdp-template-sop.md): the seven-section page structure, gallery rules, copy rules, offers, advertorials and the launch checklist.
 

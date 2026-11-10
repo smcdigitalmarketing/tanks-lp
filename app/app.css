@@ -149,6 +149,93 @@
   --r-btn: 6px;
 }
 
+/* ── Remix D · Juno: butter, tomato and cobalt, chunky and playful ────────── */
+[data-theme="bold"] {
+  --bg: #fff6dc;
+  --surface: #ffffff;
+  --surface-2: #ffeab0;
+  --ink: #16141f;
+  --muted: #4e4a57;
+  --line: #ead9a6;
+  --brand: #e5412e;
+  --brand-strong: #c2311f;
+  --brand-ink: #ffffff;
+  --btn-bg: #e5412e;
+  --accent: #2546d8;
+  --accent-ink: #fff6dc;
+  --highlight: #dce3ff;
+  --highlight-ink: #1c33a8;
+  --success: #1f7a4d;
+  --star: #e5412e;
+  --footer-bg: #16141f;
+  --footer-ink: #fff6dc;
+  --f-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --f-body: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.04em;
+  --r-card: 22px;
+  --r-btn: 14px;
+}
+
+/* ── Remix E · Linnea: birch, oat, sage and slate, light and spacious ─────── */
+[data-theme="calm"] {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --surface-2: #eceae3;
+  --ink: #2b3230;
+  --muted: #6b726e;
+  --line: #dfddd5;
+  --brand: #7c8f7a;
+  --brand-strong: #5f735e;
+  --brand-ink: #ffffff;
+  --btn-bg: #2b3230;
+  --accent: #3e4b47;
+  --accent-ink: #f6f4ef;
+  --highlight: #e3eadf;
+  --highlight-ink: #3d5a40;
+  --success: #4f7357;
+  --star: #7c8f7a;
+  --footer-bg: #2b3230;
+  --footer-ink: #f6f4ef;
+  --f-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --f-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 300;
+  --display-tracking: -0.025em;
+  --r-card: 6px;
+  --r-btn: 4px;
+}
+
+/* ── Remix F · Mabel & Co.: cream, mustard, burnt orange and forest ────────── */
+[data-theme="heritage"] {
+  --bg: #f8f0e0;
+  --surface: #fffbf2;
+  --surface-2: #f0e2c6;
+  --ink: #2a2418;
+  --muted: #6e6250;
+  --line: #e3d3b2;
+  --brand: #2f5a3e;
+  --brand-strong: #22432e;
+  --brand-ink: #f8f0e0;
+  --btn-bg: #2f5a3e;
+  --accent: #b5532a;
+  --accent-ink: #fff6e6;
+  --highlight: #f1ce6a;
+  --highlight-ink: #4a3500;
+  --success: #2f5a3e;
+  --star: #c98f1a;
+  --footer-bg: #2a2418;
+  --footer-ink: #f8f0e0;
+  --f-display: "Fraunces", Georgia, serif;
+  --f-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --f-button: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 600;
+  --display-tracking: -0.01em;
+  --r-card: 10px;
+  --r-btn: 10px;
+}
+
 /*
  * Early Black Friday: the same brand, with the announcement bar and offer
  * blocks switched to a dark, high-contrast treatment. Colours only: no
@@ -169,6 +256,19 @@
 [data-theme="contemporary"][data-offer="early-black-friday"] {
   --accent: #1b1720;
   --accent-ink: #f6dccf;
+}
+
+[data-theme="bold"][data-offer="early-black-friday"] {
+  --accent: #16141f;
+  --accent-ink: #ffe9a8;
+}
+[data-theme="calm"][data-offer="early-black-friday"] {
+  --accent: #1f2523;
+  --accent-ink: #e3eadf;
+}
+[data-theme="heritage"][data-offer="early-black-friday"] {
+  --accent: #2a2418;
+  --accent-ink: #f1ce6a;
 }
 
 /*
@@ -233,6 +333,18 @@ body:has(> [data-theme="soft"]) {
 
 body:has(> [data-theme="premium"]) {
   background: #f7f4ee;
+}
+
+body:has(> [data-theme="bold"]) {
+  background: #fff6dc;
+}
+
+body:has(> [data-theme="calm"]) {
+  background: #f6f4ef;
+}
+
+body:has(> [data-theme="heritage"]) {
+  background: #f8f0e0;
 }
 
 /* Verification flags can be hidden for clean screenshots (preview strip). */

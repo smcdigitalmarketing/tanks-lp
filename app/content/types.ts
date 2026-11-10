@@ -242,14 +242,19 @@ export type Advertorial = {
 
 // ── Concepts ───────────────────────────────────────────────────────────────
 
-export type ConceptSlug = "soft" | "premium" | "contemporary";
+export type ConceptSlug = "soft" | "premium" | "contemporary" | "bold" | "calm" | "heritage";
 
 export type Swatch = { name: string; hex: string; role: string };
 
 export type Concept = {
   slug: ConceptSlug;
-  /** A, B or C, as in the brief. */
-  letter: "A" | "B" | "C";
+  /** A, B or C, as in the brief; D, E and F are the remixes. */
+  letter: "A" | "B" | "C" | "D" | "E" | "F";
+  /**
+   * "remix": a later direction (D–F) that remixes the layout options with
+   * new colours and type. Omitted for the brief's three originals.
+   */
+  group?: "remix";
   /** The brief's name for the direction. */
   direction: string;
   brand: {

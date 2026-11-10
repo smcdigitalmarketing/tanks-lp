@@ -1,7 +1,7 @@
 import type { Config } from "@react-router/dev/config";
 import { vercelPreset } from "@vercel/react-router/vite";
 
-const CONCEPTS = ["soft", "premium", "contemporary"];
+const CONCEPTS = ["soft", "premium", "contemporary", "bold", "calm", "heritage"];
 
 export default {
   ssr: true,

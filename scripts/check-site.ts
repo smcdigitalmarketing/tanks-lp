@@ -24,7 +24,7 @@ const { values: args } = parseArgs({
   },
 });
 const BASE = args.base!.replace(/\/$/, "");
-const CONCEPTS = ["soft", "premium", "contemporary"] as const;
+const CONCEPTS = ["soft", "premium", "contemporary", "bold", "calm", "heritage"] as const;
 const OFFERS = ["standard", "early-black-friday", "christmas"] as const;
 const SEGMENT: Record<(typeof OFFERS)[number], string> = {
   standard: "",
@@ -400,8 +400,8 @@ for (const [label, viewport] of [
   // Hub.
   await open(page, "/", errors);
   check(
-    (await page.getByTestId("concept-card").count()) === 3,
-    "hub shows three concepts",
+    (await page.getByTestId("concept-card").count()) === CONCEPTS.length,
+    `hub shows ${CONCEPTS.length} concepts`,
   );
   for (const c of CONCEPTS)
     for (const p of ["product", "advertorial", "home", "reasons"])
@@ -438,12 +438,14 @@ for (const [label, viewport] of [
   await page.waitForURL("**/contemporary/advertorial");
   await page.getByRole("link", { name: "Early Black Friday" }).click();
   await page.waitForURL("**/contemporary/advertorial/early-black-friday");
-  check(true, "preview strip switches concept and offer");
+  await page.getByRole("link", { name: "F · Mabel & Co." }).click();
+  await page.waitForURL("**/heritage/advertorial/early-black-friday");
+  check(true, "preview strip switches concept and offer, remixes included");
 
   await open(page, "/gallery", errors);
   check(
-    (await page.locator("ol[data-theme] > li").count()) === 24,
-    "gallery lists 3 × 8 items",
+    (await page.locator("ol[data-theme] > li").count()) === CONCEPTS.length * 8,
+    `gallery lists ${CONCEPTS.length} × 8 items`,
   );
   await open(page, "/sop", errors);
   check((await page.locator(".sop h1").count()) === 1, "SOP renders");

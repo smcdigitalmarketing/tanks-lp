@@ -88,6 +88,52 @@ Names are **working names**. None has had a trademark, domain or social-handle c
 **Why it might win:** clearest offer and best fit for paid social and younger buyers; the pack-column picker makes bigger bundles feel normal.
 **Risk:** the most "DTC template" of the three. It works hardest on the offer, so it is the most exposed if the real Black Friday discount is smaller than the provisional one.
 
+## Remixes: D, E and F
+
+Three later directions that keep the same sections, facts, photos and offers, and remix the layout options with new palettes and type. They sit in their own "Remixes" group on the hub.
+
+| | D · Colour-block Pop | E · Scandinavian Calm | F · Vintage Heritage |
+|---|---|---|---|
+| Brand | **Juno** | **Linnea** | **Mabel & Co.** |
+| Product name | Juno Tank | Base Tank | Comfort Tank |
+| Tagline | Comfort, in full colour. | Less to wear. More ease. | Good, simple comfort. |
+| Headings | Bricolage Grotesque (800) | Hanken Grotesk (300) | Fraunces (600) |
+| Body | Instrument Sans | Hanken Grotesk | Work Sans |
+| Shape | 22 px cards, 14 px buttons | 6 px cards, 4 px buttons | 10 px cards and buttons, double rules |
+| Hero | Gallery left, title right | Title full-width above, centred logo | Title left, gallery right |
+| Bundle picker | Three columns ("3-pack") | Stacked cards | Hairline rows ("Set of three") |
+| Reviews | Paper notes | Compact rows | Serif pull quotes |
+| Value props | Numbered list | Photo cards | Alternating image and text |
+| Advertorial | Numbered explainer | Journal long-read | A signed letter with a drop cap |
+| URL | `/bold` | `/calm` | `/heritage` |
+
+### D · Juno: Colour-block Pop
+
+**Positioning:** a bold, playful comfortwear brand that sells the thirteen colours as much as the comfort.
+**Hypothesis:** making colour the hero (mix any shades in a pack) turns a functional purchase into a fun one, lifting 3- and 5-pack share and standing out in a beige category.
+**Palette:** Butter `#FFF6DC`, Tomato `#E5412E` (buttons), Cobalt `#2546D8` (bars), Sky `#DCE3FF` (savings), Ink `#16141F`.
+**Wordmark:** lowercase "juno" in extra-bold Bricolage beside an overlapping tomato circle and cobalt square.
+**Voice:** punchy and witty. "Ditch the hooks. Keep the support." "Hooks? Not invited."
+**Risk:** the loudest of the six; may feel young for the competitor's 55+ buyer.
+
+### E · Linnea: Scandinavian Calm
+
+**Positioning:** a quiet base layer, sold on ease and simplicity with natural tones and space.
+**Hypothesis:** a calm, low-pressure page builds trust with buyers tired of hard-sell bra marketing; strongest on singles and sets of three.
+**Palette:** Birch `#F6F4EF`, Oat `#ECEAE3`, Sage `#7C8F7A`, Mist `#E3EADF` (savings), Slate `#2B3230` (text, buttons).
+**Wordmark:** "linnea" in widely spaced light Hanken Grotesk beside a small sage sprig.
+**Voice:** calm and unhurried. "A bra, quietly built in." "A calm Black Friday, a little early."
+**Risk:** the quietest offer presentation; may undersell the bundles.
+
+### F · Mabel & Co.: Vintage Heritage
+
+**Positioning:** a warm, vintage-inspired label that tells the tank as an old-fashioned good idea, with a wry sense of humour.
+**Hypothesis:** storytelling and personality make the tank memorable and suit buyers who want comfort without clinical or hard-sell messaging.
+**Palette:** Cream `#F8F0E0`, Mustard `#F1CE6A` (savings), Burnt orange `#B5532A` (bars, offer blocks), Forest `#2F5A3E` (buttons), Espresso `#2A2418`.
+**Wordmark:** "Mabel" in italic Fraunces, a burnt-orange ampersand, and "Co." in spaced Work Sans capitals.
+**Voice:** warm, nostalgic, wry. "Whatever happened to simple, comfortable underthings?" "Straps with good manners."
+**Risk:** "heritage" can read as old-fashioned for younger buyers; the name needs the same trademark checks as the others.
+
 ## What stays the same (on purpose)
 
 - Photos: the same file in the same slot on every page and gallery slide.

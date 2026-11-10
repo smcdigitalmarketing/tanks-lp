@@ -39,6 +39,57 @@ export function Wordmark({
         </span>
       </span>
     );
+  // Remix wordmarks use fixed colours, so the logo doesn't change with the offer.
+  if (slug === "bold")
+    return (
+      <span className={`inline-flex items-center gap-2 text-ink ${className}`}>
+        <svg viewBox="0 0 34 26" aria-hidden="true" className="h-6 w-8">
+          <rect x="14" y="2" width="18" height="18" rx="3" fill="#2546D8" />
+          <circle cx="11" cy="14" r="10" fill="#E5412E" />
+        </svg>
+        <span className="font-[Bricolage_Grotesque,system-ui,sans-serif] text-[1.75rem] font-extrabold leading-none tracking-[-0.05em]">
+          juno
+        </span>
+      </span>
+    );
+  if (slug === "calm")
+    return (
+      <span
+        className={`inline-flex items-center gap-2.5 text-ink ${className}`}
+      >
+        <svg viewBox="0 0 14 24" aria-hidden="true" className="h-6 w-3.5">
+          <path
+            d="M7 23V6"
+            stroke="#7C8F7A"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M7 12c-4-1-5.5-4-5-7 3.5.2 5 2.6 5 7zM7 9c4-1 5.5-4 5-7-3.5.2-5 2.6-5 7z"
+            fill="#7C8F7A"
+          />
+        </svg>
+        <span className="font-[Hanken_Grotesk,system-ui,sans-serif] text-[1.45rem] font-light leading-none tracking-[0.14em]">
+          linnea
+        </span>
+      </span>
+    );
+  if (slug === "heritage")
+    return (
+      <span
+        className={`inline-flex items-baseline gap-1.5 text-ink ${className}`}
+      >
+        <span className="font-[Fraunces,Georgia,serif] text-[1.8rem] font-semibold italic leading-none tracking-[-0.02em]">
+          Mabel
+        </span>
+        <span className="font-[Fraunces,Georgia,serif] text-[1.35rem] italic leading-none text-[#B5532A]">
+          &amp;
+        </span>
+        <span className="font-[Work_Sans,system-ui,sans-serif] text-[0.72rem] font-semibold uppercase leading-none tracking-[0.2em]">
+          Co.
+        </span>
+      </span>
+    );
   return (
     <span className={`inline-flex items-center gap-2 text-ink ${className}`}>
       <svg viewBox="0 0 28 28" aria-hidden="true" className="size-7">

@@ -127,8 +127,11 @@ function PreviewStrip({
             className={pill(c.slug === concept.slug)}
             aria-current={c.slug === concept.slug ? "page" : undefined}
             title={`${c.letter} · ${c.direction}`}
+            aria-label={`${c.letter} · ${c.brand.name}`}
           >
-            {c.letter} · {c.brand.name}
+            {/* Six brands: just the letter on a phone, the name from sm up. */}
+            {c.letter}
+            <span className="hidden sm:inline"> · {c.brand.name}</span>
           </Link>
         ))}
       </span>
