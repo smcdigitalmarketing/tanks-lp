@@ -6,18 +6,18 @@ The store is fully clickable: homepage, shop, product page, cart, a Shopify-styl
 
 ## Pages
 
-| URL                                  | What                                                                                                               |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `/`                                  | Homepage: hero, why bras stop working, value props, colours, the buy box, reviews, how it works, guarantee, FAQ   |
-| `/collections/all`                   | Shop: every colour; a card opens the product page with that colour chosen                                          |
-| `/products/everyday-tank`            | Product page: the SOP's seven sections, bundle → colour per tank → size → add to cart                             |
-| `/pages/7-reasons`                   | 7 Reasons listicle ("Brand content")                                                                               |
-| `/pages/a-note-from-hallie`          | Advertorial: a signed letter ("Brand content")                                                                     |
-| `/cart`                              | Cart page: lines, quantities, savings, checkout                                                                    |
-| `/checkout`                          | Checkout: contact, US delivery address, shipping method, test-mode payment; validates every field                  |
-| `/checkout/thank-you?order=HL1001`   | Order confirmation, read from the browser                                                                          |
-| `/pages/faq`, `size-guide`, `shipping`, `returns`, `contact` | Help pages; the contact form validates and confirms but sends nothing                  |
-| `/gallery`, `/sop`                   | Internal: the seven gallery slides plus video (1600 px downloads), and the product page SOP                       |
+| URL                                                          | What                                                                                                            |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `/`                                                          | Homepage: hero, why bras stop working, value props, colours, the buy box, reviews, how it works, guarantee, FAQ |
+| `/collections/all`                                           | Shop: every colour; a card opens the product page with that colour chosen                                       |
+| `/products/everyday-tank`                                    | Product page: the SOP's seven sections, bundle → colour per tank → size → add to cart                           |
+| `/pages/7-reasons`                                           | 7 Reasons listicle ("Brand content")                                                                            |
+| `/pages/a-note-from-hallie`                                  | Advertorial: a signed letter ("Brand content")                                                                  |
+| `/cart`                                                      | Cart page: lines, quantities, savings, checkout                                                                 |
+| `/checkout`                                                  | Checkout: contact, US delivery address, shipping method, test-mode payment; validates every field               |
+| `/checkout/thank-you?order=HL1001`                           | Order confirmation, read from the browser                                                                       |
+| `/pages/faq`, `size-guide`, `shipping`, `returns`, `contact` | Help pages; the contact form validates and confirms but sends nothing                                           |
+| `/gallery`, `/sop`                                           | Internal: the seven gallery slides plus video (1600 px downloads), and the product page SOP                     |
 
 Add `/early-black-friday` or `/christmas` to any of the first five URLs for that offer (`/early-black-friday`, `/products/everyday-tank/christmas`). Pages without prices (help, cart) keep the offer you last browsed. Cart lines keep the offer they were added in, through to the order.
 
@@ -58,13 +58,14 @@ npm run dev -- --port 5207
 
 ## Scripts
 
-| Command                                                  | What it does                                                                                                                                                                                       |
-| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run store:port`                                     | Snapshots the competitor's product (all 91 variants), photos, demo video and 12 curated Judge.me reviews into `app/data/` and `app/assets/store/`. Public URLs only. `-- --force` re-downloads.  |
-| `npm run assets:manifest`                                | Regenerates `docs/asset-manifest.md` from the snapshot.                                                                                                                                            |
-| `npm run gallery:export -- --base http://localhost:5207` | With the dev server running, saves every gallery slide as a 1600 × 1600 JPG in `public/gallery/hallie/`.                                                                                          |
-| `npm run check -- --base http://localhost:5207`          | Clicks through the store at 1280 px and 390 px in every offer: product page, cart, the full checkout with validation and confirmation, homepage, shop, listicle, advertorial, help pages, redirects, 404 and every internal link. |
-| `npm run check:content -- --base http://localhost:5207`  | Lints page text: no fake urgency, no unsourced claims or ratings, SOP section order, provisional flags on sale prices, "Brand content" labels, flags on unconfirmed policies.                     |
+| Command                                                  | What it does                                                                                                                                                                                                                                                                                         |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run store:port`                                     | Snapshots the competitor's product (all 91 variants), photos, demo video and 12 curated Judge.me reviews into `app/data/` and `app/assets/store/`. Public URLs only. `-- --force` re-downloads.                                                                                                      |
+| `npm run store:pack`                                     | Pulls every product (original-size images, videos), every image and video on the store's pages, all Judge.me reviews and a Shopify `products.csv` into `export/shopify-pack/` (gitignored) for uploading to the new store. Paced; `-- --force` re-downloads, `-- --skip-pages` skips the page crawl. |
+| `npm run assets:manifest`                                | Regenerates `docs/asset-manifest.md` from the snapshot.                                                                                                                                                                                                                                              |
+| `npm run gallery:export -- --base http://localhost:5207` | With the dev server running, saves every gallery slide as a 1600 × 1600 JPG in `public/gallery/hallie/`.                                                                                                                                                                                             |
+| `npm run check -- --base http://localhost:5207`          | Clicks through the store at 1280 px and 390 px in every offer: product page, cart, the full checkout with validation and confirmation, homepage, shop, listicle, advertorial, help pages, redirects, 404 and every internal link.                                                                    |
+| `npm run check:content -- --base http://localhost:5207`  | Lints page text: no fake urgency, no unsourced claims or ratings, SOP section order, provisional flags on sale prices, "Brand content" labels, flags on unconfirmed policies.                                                                                                                        |
 
 ## Rules for this repo
 

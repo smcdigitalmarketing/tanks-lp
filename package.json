@@ -8,6 +8,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "store:port": "node scripts/port-store.ts",
+    "store:pack": "node scripts/export-shopify-pack.ts",
     "assets:manifest": "node scripts/asset-manifest.ts",
     "gallery:export": "node scripts/export-gallery.ts",
     "check": "node scripts/check-site.ts",
