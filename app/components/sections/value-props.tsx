@@ -8,104 +8,29 @@ import { Flag } from "~/components/flag";
  * only that), the body explains how, and the image backs up the claim.
  */
 
-export function ValueProps({
-  data,
-  style,
-}: {
-  data: PdpContent["valueProps"];
-  style: "alternating" | "cards" | "numbered";
-}) {
-  if (style === "numbered") {
-    // A numbered checklist: big numbers, benefit headline, a small photo.
-    return (
-      <Section eyebrow={data.eyebrow} title={data.headline}>
-        <ol className="mx-auto max-w-4xl divide-y divide-line border-y border-line">
-          {data.items.map((v, i) => (
-            <li key={v.headline} className="grid grid-cols-[auto_1fr] items-center gap-5 py-6 md:grid-cols-[auto_1fr_220px] md:gap-8">
-              <span className="display text-5xl text-brand md:text-6xl">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                {v.eyebrow && (
-                  <p className="eyebrow text-xs font-bold uppercase tracking-[0.16em] text-muted">{v.eyebrow}</p>
-                )}
-                <h3 className="display mt-1 text-2xl md:text-3xl">{v.headline}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-muted">{v.body}</p>
-              </div>
-              <div className="col-span-2 aspect-[16/9] overflow-hidden rounded-card md:col-span-1 md:aspect-[4/3]">
-                <Picture image={v.image} />
-              </div>
-            </li>
-          ))}
-        </ol>
-      </Section>
-    );
-  }
-  if (style === "cards") {
-    return (
-      <Section eyebrow={data.eyebrow} title={data.headline}>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {data.items.map((v) => (
-            <article
-              key={v.headline}
-              className="overflow-hidden rounded-card border border-line bg-surface"
-            >
-              <div className="aspect-[4/3] bg-surface-2">
-                <Picture image={v.image} />
-              </div>
-              <div className="p-6">
-                {v.eyebrow && (
-                  <p className="eyebrow mb-2 text-xs font-bold uppercase tracking-[0.16em] text-brand">
-                    {v.eyebrow}
-                  </p>
-                )}
-                <h3 className="display text-xl md:text-2xl">{v.headline}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-muted">
-                  {v.body}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </Section>
-    );
-  }
+/** Three photo cards: benefit headline, how, and the photo that backs it up. */
+export function ValueProps({ data }: { data: PdpContent["valueProps"] }) {
   return (
     <Section eyebrow={data.eyebrow} title={data.headline}>
-      <div className="space-y-16 md:space-y-24">
-        {data.items.map((v, i) => (
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {data.items.map((v) => (
           <article
             key={v.headline}
-            className="grid items-center gap-8 md:grid-cols-2 md:gap-14"
+            className="overflow-hidden rounded-card border border-line bg-surface"
           >
-            <div
-              className={`aspect-[4/3] overflow-hidden rounded-card bg-surface-2 ${i % 2 ? "md:order-2" : ""}`}
-            >
+            <div className="aspect-[4/3] bg-surface-2">
               <Picture image={v.image} />
             </div>
-            <div>
+            <div className="p-6">
               {v.eyebrow && (
-                <p className="eyebrow mb-3 text-xs font-bold uppercase tracking-[0.16em] text-brand">
+                <p className="eyebrow mb-2 text-xs font-bold uppercase tracking-[0.16em] text-brand">
                   {v.eyebrow}
                 </p>
               )}
-              <h3 className="display text-2xl md:text-[2.1rem]">
-                {v.headline}
-              </h3>
-              <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
+              <h3 className="display text-xl md:text-2xl">{v.headline}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted">
                 {v.body}
               </p>
-              {v.points && (
-                <ul className="mt-5 space-y-2">
-                  {v.points.map((pt) => (
-                    <li key={pt} className="flex items-start gap-2 text-[15px]">
-                      <Check
-                        aria-hidden="true"
-                        className="mt-0.5 size-4 shrink-0 text-success"
-                      />
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
           </article>
         ))}

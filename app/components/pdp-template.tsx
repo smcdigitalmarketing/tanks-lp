@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router";
 import type { Concept, OfferId } from "~/content/types";
 import { pageContent } from "~/content/page";
 import { StoreShell } from "~/components/store/shell";
@@ -27,8 +28,8 @@ import { ClosingCta, Faq, GuaranteeBlock } from "~/components/sections/closing";
 import { Divider } from "~/components/sections/divider";
 
 /**
- * The product page. Every concept renders the SOP's seven sections in this
- * order (docs/pdp-template-sop.md); only copy, theme and layout flags differ.
+ * The product page (/products/everyday-tank): the SOP's seven sections in
+ * this order (docs/pdp-template-sop.md).
  *
  *   1 Above the fold   gallery → kicker → benefit title → price + saving → bullets
  *   2 Buy box          bundle → colour per tank → size (none preselected) → add to cart
@@ -48,7 +49,6 @@ export function PdpTemplate({
   const c = pageContent(concept, offerId);
   return (
     <StoreShell
-      concept={concept}
       offerId={offerId}
       page="product"
       announcement={c.announcement}
@@ -60,9 +60,15 @@ export function PdpTemplate({
 
 function PdpBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
   const c = pageContent(concept, offerId);
-  const layout = concept.layout;
-  const headlineHero = layout.hero === "headline";
-  const buy = useBuyState(c.buy.offer, concept.slug, concept.brand.productName);
+  const buy = useBuyState(c.buy.offer, concept.brand.productName);
+  // Arriving from the shop page with ?colour=Black starts every tank in it.
+  const [params] = useSearchParams();
+  const colour = params.get("colour");
+  const { startWith } = buy;
+  useEffect(() => {
+    if (colour) startWith(colour);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colour]);
   const atcRef = useRef<HTMLButtonElement>(null);
   const toBuy = () =>
     document
@@ -80,37 +86,20 @@ function PdpBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         data-sop-section="above-the-fold"
         className="scroll-mt-16 px-4 pb-10 pt-4 md:pt-10"
       >
-        {headlineHero && (
-          <header className="mx-auto mb-8 max-w-4xl space-y-4 text-center md:mb-12 md:pt-6">
-            <div className="flex justify-center">
-              <Kicker text={c.kicker} />
-            </div>
-            <BenefitTitle
-              eyebrow={c.eyebrow}
-              title={c.title}
-              subtitle={c.subtitle}
-              size="large"
-            />
-          </header>
-        )}
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] md:gap-12">
           <div
-            className={`min-w-0 md:sticky md:top-24 md:self-start ${layout.hero === "reverse" ? "md:order-2" : ""}`}
+            className="min-w-0 md:sticky md:top-24 md:self-start"
           >
             <MediaGallery slides={c.gallery} />
           </div>
           <div className="min-w-0 space-y-6">
             <div className="space-y-4">
-              {!headlineHero && (
-                <>
-                  <Kicker text={c.kicker} />
-                  <BenefitTitle
-                    eyebrow={c.eyebrow}
-                    title={c.title}
-                    subtitle={c.subtitle}
-                  />
-                </>
-              )}
+              <Kicker text={c.kicker} />
+              <BenefitTitle
+                eyebrow={c.eyebrow}
+                title={c.title}
+                subtitle={c.subtitle}
+              />
               <PriceSavings
                 total={buy.price.total}
                 was={buy.price.was}
@@ -126,7 +115,6 @@ function PdpBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
                 buy={c.buy}
                 state={buy}
                 atcRef={atcRef}
-                variant={layout.tiers}
               />
             </div>
             <div data-sop-section="under-the-button">
@@ -142,21 +130,21 @@ function PdpBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         images={c.lifestyle}
         label={`${concept.brand.productName}, worn`}
       />
-      <Divider kind={layout.divider} />
+      <Divider />
 
       {/* 5: social proof */}
       <div data-sop-section="social-proof">
-        <ReviewsWall data={c.reviews} variant={layout.reviews} />
+        <ReviewsWall data={c.reviews} />
       </div>
-      <Divider kind={layout.divider} />
+      <Divider />
 
       {/* 6: value props */}
       <div data-sop-section="value-props">
-        <ValueProps data={c.valueProps} style={layout.valueProps} />
+        <ValueProps data={c.valueProps} />
         <HowItWorks data={c.howItWorks} />
         <Comparison data={c.comparison} />
       </div>
-      <Divider kind={layout.divider} />
+      <Divider />
 
       {/* 7: closing */}
       <div data-sop-section="closing">

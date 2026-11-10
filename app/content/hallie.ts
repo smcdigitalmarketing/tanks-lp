@@ -2,13 +2,12 @@ import type { Concept } from "~/content/types";
 import { GUARANTEE_FLAG, photos, reviewBy, sizeGuide } from "~/content/product";
 
 /**
- * Concept A · Soft Everyday Comfort.
+ * Hallie, the chosen brand (concept A · Soft Everyday Comfort).
  * Warm, approachable, reassuring: the tank as the easy part of getting dressed.
  * Talks to "you", names the small daily annoyances, never gushes.
  */
-export const soft: Concept = {
+export const hallie: Concept = {
   slug: "soft",
-  letter: "A",
   direction: "Soft Everyday Comfort",
   brand: {
     name: "Hallie",
@@ -40,15 +39,7 @@ export const soft: Concept = {
   meta: {
     title: "Hallie Everyday Tank · Gentle support, built in",
     description:
-      "A soft tank with the bra built in: no underwire, no hooks, no band. Concept A for internal review.",
-  },
-  layout: {
-    hero: "split",
-    tiers: "stack",
-    reviews: "notes",
-    valueProps: "cards",
-    divider: "wave",
-    advertorial: "letter",
+      "A soft tank with the bra built in: no underwire, no hooks, no band.",
   },
   pdp: {
     kicker: "The comfortable everyday essential",

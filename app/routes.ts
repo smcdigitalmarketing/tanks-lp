@@ -1,22 +1,23 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { type RouteConfig, route } from "@react-router/dev/routes";
 
 /*
- * Each concept is a small storefront at /<concept>: the product page, the
- * brand homepage (/home), the 7 Reasons listicle (/7-reasons) and the
- * advertorial (/advertorial). An offer adds /early-black-friday or /christmas,
- * so every page and offer has its own shareable URL.
+ * The Hallie store. Pages with prices take an optional offer segment
+ * (/early-black-friday or /christmas), so every campaign page has its own
+ * shareable URL. Help, cart and checkout pages have no prices of their own.
+ * /gallery and /sop are internal.
  */
 export default [
-  index("routes/home.tsx"),
+  route(":offer?", "routes/home.tsx"),
+  route("products/everyday-tank/:offer?", "routes/product.tsx"),
+  route("collections/all/:offer?", "routes/shop.tsx"),
+  route("pages/7-reasons/:offer?", "routes/seven-reasons.tsx"),
+  route("pages/a-note-from-hallie/:offer?", "routes/advertorial.tsx"),
+  route("pages/:help", "routes/help.tsx"),
+  route("cart", "routes/cart.tsx"),
+  route("checkout", "routes/checkout.tsx"),
+  route("checkout/thank-you", "routes/thank-you.tsx"),
   route("gallery", "routes/gallery.tsx"),
+  route("gallery/render/:n", "routes/gallery.render.tsx"),
   route("sop", "routes/sop.tsx"),
-  route("gallery/render/:concept/:n", "routes/gallery.render.tsx"),
-  route(":concept", "routes/product.tsx"),
-  route(":concept/early-black-friday", "routes/product.ebf.tsx"),
-  route(":concept/christmas", "routes/product.xmas.tsx"),
-  route(":concept/advertorial", "routes/advertorial.tsx"),
-  route(":concept/advertorial/early-black-friday", "routes/advertorial.ebf.tsx"),
-  route(":concept/advertorial/christmas", "routes/advertorial.xmas.tsx"),
-  route(":concept/home/:offer?", "routes/brand-home.tsx"),
-  route(":concept/7-reasons/:offer?", "routes/seven-reasons.tsx"),
+  route("*", "routes/legacy.tsx"),
 ] satisfies RouteConfig;

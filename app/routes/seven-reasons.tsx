@@ -1,14 +1,14 @@
 import type { Route } from "./+types/seven-reasons";
-import { conceptMeta, loadConceptOffer, mustConcept } from "~/lib/concept-route";
-import { offerFromSegment } from "~/content/offers";
+import { brand } from "~/content/store";
+import { loadOffer, offerPageMeta } from "~/lib/store-route";
 import { SevenReasons } from "~/components/listicle/seven-reasons";
 
-export const loader = ({ params }: Route.LoaderArgs) =>
-  loadConceptOffer(params.concept, params.offer);
+/** /pages/7-reasons, plus an offer segment. */
+export const loader = ({ params }: Route.LoaderArgs) => loadOffer(params.offer);
 
-export const meta: Route.MetaFunction = ({ params }) =>
-  conceptMeta(params.concept, offerFromSegment(params.offer) ?? "standard", "reasons");
+export const meta: Route.MetaFunction = ({ data }) =>
+  offerPageMeta("reasons", data?.offerId);
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  return <SevenReasons concept={mustConcept(loaderData.slug)} offerId={loaderData.offerId} />;
+  return <SevenReasons concept={brand} offerId={loaderData.offerId} />;
 }

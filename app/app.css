@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Every concept page sets data-theme on its wrapper. The utilities below read
- * the scoped custom properties, so the same section components restyle per
- * concept without touching their markup.
+ * Store pages set data-theme="soft" (Hallie) on their wrapper, and an offer
+ * sets data-offer. The utilities below read the scoped custom properties.
  */
 @theme inline {
   --color-bg: var(--bg);
@@ -61,7 +60,7 @@
   --r-btn: 12px;
 }
 
-/* ── Concept A · Hallie: warm cream, muted rose, soft and rounded ─────────── */
+/* ── Hallie: warm cream, muted rose, soft and rounded ────────────────────── */
 [data-theme="soft"] {
   --bg: #fbf6ef;
   --surface: #ffffff;
@@ -90,210 +89,26 @@
   --r-btn: 999px;
 }
 
-/* ── Concept B · Oriel: ivory, charcoal, taupe, square and spacious ─────────── */
-[data-theme="premium"] {
-  --bg: #f7f4ee;
-  --surface: #fffdf9;
-  --surface-2: #ece6dc;
-  --ink: #232323;
-  --muted: #6e6860;
-  --line: #dcd5ca;
-  --brand: #8c7b6b;
-  --brand-strong: #6e5f51;
-  --brand-ink: #f7f4ee;
-  --btn-bg: #232323;
-  --accent: #232323;
-  --accent-ink: #f7f4ee;
-  --highlight: #e6dfd3;
-  --highlight-ink: #232323;
-  --success: #55624e;
-  --star: #232323;
-  --footer-bg: #1e1e1e;
-  --footer-ink: #f7f4ee;
-  --f-display: "Cormorant Garamond", Georgia, serif;
-  --f-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --f-button: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --f-eyebrow: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --display-weight: 500;
-  --display-tracking: -0.015em;
-  --r-card: 0px;
-  --r-btn: 0px;
-}
-
-/* ── Concept C · Daywell: white, warm grey, deep plum, terracotta ────────────── */
-[data-theme="contemporary"] {
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #f2efeb;
-  --ink: #1b1720;
-  --muted: #5f5a63;
-  --line: #e4e0db;
-  --brand: #5a2a4e;
-  --brand-strong: #43203a;
-  --brand-ink: #ffffff;
-  --btn-bg: #5a2a4e;
-  --accent: #5a2a4e;
-  --accent-ink: #ffffff;
-  --highlight: #f6dccf;
-  --highlight-ink: #8a3519;
-  --success: #2f7a55;
-  --star: #c2603f;
-  --footer-bg: #1b1720;
-  --footer-ink: #ffffff;
-  --f-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --f-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --f-button: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --display-weight: 700;
-  --display-tracking: -0.035em;
-  --r-card: 8px;
-  --r-btn: 6px;
-}
-
-/* ── Remix D · Juno: butter, tomato and cobalt, chunky and playful ────────── */
-[data-theme="bold"] {
-  --bg: #fff6dc;
-  --surface: #ffffff;
-  --surface-2: #ffeab0;
-  --ink: #16141f;
-  --muted: #4e4a57;
-  --line: #ead9a6;
-  --brand: #e5412e;
-  --brand-strong: #c2311f;
-  --brand-ink: #ffffff;
-  --btn-bg: #e5412e;
-  --accent: #2546d8;
-  --accent-ink: #fff6dc;
-  --highlight: #dce3ff;
-  --highlight-ink: #1c33a8;
-  --success: #1f7a4d;
-  --star: #e5412e;
-  --footer-bg: #16141f;
-  --footer-ink: #fff6dc;
-  --f-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --f-body: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  --f-button: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --display-weight: 800;
-  --display-tracking: -0.04em;
-  --r-card: 22px;
-  --r-btn: 14px;
-}
-
-/* ── Remix E · Linnea: birch, oat, sage and slate, light and spacious ─────── */
-[data-theme="calm"] {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --surface-2: #eceae3;
-  --ink: #2b3230;
-  --muted: #6b726e;
-  --line: #dfddd5;
-  --brand: #7c8f7a;
-  --brand-strong: #5f735e;
-  --brand-ink: #ffffff;
-  --btn-bg: #2b3230;
-  --accent: #3e4b47;
-  --accent-ink: #f6f4ef;
-  --highlight: #e3eadf;
-  --highlight-ink: #3d5a40;
-  --success: #4f7357;
-  --star: #7c8f7a;
-  --footer-bg: #2b3230;
-  --footer-ink: #f6f4ef;
-  --f-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --f-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --f-button: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --display-weight: 300;
-  --display-tracking: -0.025em;
-  --r-card: 6px;
-  --r-btn: 4px;
-}
-
-/* ── Remix F · Mabel & Co.: cream, mustard, burnt orange and forest ────────── */
-[data-theme="heritage"] {
-  --bg: #f8f0e0;
-  --surface: #fffbf2;
-  --surface-2: #f0e2c6;
-  --ink: #2a2418;
-  --muted: #6e6250;
-  --line: #e3d3b2;
-  --brand: #2f5a3e;
-  --brand-strong: #22432e;
-  --brand-ink: #f8f0e0;
-  --btn-bg: #2f5a3e;
-  --accent: #b5532a;
-  --accent-ink: #fff6e6;
-  --highlight: #f1ce6a;
-  --highlight-ink: #4a3500;
-  --success: #2f5a3e;
-  --star: #c98f1a;
-  --footer-bg: #2a2418;
-  --footer-ink: #f8f0e0;
-  --f-display: "Fraunces", Georgia, serif;
-  --f-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --f-button: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --display-weight: 600;
-  --display-tracking: -0.01em;
-  --r-card: 10px;
-  --r-btn: 10px;
-}
-
 /*
- * Early Black Friday: the same brand, with the announcement bar and offer
- * blocks switched to a dark, high-contrast treatment. Colours only: no
- * timers, flashing or scarcity.
+ * Early Black Friday: the announcement bar and offer blocks switch to a dark,
+ * high-contrast treatment. Colours only: no timers, flashing or scarcity.
  */
-[data-offer="early-black-friday"] {
-  --accent: #141212;
-  --accent-ink: #ffffff;
-}
 [data-theme="soft"][data-offer="early-black-friday"] {
   --accent: #2c2221;
   --accent-ink: #f5e2de;
 }
-[data-theme="premium"][data-offer="early-black-friday"] {
-  --accent: #0d0d0d;
-  --accent-ink: #e6dfd3;
-}
-[data-theme="contemporary"][data-offer="early-black-friday"] {
-  --accent: #1b1720;
-  --accent-ink: #f6dccf;
-}
-
-[data-theme="bold"][data-offer="early-black-friday"] {
-  --accent: #16141f;
-  --accent-ink: #ffe9a8;
-}
-[data-theme="calm"][data-offer="early-black-friday"] {
-  --accent: #1f2523;
-  --accent-ink: #e3eadf;
-}
-[data-theme="heritage"][data-offer="early-black-friday"] {
-  --accent: #2a2418;
-  --accent-ink: #f1ce6a;
-}
 
 /*
- * Christmas: the same brand with a deep evergreen accent for the
- * announcement bar and offer blocks. Colours only, no snow or sparkle.
+ * Christmas: a deep evergreen accent for the announcement bar and offer
+ * blocks. Colours only, no snow or sparkle.
  */
-[data-offer="christmas"] {
-  --accent: #1f3b30;
-  --accent-ink: #fdf8ef;
-}
 [data-theme="soft"][data-offer="christmas"] {
   --accent: #2f4a3c;
   --accent-ink: #fbf6ef;
   --highlight: #f3e1d6;
 }
-[data-theme="premium"][data-offer="christmas"] {
-  --accent: #1c2b24;
-  --accent-ink: #efe6d6;
-}
-[data-theme="contemporary"][data-offer="christmas"] {
-  --accent: #1d3b2f;
-  --accent-ink: #f6dccf;
-}
 
-/* Headline type follows the concept: weight, case and tracking are tokens too. */
+/* Headline type: weight, case and tracking are tokens too. */
 @utility display {
   font-family: var(--f-display);
   font-weight: var(--display-weight);
@@ -303,7 +118,7 @@
   text-wrap: balance;
 }
 
-/* Small uppercase labels above headings; Pulse sets them in mono. */
+/* Small uppercase labels above headings. */
 @utility eyebrow {
   font-family: var(--f-eyebrow, var(--f-body));
 }
@@ -329,22 +144,6 @@ body {
 
 body:has(> [data-theme="soft"]) {
   background: #fbf6ef;
-}
-
-body:has(> [data-theme="premium"]) {
-  background: #f7f4ee;
-}
-
-body:has(> [data-theme="bold"]) {
-  background: #fff6dc;
-}
-
-body:has(> [data-theme="calm"]) {
-  background: #f6f4ef;
-}
-
-body:has(> [data-theme="heritage"]) {
-  background: #f8f0e0;
 }
 
 /* Verification flags can be hidden for clean screenshots (preview strip). */

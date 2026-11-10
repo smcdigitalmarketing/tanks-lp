@@ -1,39 +1,30 @@
 import { data } from "react-router";
 import type { Route } from "./+types/gallery.render";
-import { conceptBySlug } from "~/content/concepts";
+import { brand } from "~/content/store";
 import { gallery } from "~/content/page";
-import { fontHref } from "~/lib/seo";
 import { SlideView } from "~/components/gallery/slides";
 
 /**
  * One gallery slide at exactly 1600 × 1600, for `npm run gallery:export` to
  * screenshot. Not linked from anywhere and not prerendered.
  */
-const find = (slug?: string, n?: string) => {
-  const concept = conceptBySlug(slug);
-  const slide = concept ? gallery(concept)[Number(n) - 1] : undefined;
-  return concept && slide ? { concept, slide } : null;
-};
+const find = (n?: string) => gallery(brand)[Number(n) - 1];
 
 export function loader({ params }: Route.LoaderArgs) {
-  if (!find(params.concept, params.n)) throw data("Not found", { status: 404 });
-  return { slug: params.concept, n: params.n };
+  if (!find(params.n)) throw data("Not found", { status: 404 });
+  return { n: params.n };
 }
 
-export const meta: Route.MetaFunction = ({ params }) => {
-  const hit = find(params.concept, params.n);
-  return [
-    { title: "Gallery render" },
-    { name: "robots", content: "noindex, nofollow" },
-    ...(hit ? [{ tagName: "link", rel: "stylesheet", href: fontHref(hit.concept.brand.googleFonts) }] : []),
-  ];
-};
+export const meta: Route.MetaFunction = () => [
+  { title: "Gallery render" },
+  { name: "robots", content: "noindex, nofollow" },
+];
 
 export default function GalleryRender({ loaderData }: Route.ComponentProps) {
-  const { concept, slide } = find(loaderData.slug, loaderData.n)!;
+  const slide = find(loaderData.n)!;
   return (
     <div
-      data-theme={concept.slug}
+      data-theme="soft"
       data-gallery-render={slide.kind}
       className="size-[1600px] overflow-hidden bg-bg font-sans text-ink [container-type:inline-size]"
     >

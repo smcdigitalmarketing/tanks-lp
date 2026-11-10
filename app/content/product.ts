@@ -1,7 +1,7 @@
 /**
- * Facts about the tank, shared by all three concepts. Every one comes from the
- * competitor's live pages (maggies-tanks.com, snapshot in app/data/) and
- * carries its status. Concept files never add facts: they only word them.
+ * Facts about the tank. Every one comes from the competitor's live pages
+ * (maggies-tanks.com, snapshot in app/data/) and carries its status. The
+ * brand file (hallie.ts) never adds facts: it only words them.
  *
  * The full claims register, with sources, is docs/product-research.md.
  */
@@ -37,7 +37,7 @@ export const construction = {
   pullOn: "Pulls on over your head like any tank",
 } as const;
 
-// ── Photography (same files for every concept) ─────────────────────────────
+// ── Photography ────────────────────────────────────────────────────────────
 
 export const photos = {
   front: img("front", "Woman in a nude built-in bra tank, front view"),
@@ -132,7 +132,7 @@ export const reviewBy = (name: string) => {
   return r;
 };
 
-/** Reorder the review wall so a concept can lead with the quotes that fit its voice. */
+/** Reorder the review wall to lead with the quotes that fit the brand voice. */
 export const reviewsLedBy = (names: string[]) => [
   ...names.map(reviewBy),
   ...reviews.filter((r) => !names.includes(r.name)),
@@ -274,4 +274,28 @@ export const shippingLines = {
       "2–3 or 2–5 days, depending on the competitor page.",
     ),
   },
+};
+
+/**
+ * Checkout shipping. One method only: the competitor shows no other, and its
+ * own pages disagree on whether shipping is free (SHIPPING_FLAG).
+ */
+export const shippingMethods = [
+  {
+    id: "standard",
+    label: "Standard shipping",
+    detail:
+      "Processed in 2–5 business days, then usually about 7 business days on the way",
+    price: 0,
+    flag: SHIPPING_FLAG,
+  },
+];
+
+/** Where the store ships, as on the competitor's checkout. */
+export const SHIPS_TO = {
+  country: "United States",
+  flag: flag(
+    "to-confirm",
+    "US only for now, as the competitor. Other countries to decide before launch.",
+  ),
 };

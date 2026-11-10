@@ -17,7 +17,7 @@ const NOTE_TILT = [
 ];
 const NOTE_TONE = ["bg-surface", "bg-highlight/70", "bg-surface-2"];
 
-/** Hallie: soft paper notes, gently tilted. */
+/** Soft paper notes, gently tilted. */
 function ReviewNote({ review: r, i }: { review: Review; i: number }) {
   return (
     <figure
@@ -40,60 +40,12 @@ function ReviewNote({ review: r, i }: { review: Review; i: number }) {
   );
 }
 
-/** Oriel: pull quotes in the display serif, a hairline above each. */
-function ReviewQuote({ review: r }: { review: Review }) {
-  return (
-    <figure className="break-inside-avoid border-t border-line pt-6">
-      <blockquote className="display text-[1.55rem] leading-snug md:text-[1.8rem]">
-        “{r.text}”
-      </blockquote>
-      <figcaption className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-        <span className="eyebrow text-xs font-medium uppercase tracking-[0.2em]">
-          {r.name}
-        </span>
-        <Stars rating={r.rating} className="size-3" />
-        <ReviewSource review={r} />
-      </figcaption>
-    </figure>
-  );
-}
-
-/** Daywell: compact rows, who on the left and the quote on the right. */
-function ReviewRow({ review: r }: { review: Review }) {
-  return (
-    <figure className="grid gap-3 border-b border-line py-5 md:grid-cols-[200px_1fr] md:gap-8">
-      <figcaption className="flex items-start gap-3 md:block">
-        {r.photo && (
-          <span className="block size-14 shrink-0 overflow-hidden rounded-card md:mb-3 md:size-20">
-            <Picture image={r.photo} className="object-[center_30%]" />
-          </span>
-        )}
-        <span className="block text-sm">
-          <strong className="block">{r.name}</strong>
-          {r.date && <span className="block text-xs text-muted">{r.date}</span>}
-        </span>
-      </figcaption>
-      <div>
-        <Stars rating={r.rating} className="size-3.5" />
-        <blockquote className="mt-2 text-base font-medium leading-relaxed md:text-lg">
-          “{r.text}”
-        </blockquote>
-        <p className="mt-2">
-          <ReviewSource review={r} />
-        </p>
-      </div>
-    </figure>
-  );
-}
-
 export function ReviewsWall({
   data,
-  variant,
 }: {
   data: PdpContent["reviews"];
-  variant: "notes" | "quotes" | "list";
 }) {
-  const first = variant === "quotes" ? 6 : variant === "list" ? 6 : 9;
+  const first = 9;
   const [all, setAll] = useState(false);
   const shown = all ? data.items : data.items.slice(0, first);
   const key = (r: Review) => r.name + r.text.slice(0, 12);
@@ -105,27 +57,13 @@ export function ReviewsWall({
       title={data.headline}
       sub={data.sub}
     >
-      {variant === "quotes" ? (
-        <div className="mx-auto max-w-5xl columns-1 gap-14 space-y-10 md:columns-2">
-          {shown.map((r) => (
-            <ReviewQuote key={key(r)} review={r} />
-          ))}
-        </div>
-      ) : variant === "list" ? (
-        <div className="mx-auto max-w-4xl border-t border-line">
-          {shown.map((r) => (
-            <ReviewRow key={key(r)} review={r} />
-          ))}
-        </div>
-      ) : (
-        <div className="columns-1 gap-6 px-1 sm:columns-2 lg:columns-3">
-          {shown.map((r, i) => (
-            <div key={key(r)} className="mb-6 break-inside-avoid">
-              <ReviewNote review={r} i={i} />
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="columns-1 gap-6 px-1 sm:columns-2 lg:columns-3">
+        {shown.map((r, i) => (
+          <div key={key(r)} className="mb-6 break-inside-avoid">
+            <ReviewNote review={r} i={i} />
+          </div>
+        ))}
+      </div>
       {data.items.length > first && (
         <div className="mt-10 text-center">
           <button

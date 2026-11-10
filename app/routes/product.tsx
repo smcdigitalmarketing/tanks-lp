@@ -1,13 +1,14 @@
 import type { Route } from "./+types/product";
-import { conceptMeta, loadConcept, mustConcept } from "~/lib/concept-route";
+import { brand } from "~/content/store";
+import { loadOffer, offerPageMeta } from "~/lib/store-route";
 import { PdpTemplate } from "~/components/pdp-template";
 
-const OFFER = "standard";
+/** /products/everyday-tank, plus /early-black-friday and /christmas. */
+export const loader = ({ params }: Route.LoaderArgs) => loadOffer(params.offer);
 
-export const loader = ({ params }: Route.LoaderArgs) => loadConcept(params.concept);
-
-export const meta: Route.MetaFunction = ({ params }) => conceptMeta(params.concept, OFFER, "product");
+export const meta: Route.MetaFunction = ({ data }) =>
+  offerPageMeta("product", data?.offerId);
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  return <PdpTemplate concept={mustConcept(loaderData.slug)} offerId={OFFER} />;
+  return <PdpTemplate concept={brand} offerId={loaderData.offerId} />;
 }

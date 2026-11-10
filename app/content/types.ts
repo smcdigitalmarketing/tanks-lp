@@ -4,8 +4,8 @@ import type { IconName } from "~/components/icons";
 /*
  * Three layers, kept apart on purpose:
  *   product.ts   facts about the tank, each with its source status (shared)
- *   offers.ts    prices and bundles for the Standard and Early Black Friday offers (shared)
- *   concepts/*   a brand: name, look, voice and copy (one file per concept)
+ *   offers.ts    prices and bundles for the Standard, Early Black Friday and Christmas offers
+ *   hallie.ts    the brand: name, look, voice and copy
  * page.ts joins them into the PdpContent one product page renders.
  */
 
@@ -20,7 +20,7 @@ export type FlagKind =
   | "source"
   /** The competitor's own pages contradict each other. */
   | "conflict"
-  /** A number we set for this concept test, not a real price. */
+  /** A number we set for testing, not a real price. */
   | "provisional"
   /** A real review of the competitor's product, standing in for ours. */
   | "competitor-review"
@@ -242,19 +242,13 @@ export type Advertorial = {
 
 // ── Concepts ───────────────────────────────────────────────────────────────
 
-export type ConceptSlug = "soft" | "premium" | "contemporary" | "bold" | "calm" | "heritage";
+/** The theme name in app.css (data-theme="soft"). */
+export type ConceptSlug = "soft";
 
 export type Swatch = { name: string; hex: string; role: string };
 
 export type Concept = {
   slug: ConceptSlug;
-  /** A, B or C, as in the brief; D, E and F are the remixes. */
-  letter: "A" | "B" | "C" | "D" | "E" | "F";
-  /**
-   * "remix": a later direction (D–F) that remixes the layout options with
-   * new colours and type. Omitted for the brief's three originals.
-   */
-  group?: "remix";
   /** The brief's name for the direction. */
   direction: string;
   brand: {
@@ -273,22 +267,13 @@ export type Concept = {
   };
   hypothesis: string;
   meta: { title: string; description: string };
-  layout: {
-    /** Gallery left (split) or right (reverse); "headline" puts the title full-width above. */
-    hero: "split" | "reverse" | "headline";
-    tiers: "stack" | "columns" | "rows";
-    reviews: "notes" | "quotes" | "list";
-    valueProps: "cards" | "alternating" | "numbered";
-    divider: "none" | "wave" | "rule";
-    advertorial: "letter" | "editorial" | "magazine";
-  };
   /** Copy for the product page; facts come from product.ts. */
   pdp: ConceptPdp;
   offers: Record<OfferId, OfferCopy>;
   advertorial: Advertorial;
-  /** The brand homepage (/<slug>/home). */
+  /** The homepage (/). */
   home: ConceptHome;
-  /** The "7 reasons" listicle (/<slug>/7-reasons). */
+  /** The "7 reasons" listicle (/pages/7-reasons). */
   sevenReasons: ConceptReasons;
 };
 

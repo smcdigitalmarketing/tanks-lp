@@ -65,7 +65,7 @@ The homepage and the product page share almost all their sections. In order, fro
 
 | Element                                          | Why it works                                                                               | In our build                                                                               |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| "It's not your body, it's the design"            | Removes self-blame; makes the product the logical fix                                      | Advertorial section 1 in all three brands                                                  |
+| "It's not your body, it's the design"            | Removes self-blame; makes the product the logical fix                                      | Advertorial section 1 and the homepage                                                     |
 | Concrete morning routine                         | Makes an abstract comfort benefit visible                                                  | "How it works", 3 steps, and gallery slide 5                                               |
 | Quantity bundles with a per-tank colour and size | Raises order value; customers want several colours                                         | Same tiers and prices; swatches and size buttons instead of dropdowns, no size preselected |
 | Fit guarantee spelled out                        | Sizing is the main fear, and the returns data shows it                                     | Under the button, in the guarantee block and in the FAQ, with a "to confirm" flag          |

@@ -26,7 +26,6 @@ const { values: args } = parseArgs({
 const BASE = args.base!.replace(/\/$/, "");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-const CONCEPTS = ["soft", "premium", "contemporary", "bold", "calm", "heritage"];
 const SOP_ORDER = [
   "above-the-fold",
   "buy-box",
@@ -136,11 +135,13 @@ const SUFFIX: Record<string, string> = {
   christmas: "/christmas",
 };
 
-for (const c of CONCEPTS) {
+const PRODUCT = "/products/everyday-tank";
+{
   for (const offer of Object.keys(SUFFIX)) {
     const suffix = SUFFIX[offer];
+    const buy = `${PRODUCT}${suffix}#buy`;
 
-    const pdpPath = `/${c}${suffix}`;
+    const pdpPath = `${PRODUCT}${suffix}`;
     const pdp = await page(pdpPath);
     lint(pdpPath, pdp);
     const order = [...pdp.matchAll(/data-sop-section="([^"]+)"/g)].map(
@@ -163,7 +164,7 @@ for (const c of CONCEPTS) {
     if (offer === "standard" && pdp.includes('data-flag="provisional"'))
       fail(`${pdpPath}: Standard prices flagged provisional`);
 
-    const advPath = `/${c}/advertorial${suffix}`;
+    const advPath = `/pages/a-note-from-hallie${suffix}`;
     const adv = await page(advPath);
     lint(advPath, adv);
     if (!toText(adv).includes("Brand content"))
@@ -173,11 +174,11 @@ for (const c of CONCEPTS) {
         /data-testid="advertorial-cta"[^>]*|href="([^"]+)"[^>]*data-testid="advertorial-cta"/g,
       ),
     ];
-    if (!adv.includes(`href="/${c}${suffix}#buy"`) || ctas.length < 2)
-      fail(`${advPath}: CTAs don't all lead to /${c}${suffix}#buy`);
+    if (!adv.includes(`href="${buy}"`) || ctas.length < 2)
+      fail(`${advPath}: CTAs don't all lead to ${buy}`);
 
-    // Brand homepage: its own buy box, real reviews, offer prices flagged.
-    const homePath = `/${c}/home${suffix}`;
+    // Homepage: its own buy box, real reviews, offer prices flagged.
+    const homePath = suffix || "/";
     const home = await page(homePath);
     lint(homePath, home);
     if (!home.includes('data-testid="add-to-cart"'))
@@ -188,7 +189,7 @@ for (const c of CONCEPTS) {
       fail(`${homePath}: provisional flag wrong for ${offer}`);
 
     // 7 Reasons: brand content, seven reasons, every CTA to the product page.
-    const rPath = `/${c}/7-reasons${suffix}`;
+    const rPath = `/pages/7-reasons${suffix}`;
     const reasons = await page(rPath);
     lint(rPath, reasons);
     if (!toText(reasons).includes("Brand content"))
@@ -198,17 +199,57 @@ for (const c of CONCEPTS) {
     const rCtas = [...reasons.matchAll(/<a[^>]*data-testid="reasons-cta"[^>]*>/g)];
     if (
       rCtas.length !== 4 ||
-      !rCtas.every((m) => m[0].includes(`href="/${c}${suffix}#buy"`))
+      !rCtas.every((m) => m[0].includes(`href="${buy}"`))
     )
-      fail(`${rPath}: CTAs don't all lead to /${c}${suffix}#buy`);
+      fail(`${rPath}: CTAs don't all lead to ${buy}`);
     if ((offer !== "standard") !== reasons.includes('data-flag="provisional"'))
       fail(`${rPath}: provisional flag wrong for ${offer}`);
+
+    // Shop: every colour, offer prices flagged.
+    const shopPath = `/collections/all${suffix}`;
+    const shop = await page(shopPath);
+    lint(shopPath, shop);
+    if ((shop.match(/data-testid="shop-colour"/g) ?? []).length !== 13)
+      fail(`${shopPath}: should list 13 colours`);
+    if ((offer !== "standard") !== shop.includes('data-flag="provisional"'))
+      fail(`${shopPath}: provisional flag wrong for ${offer}`);
   }
 }
 
-// The hub, gallery and SOP are internal research pages: they may name the
+// Help, cart and checkout pages: the same wording rules, and every policy
+// that isn't ours yet carries a flag.
+for (const path of [
+  "/pages/faq",
+  "/pages/size-guide",
+  "/pages/shipping",
+  "/pages/returns",
+  "/pages/contact",
+  "/cart",
+  "/checkout",
+  "/checkout/thank-you",
+]) {
+  const html = await page(path);
+  lint(path, html);
+}
+for (const [path, kind] of [
+  ["/pages/shipping", "conflict"],
+  ["/pages/returns", "to-confirm"],
+  ["/pages/size-guide", "conflict"],
+] as const)
+  if (!(await page(path)).includes(`data-flag="${kind}"`))
+    fail(`${path}: missing a ${kind} flag`);
+
+// Storefront pages say "test mode" only in the internal strip and at
+// checkout; no "sample", "placeholder" or "demo" wording anywhere.
+for (const path of ["/", PRODUCT, "/collections/all", "/pages/faq"]) {
+  const t = ownText(await page(path)).replace(/::placeholder/g, "");
+  if (/\b(sample|placeholder|demo)\b/i.test(t.replace(/demo\.mp4/g, "")))
+    fail(`${path}: "sample/placeholder/demo" wording on a storefront page`);
+}
+
+// The gallery and SOP are internal research pages: they may name the
 // competitor and its claims, so they are only checked for loading.
-for (const path of ["/", "/gallery", "/sop"]) await page(path);
+for (const path of ["/gallery", "/sop"]) await page(path);
 
 console.log(
   failures

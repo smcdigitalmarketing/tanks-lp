@@ -1,6 +1,6 @@
 # Product Landing Page SOP
 
-Every product landing page we build uses one seven-section structure, so we can launch pages fast and test one idea at a time. It follows Arsh Sanwarwala's framework in [How To Build a Product Page SO Premium They Beg You To Buy](https://www.youtube.com/watch?v=ngXi-No3s2o), as first written up for the [RescUAid concepts](https://rescuaid-lp.vercel.app/sop). This copy is adapted for the built-in bra tank concepts in this repo, and adds rules for offers, advertorials and honest proof.
+Every product landing page we build uses one seven-section structure, so we can launch pages fast and test one idea at a time. It follows Arsh Sanwarwala's framework in [How To Build a Product Page SO Premium They Beg You To Buy](https://www.youtube.com/watch?v=ngXi-No3s2o), as first written up for the [RescUAid concepts](https://rescuaid-lp.vercel.app/sop). This copy is adapted for the Hallie built-in bra tank store in this repo, and adds rules for offers, advertorials and honest proof.
 
 The video defines a premium page as one people want to buy from, and that comes down to trust. Four things build it:
 
@@ -13,7 +13,7 @@ Good design alone does not rescue a page whose benefits are buried.
 
 ## 1. The structure
 
-Every page has these seven sections, in this order. A concept can change the copy, imagery, look and offer emphasis, but never the order.
+Every page has these seven sections, in this order. A page can change the copy, imagery, look and offer emphasis, but never the order.
 
 | #   | Section          | Its job                                                  | Rules                                                                                                                                                                                                                                                                                                                            |
 | --- | ---------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -50,7 +50,7 @@ Image rules:
 
 After the seven images, a short silent **demo video** loops as the eighth item. It never replaces one of the seven.
 
-`npm run gallery:export -- --base <dev server URL>` saves every slide as a 1600 × 1600 JPG in `public/gallery/<concept>/`; `/gallery` lists them for download.
+`npm run gallery:export -- --base <dev server URL>` saves every slide as a 1600 × 1600 JPG in `public/gallery/hallie/`; `/gallery` lists them for download.
 
 ## 3. Copy rules
 
@@ -72,16 +72,16 @@ Three more rules apply everywhere:
 
 ## 4. Offers
 
-Every concept presents the same offers from `app/content/offers.ts`:
+Every page presents the offers from `app/content/offers.ts`:
 
 - **Standard**: the everyday bundle prices. Savings are measured against buying single items, never against an invented compare-at price.
-- **Early Black Friday** and **Christmas** (or any sale): its own URL (`/<concept>/early-black-friday`), its own announcement bar, an offer block above the buy box, and the struck-through Standard price beside the sale price. While prices are not final, they carry a "Provisional price" flag everywhere, including the cart. No end date unless there is a real one.
+- **Early Black Friday** and **Christmas** (or any sale): its own URL (`/products/everyday-tank/early-black-friday`), its own announcement bar, an offer block above the buy box, and the struck-through Standard price beside the sale price. While prices are not final, they carry a "Provisional price" flag everywhere, including the cart and checkout. No end date unless there is a real one.
 
 Offer copy uses price tokens (`{price:five}`, `{each:trio}`, `{save:single}`) so banners can never disagree with the buy box.
 
 ## 5. Advertorials
 
-Each concept has an advertorial at `/<concept>/advertorial` (and an Early Black Friday version). Its job is to warm up cold traffic before the product page.
+The advertorial is at `/pages/a-note-from-hallie` (and a version per offer). Its job is to warm up cold traffic before the product page.
 
 1. **Headline**: an editorial angle, not a product name.
 2. **Relatable problem**: the customer's own pain point, in their words (taken from research, rewritten).
@@ -89,7 +89,7 @@ Each concept has an advertorial at `/<concept>/advertorial` (and an Early Black 
 4. **Product card** after the second section.
 5. **Honest comparison** with what the reader uses now.
 6. **Objections** answered from the FAQ and size guide, including the uncomfortable ones (riding up, not for sport).
-7. **Hand-off**: the offer with real prices from `offers.ts`, and buttons to that concept's product page, keeping the offer.
+7. **Hand-off**: the offer with real prices from `offers.ts`, and buttons to the product page, keeping the offer.
 
 Labelled **"Brand content"**. No invented journalists, experts, studies or testimonials; quotes are real reviews with their source.
 
@@ -97,34 +97,22 @@ Labelled **"Brand content"**. No invented journalists, experts, studies or testi
 
 Two more page types share the advertorial's rules (no invented people, studies or testimonials; real reviews with their source; no urgency):
 
-- **Homepage** (`/<concept>/home`): promise → why bras stop working (design, not body) → value props → the product page's buy box → reviews → how it works → comparison → guarantee → FAQ → close. Christmas adds a three-point gifting section.
-- **7 Reasons** (`/<concept>/7-reasons`): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
+- **Homepage** (`/`): promise → why bras stop working (design, not body) → value props → colours → the product page's buy box → reviews → how it works → comparison → guarantee → FAQ → close. Christmas adds a three-point gifting section.
+- **7 Reasons** (`/pages/7-reasons`): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
 
-## 6. Adding a concept
+## 6. The rest of the store
 
-A concept is one content file plus one theme block. The sections, gallery order and facts stay the same.
+The store around the landing pages follows the same rules: facts from `product.ts`, prices from `offers.ts`, and a flag on anything we haven't decided.
 
-1. Write the hypothesis first: one idea per page.
-2. Copy a file in `app/content/concepts/`, give it a slug, letter, brand block, `layout` options and copy.
-3. Add a `[data-theme="<slug>"]` block to `app/app.css` and the slug to `ConceptSlug` in `app/content/types.ts`.
-4. Add a wordmark to `Wordmark` in `app/components/ui.tsx`.
-5. Register it in `app/content/concepts/index.ts` and add its four URLs to `prerender()` in `react-router.config.ts`.
-
-Layout options:
-
-| Option        | Choices                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------------- |
-| Hero          | Gallery left (`split`), gallery right (`reverse`), or headline-first (`headline`, which also centres the logo) |
-| Bundle picker | Stacked cards, columns, or hairline rows                                                                       |
-| Reviews       | Notes, pull quotes, or compact rows                                                                            |
-| Value props   | Cards, alternating rows, or a numbered list                                                                    |
-| Dividers      | None, wave, or double rule                                                                                     |
-| Advertorial   | Letter, editorial, or magazine                                                                                 |
+- **Shop** (`/collections/all`): every colour; a card opens the product page with that colour chosen for every tank.
+- **Cart** (`/cart`) and **checkout** (`/checkout`): Shopify's one-page layout (contact, delivery, shipping method, payment, order summary). Every required field is validated with the error under the field, and focus moves to the first one. Cart lines keep their offer through to the order.
+- **Test mode:** no card fields, nothing charged or sent. The checkout and the confirmation say so in plain words; orders are saved in the browser and numbered from HL1001.
+- **Help pages** (`/pages/faq`, `size-guide`, `shipping`, `returns`, `contact`): built only from `product.ts`. Shipping cost, refunds, payment methods, tracking emails and support hours carry a "To confirm" flag until they are decided.
 
 ## 7. Measuring which page wins
 
 - **One page per URL**, one page per ad set, with UTMs.
-- **Tag every order.** The Shopify build sets cart attributes `pdp_variant=<concept>` and `offer=<offer>`; the demo checkout shows both.
+- **Tag every order.** The Shopify build sets cart attributes `pdp_variant` and `offer`; the test-mode checkout and its orders record both.
 - **Compare like with like.** Conversion rate and average order value per page, over the same dates and traffic. Change one page at a time.
 
 ## 8. Launch checklist (built-in bra tank)

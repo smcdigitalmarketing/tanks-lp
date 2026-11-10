@@ -1,12 +1,12 @@
 /**
- * Exports every concept's gallery slides as 1600 × 1600 JPGs for Shopify.
+ * Exports Hallie's gallery slides as 1600 × 1600 JPGs for Shopify.
  *
  *   npm run dev                                          # in another terminal
  *   npm run gallery:export -- --base http://localhost:5173
  *
  * The /gallery page is the source of truth: every download link on it names a
- * file, and this script renders that slide at /gallery/render/<slug>/<n> and
- * saves it to public/gallery/<slug>/<nn>-<kind>.jpg.
+ * file, and this script renders that slide at /gallery/render/<n> and saves
+ * it to public/gallery/hallie/<nn>-<kind>.jpg.
  */
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -50,10 +50,10 @@ if (!files.length)
 
 let done = 0;
 for (const file of files) {
-  const m = file.match(/^\/gallery\/([^/]+)\/(\d+)-([a-zA-Z]+)\.jpg$/);
+  const m = file.match(/^\/gallery\/hallie\/(\d+)-([a-zA-Z]+)\.jpg$/);
   if (!m) throw new Error(`Unexpected file name: ${file}`);
-  const [, slug, nn, kind] = m;
-  await page.goto(`${base}/gallery/render/${slug}/${Number(nn)}`, {
+  const [, nn, kind] = m;
+  await page.goto(`${base}/gallery/render/${Number(nn)}`, {
     waitUntil: "networkidle",
   });
   await page.evaluate(() => document.fonts.ready);

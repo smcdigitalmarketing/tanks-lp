@@ -1,5 +1,5 @@
 /**
- * Prices and bundles, shared by all three concepts so the brands present the
+ * Prices and bundles, shared by every page so the store presents the
  * same offer. Change a number here and every page, cart and slide follows.
  *
  * Standard: the competitor's live bundle prices (maggies-tanks.com, ported

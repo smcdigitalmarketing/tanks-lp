@@ -9,8 +9,11 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { brand } from "~/content/store";
+import { fontHref } from "~/lib/seo";
+import { CartProvider } from "~/lib/mock-cart";
+import { StoreShell } from "~/components/store/shell";
 
-// Font stylesheets are added per page in `meta`, so each concept only loads its own type.
 export const links: Route.LinksFunction = () => [
   { rel: "icon", type: "image/png", href: "/favicon.png" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
@@ -20,6 +23,7 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
+  { rel: "stylesheet", href: fontHref(brand.brand.googleFonts) },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -28,12 +32,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#fbf6ef" />
         <Meta />
         <Links />
       </head>
       <body>
-        {children}
+        {/* One cart for the whole store, so it survives moving between pages. */}
+        <CartProvider>{children}</CartProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -46,35 +51,47 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  const notFound = isRouteErrorResponse(error) && error.status === 404;
+  let details = "Something went wrong on our side. Please try again.";
   let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
+  if (isRouteErrorResponse(error) && !notFound)
+    details = error.statusText || details;
+  else if (import.meta.env.DEV && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="container mx-auto p-4 pt-16 font-sans">
-      <h1 className="text-2xl font-bold">{message}</h1>
-      <p>{details}</p>
-      <p className="mt-4">
-        <a href="/" className="underline">
-          Back to all concepts
-        </a>
-      </p>
-      {stack && (
-        <pre className="w-full overflow-x-auto p-4">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <StoreShell>
+      <section className="px-4 py-20 text-center md:py-28">
+        <p className="eyebrow text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+          {notFound ? "404" : "Error"}
+        </p>
+        <h1 className="display mt-3 text-[2.4rem] md:text-[3.2rem]">
+          {notFound ? "We can't find that page" : "Sorry, that didn't work"}
+        </h1>
+        <p className="mx-auto mt-4 max-w-md text-muted">
+          {notFound
+            ? "It may have moved. The Everyday Tank is just a click away."
+            : details}
+        </p>
+        <p className="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="/" className="btn-primary px-6 py-3 font-semibold">
+            Back to {brand.brand.name}
+          </a>
+          <a
+            href="/collections/all"
+            className="rounded-btn border border-ink px-6 py-3 font-semibold"
+          >
+            Shop all colours
+          </a>
+        </p>
+        {stack && (
+          <pre className="mx-auto mt-10 max-w-4xl overflow-x-auto p-4 text-left text-xs">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </section>
+    </StoreShell>
   );
 }

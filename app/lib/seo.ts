@@ -1,15 +1,17 @@
 export const fontHref = (families: string) => `https://fonts.googleapis.com/css2?${families}&display=swap`;
 
-/** Shared UI type for the hub, gallery and SOP pages. */
+/** UI type for the internal gallery and SOP pages. */
 export const HUB_FONTS = "family=Inter:wght@400;500;600;700";
 
-/** Concept pages are internal previews: noindex, and only their own fonts. */
-export function pageMeta({ title, description, fonts }: { title: string; description: string; fonts: string }) {
+/**
+ * Store pages stay out of search while the store is in test mode: noindex.
+ * Hallie's fonts load site-wide from root.tsx.
+ */
+export function pageMeta({ title, description }: { title: string; description: string }) {
   return [
     { title },
     { name: "description", content: description },
     { name: "robots", content: "noindex, nofollow" },
-    { tagName: "link", rel: "stylesheet", href: fontHref(fonts) },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
   ];

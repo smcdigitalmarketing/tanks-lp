@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import type { Concept, OfferId, Reason } from "~/content/types";
-import { conceptPath, fillPrices } from "~/content/concepts";
+import { fillPrices, storePath } from "~/content/store";
 import { offers, pricing } from "~/content/offers";
 import { reasonsCopy } from "~/content/reasons";
 import {
@@ -35,7 +35,6 @@ export function SevenReasons({
   const offer = offers[offerId];
   return (
     <StoreShell
-      concept={concept}
       offerId={offerId}
       page="reasons"
       announcement={fillPrices(concept.offers[offerId].banner, offer)}
@@ -56,7 +55,7 @@ function Listicle({
   const meta = concept.sevenReasons;
   const offer = offers[offerId];
   const onOffer = offerId !== "standard";
-  const href = conceptPath(concept.slug, { offer: offerId }) + "#buy";
+  const href = storePath("product", offerId) + "#buy";
   const from = pricing(offer, offer.bundles[0]).total;
   const lead = offer.bundles.find((b) => b.id === offer.defaultBundle)!;
   const leadPrice = pricing(offer, lead);

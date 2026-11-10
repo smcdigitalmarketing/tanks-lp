@@ -1,15 +1,18 @@
 /**
- * Clicks through the whole POC in a real browser, at desktop and phone width,
- * and exits non-zero if anything fails.
+ * Clicks through the whole Hallie store in a real browser, at desktop and
+ * phone width, and exits non-zero if anything fails.
  *
  *   npm run dev                                         # in one terminal
  *   npm run check -- --base http://localhost:5207       # in another
  *
- * Covers: the hub and its links, every product page in both offers (gallery,
- * lightbox, bundles, prices, colour and size selection, size gating, size
- * guide, cart drawer, quantity, demo checkout, FAQ, phone menu, sticky bar),
- * every advertorial (brand label, links into the right product page and
- * offer), /gallery, /sop, the 404 page, and every internal link.
+ * Covers, in every offer: the product page (gallery, lightbox, bundles,
+ * prices, colour and size selection, size gating, size guide, cart drawer,
+ * quantity, cart page, the full test-mode checkout with validation and the
+ * order confirmation, FAQ, phone menu, sticky bar), the homepage, the shop
+ * (colour cards preselect the colour), the 7 Reasons and the advertorial
+ * (CTAs keep the offer). Plus the help pages and contact form, the offer
+ * switch, old concept URLs redirecting, /gallery, /sop, the 404 page, and
+ * every internal link.
  */
 import { parseArgs } from "node:util";
 import { chromium, type Page } from "playwright-core";
@@ -24,7 +27,6 @@ const { values: args } = parseArgs({
   },
 });
 const BASE = args.base!.replace(/\/$/, "");
-const CONCEPTS = ["soft", "premium", "contemporary", "bold", "calm", "heritage"] as const;
 const OFFERS = ["standard", "early-black-friday", "christmas"] as const;
 const SEGMENT: Record<(typeof OFFERS)[number], string> = {
   standard: "",
@@ -43,11 +45,12 @@ const SOP_ORDER = [
 
 const money = (n: number) => `$${n.toFixed(2).replace(/\.00$/, "")}`;
 type OfferKey = (typeof OFFERS)[number];
-const productPath = (c: string, o: OfferKey) => `/${c}${SEGMENT[o]}`;
-const advertorialPath = (c: string, o: OfferKey) =>
-  `/${c}/advertorial${SEGMENT[o]}`;
-const homePath = (c: string, o: OfferKey) => `/${c}/home${SEGMENT[o]}`;
-const reasonsPath = (c: string, o: OfferKey) => `/${c}/7-reasons${SEGMENT[o]}`;
+const productPath = (o: OfferKey) => `/products/everyday-tank${SEGMENT[o]}`;
+const advertorialPath = (o: OfferKey) =>
+  `/pages/a-note-from-hallie${SEGMENT[o]}`;
+const homePath = (o: OfferKey) => SEGMENT[o] || "/";
+const reasonsPath = (o: OfferKey) => `/pages/7-reasons${SEGMENT[o]}`;
+const shopPath = (o: OfferKey) => `/collections/all${SEGMENT[o]}`;
 
 let failures = 0;
 let passes = 0;
@@ -79,12 +82,11 @@ async function open(page: Page, path: string, errors: string[]) {
 
 async function productPage(
   page: Page,
-  concept: string,
   offerId: (typeof OFFERS)[number],
   phone: boolean,
   errors: string[],
 ) {
-  const path = productPath(concept, offerId);
+  const path = productPath(offerId);
   await open(page, path, errors);
   const offer = offers[offerId];
   const at = `${path} @${phone ? "phone" : "desktop"}`;
@@ -214,32 +216,87 @@ async function productPage(
     `${at}: subtotal doubles`,
   );
 
-  // Demo checkout.
-  await page.getByRole("button", { name: "Check out" }).click();
-  const demo = page.getByTestId("checkout-demo");
+  // The cart page shows the same line and total.
+  const doubled = money(Math.round(trio.total * 200) / 100);
+  await page.getByRole("link", { name: "View cart" }).click();
+  await page.waitForURL("**/cart");
   check(
-    (await demo.getAttribute("data-pdp-variant")) === concept,
+    (await page.getByTestId("cart-page-subtotal").textContent()) === doubled,
+    `${at}: cart page subtotal ${doubled}`,
+  );
+
+  // Checkout: empty form is refused, a valid one places the order.
+  await page.getByRole("button", { name: "Check out" }).first().click();
+  await page.waitForURL("**/checkout");
+  const form = page.getByTestId("checkout-form");
+  check(
+    (await form.getAttribute("data-pdp-variant")) === "hallie",
     `${at}: checkout tags pdp_variant`,
   );
   check(
-    (await demo.getAttribute("data-offer-ids")) === offerId,
+    (await form.getAttribute("data-offer-ids")) === offerId,
     `${at}: checkout tags the offer`,
   );
   check(
-    (await demo.textContent())?.includes(
-      money(Math.round(trio.total * 200) / 100),
-    ),
-    `${at}: checkout shows the order total`,
+    (await page.getByTestId("place-order").textContent())?.includes(doubled),
+    `${at}: checkout button shows the total ${doubled}`,
   );
-  await page.getByRole("button", { name: "Continue to payment" }).click();
+  await page.getByTestId("place-order").click();
   check(
-    (await demo.textContent())?.includes("Almost there"),
-    `${at}: checkout confirmation step`,
+    (await page.locator("[aria-invalid=true]").count()) >= 5,
+    `${at}: empty checkout shows field errors`,
   );
-  await page.getByRole("button", { name: /^Back to/ }).click();
+  check(
+    await page.evaluate(() => document.activeElement?.getAttribute("name") === "email"),
+    `${at}: focus moves to the first error`,
+  );
+  await page.fill("[name=email]", "jane@example.com");
+  await page.fill("[name=firstName]", "Jane");
+  await page.fill("[name=lastName]", "Doe");
+  await page.fill("[name=address1]", "12 Elm Street");
+  await page.fill("[name=city]", "Portland");
+  await page.selectOption("[name=state]", "OR");
+  await page.fill("[name=zip]", "972");
+  await page.getByTestId("place-order").click();
+  check(
+    (await page.locator("[aria-invalid=true]").count()) === 1,
+    `${at}: a short ZIP is refused`,
+  );
+  await page.fill("[name=zip]", "97201");
+  await page.getByTestId("place-order").click();
+  await page.waitForURL("**/checkout/thank-you?order=HL*");
+  const conf = page.getByTestId("order-confirmation");
+  await conf.waitFor();
+  check(
+    /^HL\d{4,}$/.test((await page.getByTestId("order-number").textContent()) ?? ""),
+    `${at}: confirmation shows an order number`,
+  );
+  check(
+    (await page.getByTestId("order-total").textContent())?.includes(doubled),
+    `${at}: confirmation total ${doubled}`,
+  );
+  check(
+    (await conf.getAttribute("data-offer-ids")) === offerId,
+    `${at}: order records the offer`,
+  );
+  check(
+    (await page.getByTestId("order-address").textContent())?.includes("Portland, Oregon 97201"),
+    `${at}: confirmation shows the address`,
+  );
 
-  // Remove the line again (cart persists in localStorage).
-  await page.getByRole("button", { name: /^Open cart/ }).click();
+  // The cart is empty after the order.
+  await open(page, path, errors);
+  check(
+    (await page.getByRole("button", { name: "Open cart, 0 items" }).count()) === 1,
+    `${at}: cart is empty after the order`,
+  );
+  await page.locator('[data-bundle="single"]').first().click();
+  await page
+    .getByRole("radiogroup", { name: "Size", exact: true })
+    .getByRole("radio", { name: "S", exact: true })
+    .click();
+  await page.getByTestId("add-to-cart").click();
+  await page.waitForTimeout(300);
   await page.getByRole("button", { name: /^Remove/ }).click();
   check(
     (await page.getByTestId("cart-line").count()) === 0,
@@ -270,11 +327,12 @@ async function productPage(
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.getByRole("button", { name: "Open menu" }).click();
     check(
-      (await page.locator("#mobile-menu a").count()) === 5,
-      `${at}: phone menu has 5 links`,
+      (await page.locator("#mobile-menu a").count()) === 6,
+      `${at}: phone menu has 6 links`,
     );
-    await page.locator("#mobile-menu a", { hasText: "Reviews" }).click();
-    await page.waitForTimeout(600);
+    await page.locator("#mobile-menu a", { hasText: "Help" }).click();
+    await page.waitForURL("**/pages/faq");
+    await page.waitForTimeout(300);
     check(
       (await page.locator("#mobile-menu").count()) === 0,
       `${at}: phone menu closes after a link`,
@@ -285,11 +343,10 @@ async function productPage(
 
 async function advertorialPage(
   page: Page,
-  concept: string,
   offerId: OfferKey,
   errors: string[],
 ) {
-  const path = advertorialPath(concept, offerId);
+  const path = advertorialPath(offerId);
   await open(page, path, errors);
   check(
     (await page.getByTestId("byline").textContent())?.includes("Brand content"),
@@ -298,28 +355,27 @@ async function advertorialPage(
   const ctas = await page
     .getByTestId("advertorial-cta")
     .evaluateAll((as) => as.map((a) => a.getAttribute("href")));
-  const target = productPath(concept, offerId) + "#buy";
+  const target = productPath(offerId) + "#buy";
   check(
     ctas.length >= 2 && ctas.every((h) => h === target),
     `${path}: every CTA goes to ${target} (saw ${ctas.join(", ")})`,
   );
   await page.getByTestId("advertorial-cta").last().click();
-  await page.waitForURL(`**${productPath(concept, offerId)}*`);
+  await page.waitForURL(`**${productPath(offerId)}*`);
   check(
-    new URL(page.url()).pathname === productPath(concept, offerId),
+    new URL(page.url()).pathname === productPath(offerId),
     `${path}: CTA lands on the product page`,
   );
   check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
 }
 
-/** The brand homepage: hero, its own buy box, a working add to cart. */
+/** The homepage: hero, its own buy box, colour cards. */
 async function homePage(
   page: Page,
-  concept: string,
   offerId: OfferKey,
   errors: string[],
 ) {
-  const path = homePath(concept, offerId);
+  const path = homePath(offerId);
   await open(page, path, errors);
   check(
     (await page.getByTestId("home-cta").getAttribute("href")) === "#buy",
@@ -342,17 +398,21 @@ async function homePage(
     ),
     `${path}: bundle price ${money(first.price)} in the buy box`,
   );
+  const colourHref = await page.getByTestId("home-colour").first().getAttribute("href");
+  check(
+    colourHref?.startsWith(`${productPath(offerId)}?colour=`),
+    `${path}: colour cards open the product page in the offer (${colourHref})`,
+  );
   check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
 }
 
 /** The 7 Reasons listicle: seven reasons, every CTA to the product page with the offer. */
 async function reasonsPage(
   page: Page,
-  concept: string,
   offerId: OfferKey,
   errors: string[],
 ) {
-  const path = reasonsPath(concept, offerId);
+  const path = reasonsPath(offerId);
   await open(page, path, errors);
   check(
     (await page.getByTestId("reason").count()) === 7,
@@ -361,16 +421,39 @@ async function reasonsPage(
   const hrefs = await page
     .getByTestId("reasons-cta")
     .evaluateAll((els) => els.map((e) => e.getAttribute("href")));
-  const target = `${productPath(concept, offerId)}#buy`;
+  const target = `${productPath(offerId)}#buy`;
   check(
     hrefs.length === 4 && hrefs.every((h) => h === target),
     `${path}: 4 CTAs to ${target} (got ${hrefs.join(", ")})`,
   );
   await page.getByTestId("reasons-cta").last().click();
-  await page.waitForURL(`**${productPath(concept, offerId)}*`);
+  await page.waitForURL(`**${productPath(offerId)}*`);
   check(
-    new URL(page.url()).pathname === productPath(concept, offerId),
+    new URL(page.url()).pathname === productPath(offerId),
     `${path}: CTA lands on the product page`,
+  );
+  check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
+}
+
+/** The shop: every colour, offer prices, and a card that preselects its colour. */
+async function shopPage(page: Page, offerId: OfferKey, errors: string[]) {
+  const path = shopPath(offerId);
+  await open(page, path, errors);
+  check(
+    (await page.getByTestId("shop-colour").count()) === 13,
+    `${path}: 13 colours`,
+  );
+  const five = offers[offerId].bundles.find((b) => b.id === "five")!;
+  check(
+    (await page.getByTestId("shop-bundles").textContent())?.includes(money(five.price)),
+    `${path}: shows the 5-pack at ${money(five.price)}`,
+  );
+  await page.getByTestId("shop-colour").filter({ hasText: "Red Wine" }).click();
+  await page.waitForURL(`**${productPath(offerId)}?colour=*`);
+  await page.waitForTimeout(400);
+  check(
+    (await page.getByTestId("active-colour").textContent()) === "Red Wine",
+    `${path}: colour card preselects Red Wine`,
   );
   check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
 }
@@ -397,64 +480,91 @@ for (const [label, viewport] of [
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 
-  // Hub.
-  await open(page, "/", errors);
-  check(
-    (await page.getByTestId("concept-card").count()) === CONCEPTS.length,
-    `hub shows ${CONCEPTS.length} concepts`,
-  );
-  for (const c of CONCEPTS)
-    for (const p of ["product", "advertorial", "home", "reasons"])
-      for (const o of OFFERS)
-        check(
-          (await page.getByTestId(`hub-link-${c}-${p}-${o}`).count()) === 1,
-          `hub links ${c} ${p} ${o}`,
-        );
-  await page
-    .getByTestId("hub-link-premium-advertorial-early-black-friday")
-    .click();
-  await page.waitForURL("**/premium/advertorial/early-black-friday");
-  check(true, "hub card opens a page");
-
-  for (const c of CONCEPTS)
-    for (const o of OFFERS) {
-      for (const run of [
-        () => productPage(page, c, o, label === "phone", errors),
-        () => advertorialPage(page, c, o, errors),
-        () => homePage(page, c, o, errors),
-        () => reasonsPage(page, c, o, errors),
-      ]) {
-        try {
-          await run();
-        } catch (e) {
-          check(false, `${c} ${o}: ${(e as Error).message.split("\n")[0]}`);
-        }
+  for (const o of OFFERS) {
+    for (const run of [
+      () => productPage(page, o, label === "phone", errors),
+      () => advertorialPage(page, o, errors),
+      () => homePage(page, o, errors),
+      () => reasonsPage(page, o, errors),
+      () => shopPage(page, o, errors),
+    ]) {
+      try {
+        await run();
+      } catch (e) {
+        check(false, `${o}: ${(e as Error).message.split("\n")[0]}`);
       }
     }
+  }
 
-  // The preview strip switches concept and offer while keeping the page type.
-  await open(page, "/soft/advertorial", errors);
-  await page.getByRole("link", { name: "C · Daywell" }).click();
-  await page.waitForURL("**/contemporary/advertorial");
-  await page.getByRole("link", { name: "Early Black Friday" }).click();
-  await page.waitForURL("**/contemporary/advertorial/early-black-friday");
-  await page.getByRole("link", { name: "F · Mabel & Co." }).click();
-  await page.waitForURL("**/heritage/advertorial/early-black-friday");
-  check(true, "preview strip switches concept and offer, remixes included");
+  // The preview strip switches offer in place; help pages remember it.
+  try {
+    await open(page, "/pages/a-note-from-hallie", errors);
+    await page.getByRole("link", { name: "Early Black Friday" }).click();
+    await page.waitForURL("**/pages/a-note-from-hallie/early-black-friday");
+    await open(page, "/pages/shipping", errors);
+    await page.waitForTimeout(200);
+    check(
+      (await page.getByRole("link", { name: "Everyday Tank", exact: true }).first().getAttribute("href")) ===
+        "/products/everyday-tank/early-black-friday",
+      "help page links stay in the offer last browsed",
+    );
+    await page.getByRole("button", { name: "Standard" }).click();
+    check(
+      (await page.getByRole("link", { name: "Everyday Tank", exact: true }).first().getAttribute("href")) ===
+        "/products/everyday-tank",
+      "preview strip switches the offer on a help page",
+    );
+  } catch (e) {
+    check(false, `offer switch: ${(e as Error).message.split("\n")[0]}`);
+  }
+
+  // Help pages.
+  for (const h of ["faq", "size-guide", "shipping", "returns", "contact"]) {
+    await open(page, `/pages/${h}`, errors);
+    check((await page.locator("h1, #faq h2").count()) >= 1, `/pages/${h} has a heading`);
+  }
+  await page.getByRole("button", { name: "Send message" }).click();
+  check(
+    (await page.locator("[aria-invalid=true]").count()) === 3,
+    "contact form refuses an empty message",
+  );
+  await page.fill("[name=name]", "Jane Doe");
+  await page.fill("[name=email]", "jane@example.com");
+  await page.fill("[name=message]", "Does the nude shade show under white?");
+  await page.getByRole("button", { name: "Send message" }).click();
+  check((await page.getByTestId("contact-sent").count()) === 1, "contact form confirms");
+
+  // Empty cart and checkout.
+  await open(page, "/cart", errors);
+  await page.waitForTimeout(200);
+  check((await page.getByTestId("cart-empty").count()) === 1, "empty cart page");
+  await open(page, "/checkout", errors);
+  await page.waitForTimeout(200);
+  check((await page.getByTestId("checkout-empty").count()) === 1, "checkout with an empty cart");
+
+  // Old six-concept URLs redirect.
+  for (const [from, to] of [
+    ["/soft", "/products/everyday-tank"],
+    ["/soft/advertorial/christmas", "/pages/a-note-from-hallie/christmas"],
+    ["/soft/home/early-black-friday", "/early-black-friday"],
+    ["/premium/7-reasons", "/"],
+  ]) {
+    await page.goto(BASE + from);
+    check(new URL(page.url()).pathname === to, `${from} redirects to ${to} (got ${new URL(page.url()).pathname})`);
+  }
 
   await open(page, "/gallery", errors);
   check(
-    (await page.locator("ol[data-theme] > li").count()) === CONCEPTS.length * 8,
-    `gallery lists ${CONCEPTS.length} × 8 items`,
+    (await page.locator("ol[data-theme] > li").count()) === 8,
+    "gallery lists 8 items",
   );
   await open(page, "/sop", errors);
   check((await page.locator(".sop h1").count()) === 1, "SOP renders");
-  const missing = await page.goto(`${BASE}/not-a-concept`);
-  check(missing?.status() === 404, "unknown concept is a 404");
+  const missing = await page.goto(`${BASE}/not-a-page`);
+  check(missing?.status() === 404, "unknown page is a 404");
   check(
-    (await page.getByRole("link", { name: "Back to all concepts" }).count()) ===
-      1,
-    "404 links back to the hub",
+    (await page.getByRole("link", { name: "Back to Hallie" }).count()) === 1,
+    "404 links back to the store",
   );
   await context.close();
 }

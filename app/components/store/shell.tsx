@@ -1,49 +1,92 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { Link } from "react-router";
-import { ArrowLeft, Menu, ShoppingBag, X } from "lucide-react";
-import type { Concept, OfferId } from "~/content/types";
-import { concepts, conceptPath, type PageKind } from "~/content/concepts";
-import { OFFER_IDS, OFFER_LABEL } from "~/content/offers";
-import { CartProvider, useCart } from "~/lib/mock-cart";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import { Link, useLocation } from "react-router";
+import { Menu, ShoppingBag, X } from "lucide-react";
+import type { OfferId } from "~/content/types";
+import {
+  HELP_PAGES,
+  brand,
+  fillPrices,
+  helpPath,
+  storePath,
+  type HelpSlug,
+  type PageKind,
+} from "~/content/store";
+import { OFFER_IDS, OFFER_LABEL, isOfferId, offers } from "~/content/offers";
+import { useCart } from "~/lib/mock-cart";
 import { Wordmark } from "~/components/ui";
-import { CartDrawer, CheckoutDemo } from "./cart";
+import { CartDrawer } from "./cart";
 
-/** Pages that carry their own buy box, so "#buy" links stay on the page. */
-const hasBuyBox = (page: PageKind) => page === "product" || page === "home";
-
-const PAGE_LABEL: Record<PageKind, string> = {
-  product: "Product page",
-  home: "Homepage",
-  reasons: "7 Reasons",
-  advertorial: "Advertorial",
-};
-
-/**
- * A brand's storefront chrome (announcement bar, header, footer) around a
- * page, under a dark strip that switches concept, page and offer, so the
- * three directions can be compared like for like.
+/*
+ * The Hallie storefront chrome: a dark preview strip (internal: offer switch,
+ * flags, gallery and SOP), the announcement bar, the header with the cart,
+ * and the footer.
+ *
+ * Pages with prices carry their offer in the URL. Pages without (help, cart,
+ * 404) use the offer you last browsed, so the header links, the announcement
+ * and "continue shopping" stay in the same campaign.
  */
+
+const OFFER_KEY = "hallie-offer";
+const OfferContext = createContext<OfferId>("standard");
+
+/** The offer the current page is in (its own, or the one last browsed). */
+export const useStoreOffer = () => useContext(OfferContext);
+
+function useRememberedOffer(pageOffer: OfferId | undefined) {
+  const [remembered, setRemembered] = useState<OfferId>("standard");
+  useEffect(() => {
+    try {
+      if (pageOffer) window.sessionStorage.setItem(OFFER_KEY, pageOffer);
+      else {
+        const v = window.sessionStorage.getItem(OFFER_KEY) ?? undefined;
+        if (isOfferId(v)) setRemembered(v);
+      }
+    } catch {
+      // Storage blocked: help pages show the Standard offer.
+    }
+  }, [pageOffer]);
+  const choose = (o: OfferId) => {
+    setRemembered(o);
+    try {
+      window.sessionStorage.setItem(OFFER_KEY, o);
+    } catch {
+      // As above.
+    }
+  };
+  return [pageOffer ?? remembered, choose] as const;
+}
+
 export function StoreShell({
-  concept,
   offerId,
   page,
   announcement,
   children,
 }: {
-  concept: Concept;
-  offerId: OfferId;
-  page: PageKind;
-  announcement: string;
+  /** Set on pages that show prices; omitted on help, cart and 404. */
+  offerId?: OfferId;
+  /** The page kind, so the preview strip can switch offer in place. */
+  page?: PageKind;
+  announcement?: string;
   children: ReactNode;
 }) {
+  const [offer, chooseOffer] = useRememberedOffer(offerId);
+  const bar =
+    announcement ?? fillPrices(brand.offers[offer].banner, offers[offer]);
+  const productBuy = storePath("product", offer) + "#buy";
   return (
-    <CartProvider concept={concept.slug}>
+    <OfferContext.Provider value={offer}>
       <div
-        data-theme={concept.slug}
-        data-offer={offerId}
+        data-theme="soft"
+        data-offer={offer}
         className="min-h-dvh bg-bg font-sans text-ink antialiased"
       >
-        {hasBuyBox(page) && (
+        {(page === "product" || page === "home") && (
           <a
             href="#buy"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-btn focus:bg-surface focus:px-4 focus:py-2"
@@ -51,22 +94,17 @@ export function StoreShell({
             Skip to purchase options
           </a>
         )}
-        <PreviewStrip concept={concept} offerId={offerId} page={page} />
+        <PreviewStrip offer={offer} page={page} onChoose={chooseOffer} />
         <Announcement
-          text={announcement}
-          href={
-            hasBuyBox(page)
-              ? "#buy"
-              : conceptPath(concept.slug, { offer: offerId }) + "#buy"
-          }
+          text={bar}
+          href={page === "product" || page === "home" ? "#buy" : productBuy}
         />
-        <Header concept={concept} offerId={offerId} page={page} />
+        <Header offer={offer} />
         <main id="top">{children}</main>
-        <Footer concept={concept} offerId={offerId} />
-        <CartDrawer concept={concept} />
-        <CheckoutDemo concept={concept} />
+        <Footer offer={offer} />
+        <CartDrawer />
       </div>
-    </CartProvider>
+    </OfferContext.Provider>
   );
 }
 
@@ -94,78 +132,68 @@ function useFlagsToggle() {
   return [on, setOn] as const;
 }
 
-function PreviewStrip({
-  concept,
-  offerId,
+/**
+ * Internal strip above the store: switch the offer (campaign) in place, show
+ * verification flags, and reach the gallery and SOP. It also says the store
+ * is in test mode, so nobody mistakes the checkout for a real one.
+ */
+export function PreviewStrip({
+  offer,
   page,
+  onChoose,
 }: {
-  concept: Concept;
-  offerId: OfferId;
-  page: PageKind;
+  offer: OfferId;
+  page?: PageKind;
+  onChoose?: (o: OfferId) => void;
 }) {
   const [flags, setFlags] = useFlagsToggle();
   const pill = (active: boolean) =>
     `rounded px-2 py-1 transition ${active ? "bg-white text-[#111]" : "text-white/70 hover:bg-white/10 hover:text-white"}`;
   return (
     <nav
-      aria-label="Concept preview"
+      aria-label="Store preview"
+      data-testid="preview-strip"
       className="flex flex-wrap items-center gap-x-4 gap-y-1.5 bg-[#111] px-3 py-1.5 font-[Inter,system-ui,sans-serif] text-[11px] text-white/80 md:px-4"
     >
-      <Link to="/" className="inline-flex items-center gap-1 hover:text-white">
-        <ArrowLeft aria-hidden="true" className="size-3" />
-        All concepts
-      </Link>
-      <span
-        className="flex items-center gap-0.5"
-        role="group"
-        aria-label="Concept"
-      >
-        {concepts.map((c) => (
-          <Link
-            key={c.slug}
-            to={conceptPath(c.slug, { page, offer: offerId })}
-            className={pill(c.slug === concept.slug)}
-            aria-current={c.slug === concept.slug ? "page" : undefined}
-            title={`${c.letter} · ${c.direction}`}
-            aria-label={`${c.letter} · ${c.brand.name}`}
-          >
-            {/* Six brands: just the letter on a phone, the name from sm up. */}
-            {c.letter}
-            <span className="hidden sm:inline"> · {c.brand.name}</span>
-          </Link>
-        ))}
-      </span>
-      <span
-        className="flex items-center gap-0.5"
-        role="group"
-        aria-label="Page"
-      >
-        {(["home", "product", "reasons", "advertorial"] as const).map((p) => (
-          <Link
-            key={p}
-            to={conceptPath(concept.slug, { page: p, offer: offerId })}
-            className={pill(p === page)}
-            aria-current={p === page ? "page" : undefined}
-          >
-            {PAGE_LABEL[p]}
-          </Link>
-        ))}
-      </span>
+      <span className="font-semibold text-white">Test mode</span>
       <span
         className="flex items-center gap-0.5"
         role="group"
         aria-label="Offer"
       >
-        {OFFER_IDS.map((o) => (
-          <Link
-            key={o}
-            to={conceptPath(concept.slug, { page, offer: o })}
-            className={pill(o === offerId)}
-            aria-current={o === offerId ? "page" : undefined}
-          >
-            {OFFER_LABEL[o]}
-          </Link>
-        ))}
+        {OFFER_IDS.map((o) =>
+          page ? (
+            <Link
+              key={o}
+              to={storePath(page, o)}
+              className={pill(o === offer)}
+              aria-current={o === offer ? "page" : undefined}
+            >
+              {OFFER_LABEL[o]}
+            </Link>
+          ) : (
+            <button
+              key={o}
+              type="button"
+              onClick={() => onChoose?.(o)}
+              className={pill(o === offer)}
+              aria-pressed={o === offer}
+            >
+              {OFFER_LABEL[o]}
+            </button>
+          ),
+        )}
+      </span>
+      <span className="flex items-center gap-3">
+        <Link to="/gallery" className="hover:text-white hover:underline">
+          Gallery
+        </Link>
+        <Link to="/sop" className="hover:text-white hover:underline">
+          SOP
+        </Link>
+      </span>
+      <span className="hidden text-white/50 lg:inline">
+        No payments are taken and no orders are sent.
       </span>
       <button
         type="button"
@@ -194,58 +222,30 @@ function Announcement({ text, href }: { text: string; href: string }) {
   );
 }
 
-function navFor(concept: Concept, offerId: OfferId, page: PageKind) {
-  const product = hasBuyBox(page)
-    ? ""
-    : conceptPath(concept.slug, { offer: offerId });
+function navFor(offer: OfferId) {
   return [
-    { href: `${product}#buy`, label: "Shop" },
-    { href: `${product}#how`, label: "How it works" },
-    { href: `${product}#reviews`, label: "Reviews" },
-    { href: `${product}#faq`, label: "FAQ" },
-    {
-      href: conceptPath(concept.slug, { page: "advertorial", offer: offerId }),
-      label: "The story",
-    },
+    { href: storePath("shop", offer), label: "Shop" },
+    { href: storePath("product", offer), label: brand.brand.productName },
+    { href: storePath("reasons", offer), label: "Why switch" },
+    { href: storePath("story", offer), label: "Our story" },
+    { href: helpPath("faq"), label: "Help" },
   ];
 }
 
-function Header({
-  concept,
-  offerId,
-  page,
-}: {
-  concept: Concept;
-  offerId: OfferId;
-  page: PageKind;
-}) {
+/** True when `href` is the page we're on (ignoring the hash). */
+function useIsCurrent() {
+  const { pathname } = useLocation();
+  return (href: string) => href.split("#")[0] === pathname;
+}
+
+function Header({ offer }: { offer: OfferId }) {
   const { count, setOpen } = useCart();
   const [menu, setMenu] = useState(false);
-  const nav = navFor(concept, offerId, page);
-  const centered = concept.layout.hero === "headline";
-
-  const logo = (
-    <a
-      href={
-        page === "home"
-          ? "#top"
-          : conceptPath(concept.slug, { page: "home", offer: offerId })
-      }
-      className="shrink-0"
-      aria-label={`${concept.brand.name} home`}
-    >
-      <Wordmark slug={concept.slug} />
-    </a>
-  );
-  const desktopNav = (
-    <nav aria-label="Main" className="hidden gap-7 text-sm text-muted md:flex">
-      {nav.map((n) => (
-        <a key={n.label} href={n.href} className="hover:text-ink">
-          {n.label}
-        </a>
-      ))}
-    </nav>
-  );
+  const isCurrent = useIsCurrent();
+  const nav = navFor(offer);
+  const { pathname } = useLocation();
+  // Close the phone menu whenever the page changes.
+  useEffect(() => setMenu(false), [pathname]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur">
@@ -265,11 +265,29 @@ function Header({
               <Menu aria-hidden="true" className="size-6" />
             )}
           </button>
-          {centered ? desktopNav : logo}
+          <Link
+            to={storePath("home", offer)}
+            className="shrink-0"
+            aria-label={`${brand.brand.name} home`}
+          >
+            <Wordmark />
+          </Link>
         </div>
-        <div className="justify-self-center">
-          {centered ? logo : desktopNav}
-        </div>
+        <nav
+          aria-label="Main"
+          className="hidden gap-7 text-sm text-muted md:flex"
+        >
+          {nav.map((n) => (
+            <Link
+              key={n.label}
+              to={n.href}
+              className={`hover:text-ink ${isCurrent(n.href) ? "font-semibold text-ink" : ""}`}
+              aria-current={isCurrent(n.href) ? "page" : undefined}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -290,64 +308,59 @@ function Header({
           aria-label="Main"
           className="border-t border-line bg-surface px-4 pb-4 md:hidden"
         >
-          {nav.map((n) => (
-            <a
-              key={n.label}
-              href={n.href}
-              onClick={() => setMenu(false)}
-              className="block border-b border-line py-3 text-base font-medium last:border-0"
-            >
-              {n.label}
-            </a>
-          ))}
+          {[...nav, { href: helpPath("contact"), label: "Contact us" }].map(
+            (n) => (
+              <Link
+                key={n.label}
+                to={n.href}
+                onClick={() => setMenu(false)}
+                className="block border-b border-line py-3 text-base font-medium last:border-0"
+              >
+                {n.label}
+              </Link>
+            ),
+          )}
         </nav>
       )}
     </header>
   );
 }
 
-function Footer({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
-  const product = conceptPath(concept.slug, { offer: offerId });
+function Footer({ offer }: { offer: OfferId }) {
+  const help = (Object.keys(HELP_PAGES) as HelpSlug[]).map((slug) => ({
+    href: helpPath(slug),
+    label: HELP_PAGES[slug],
+  }));
   const cols = [
     {
       title: "Shop",
       links: [
-        { href: `${product}#buy`, label: concept.brand.productName },
-        { href: `${product}#compare`, label: "How it compares" },
-        {
-          href: conceptPath(concept.slug, { page: "reasons", offer: offerId }),
-          label: "7 reasons to switch",
-        },
-        {
-          href: conceptPath(concept.slug, {
-            page: "advertorial",
-            offer: offerId,
-          }),
-          label: "The story",
-        },
+        { href: storePath("product", offer), label: brand.brand.productName },
+        { href: storePath("shop", offer), label: "All colours" },
+        { href: storePath("reasons", offer), label: "7 reasons to switch" },
+        { href: storePath("story", offer), label: "A note from Hallie" },
+        { href: "/cart", label: "Your cart" },
       ],
     },
-    {
-      title: "Help",
-      links: [
-        { href: `${product}#faq`, label: "FAQ" },
-        { href: `${product}#size-step`, label: "Find your size" },
-        {
-          href: `mailto:${concept.brand.support.email}`,
-          label: concept.brand.support.email,
-        },
-      ],
-    },
+    { title: "Help", links: help },
   ];
   return (
     <footer className="bg-footer px-4 pb-28 pt-14 text-sm text-footer-ink/75">
       <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div className="max-w-xs">
           <span className="[&_*]:!text-footer-ink">
-            <Wordmark slug={concept.slug} />
+            <Wordmark />
           </span>
-          <p className="mt-4">{concept.pdp.footerBlurb}</p>
-          <p className="mt-2 text-xs">{concept.brand.support.hours}</p>
+          <p className="mt-4">{brand.pdp.footerBlurb}</p>
+          <p className="mt-4">
+            <a
+              href={`mailto:${brand.brand.support.email}`}
+              className="hover:text-footer-ink hover:underline"
+            >
+              {brand.brand.support.email}
+            </a>
+          </p>
+          <p className="mt-1 text-xs">{brand.brand.support.hours}</p>
         </div>
         {cols.map((col) => (
           <div key={col.title}>
@@ -357,12 +370,12 @@ function Footer({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
             <ul className="space-y-2">
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <a
-                    href={l.href}
+                  <Link
+                    to={l.href}
                     className="hover:text-footer-ink hover:underline"
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -370,10 +383,7 @@ function Footer({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         ))}
       </div>
       <p className="mx-auto mt-12 max-w-6xl border-t border-footer-ink/15 pt-6 text-xs leading-relaxed">
-        © 2026 {concept.brand.name} ·{" "}
-        <Link to="/" className="underline hover:text-footer-ink">
-          Compare all concepts
-        </Link>
+        © 2026 {brand.brand.name}
       </p>
     </footer>
   );

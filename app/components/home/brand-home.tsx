@@ -3,7 +3,10 @@ import { ArrowRight, Check, Gift } from "lucide-react";
 import type { Concept, OfferId } from "~/content/types";
 import { pageContent } from "~/content/page";
 import { faqs, photos } from "~/content/product";
-import { money } from "~/data/catalog";
+import { COLOURS, money } from "~/data/catalog";
+import { storePath } from "~/content/store";
+import { colourImg } from "~/components/sections/buy-box";
+import { Link } from "react-router";
 import { StoreShell } from "~/components/store/shell";
 import { Flag } from "~/components/flag";
 import { Picture, Section } from "~/components/ui";
@@ -28,10 +31,10 @@ import { ClosingCta, Faq, GuaranteeBlock } from "~/components/sections/closing";
 import { Divider } from "~/components/sections/divider";
 
 /*
- * The brand homepage: the landing page cold traffic arrives on. It follows
+ * The homepage (/): the landing page cold traffic arrives on. It follows
  * the competitor's homepage journey (promise → why bras stop working → the
- * product → buy → proof → how → compare → guarantee → FAQ), in each brand's
- * words, with the product page's buy box built in so nobody has to click
+ * product → colours → buy → proof → how → compare → guarantee → FAQ), in
+ * Hallie's words, with the product page's buy box built in so nobody has to click
  * through to order. Early Black Friday and Christmas change the hero, the
  * offer block and (Christmas) add a gifting section; facts never change.
  */
@@ -45,7 +48,6 @@ export function BrandHome({
   const c = pageContent(concept, offerId);
   return (
     <StoreShell
-      concept={concept}
       offerId={offerId}
       page="home"
       announcement={c.announcement}
@@ -58,7 +60,6 @@ export function BrandHome({
 function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
   const c = pageContent(concept, offerId);
   const h = concept.home;
-  const layout = concept.layout;
   const xmas = offerId === "christmas";
   const hero =
     offerId === "christmas"
@@ -66,7 +67,7 @@ function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) 
       : offerId === "early-black-friday"
         ? h.blackFriday.hero
         : h.hero;
-  const buy = useBuyState(c.buy.offer, concept.slug, concept.brand.productName);
+  const buy = useBuyState(c.buy.offer, concept.brand.productName);
   const atcRef = useRef<HTMLButtonElement>(null);
   const toBuy = () =>
     document.getElementById("buy")?.scrollIntoView({ behavior: "smooth" });
@@ -83,7 +84,7 @@ function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) 
         className={`px-4 py-10 md:py-16 ${onOffer ? "bg-accent text-accent-ink" : "bg-surface-2"}`}
       >
         <div className="mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-[1.05fr_1fr] md:gap-14">
-          <div className={layout.hero === "reverse" ? "md:order-2" : ""}>
+          <div>
             <p
               className={`eyebrow text-xs font-semibold uppercase tracking-[0.2em] ${onOffer ? "opacity-80" : "text-brand"}`}
             >
@@ -205,8 +206,9 @@ function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) 
         </Section>
       )}
 
-      <ValueProps data={c.valueProps} style={layout.valueProps} />
-      <Divider kind={layout.divider} />
+      <ValueProps data={c.valueProps} />
+      <ColourStrip offerId={offerId} />
+      <Divider />
 
       {/* The buy box, as on the product page */}
       <section id="buy" className="scroll-mt-16 px-4 py-14 md:py-20">
@@ -243,18 +245,17 @@ function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) 
               buy={c.buy}
               state={buy}
               atcRef={atcRef}
-              variant={layout.tiers}
             />
             <UnderAtc data={c.underAtc} />
           </div>
         </div>
       </section>
-      <Divider kind={layout.divider} />
+      <Divider />
 
-      <ReviewsWall data={c.reviews} variant={layout.reviews} />
+      <ReviewsWall data={c.reviews} />
       <HowItWorks data={c.howItWorks} />
       <Comparison data={c.comparison} />
-      <Divider kind={layout.divider} />
+      <Divider />
 
       <GuaranteeBlock data={c.guarantee} onShop={toBuy} />
       <Faq
@@ -268,5 +269,52 @@ function HomeBody({ concept, offerId }: { concept: Concept; offerId: OfferId }) 
 
       <StickyAtc state={buy} atcRef={atcRef} cta={c.buy.cta} />
     </>
+  );
+}
+
+/** Six colours to start from, and the way into the full shop. */
+const FEATURED = ["Nude", "Black", "Grey", "Coffee", "Red Wine", "Blush Pink"];
+
+function ColourStrip({ offerId }: { offerId: OfferId }) {
+  const product = storePath("product", offerId);
+  const colours = FEATURED.filter((n) => COLOURS.some((c) => c.name === n));
+  return (
+    <Section
+      eyebrow="Thirteen colours"
+      title="Start with your favourite shade"
+      sub="Mix colours in any 3- or 5-pack: you choose one for every tank."
+    >
+      <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {colours.map((name) => (
+          <li key={name}>
+            <Link
+              to={`${product}?colour=${encodeURIComponent(name)}#buy`}
+              className="group block"
+              data-testid="home-colour"
+            >
+              <span className="block aspect-square overflow-hidden rounded-card border border-line bg-surface">
+                <Picture
+                  image={colourImg(name)}
+                  fit="contain"
+                  className="transition group-hover:scale-[1.03]"
+                />
+              </span>
+              <span className="mt-2 block text-center text-sm font-medium">
+                {name}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-8 text-center">
+        <Link
+          to={storePath("shop", offerId)}
+          className="inline-flex items-center gap-2 rounded-btn border border-ink px-6 py-3 text-sm font-semibold hover:bg-ink hover:text-bg"
+        >
+          See all {COLOURS.length} colours
+          <ArrowRight aria-hidden="true" className="size-4" />
+        </Link>
+      </p>
+    </Section>
   );
 }

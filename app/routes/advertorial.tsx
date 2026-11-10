@@ -1,13 +1,14 @@
 import type { Route } from "./+types/advertorial";
-import { conceptMeta, loadConcept, mustConcept } from "~/lib/concept-route";
+import { brand } from "~/content/store";
+import { loadOffer, offerPageMeta } from "~/lib/store-route";
 import { AdvertorialPage } from "~/components/advertorial/advertorial";
 
-const OFFER = "standard";
+/** /pages/a-note-from-hallie (the advertorial), plus an offer segment. */
+export const loader = ({ params }: Route.LoaderArgs) => loadOffer(params.offer);
 
-export const loader = ({ params }: Route.LoaderArgs) => loadConcept(params.concept);
-
-export const meta: Route.MetaFunction = ({ params }) => conceptMeta(params.concept, OFFER, "advertorial");
+export const meta: Route.MetaFunction = ({ data }) =>
+  offerPageMeta("story", data?.offerId);
 
 export default function Page({ loaderData }: Route.ComponentProps) {
-  return <AdvertorialPage concept={mustConcept(loaderData.slug)} offerId={OFFER} />;
+  return <AdvertorialPage concept={brand} offerId={loaderData.offerId} />;
 }

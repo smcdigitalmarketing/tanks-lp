@@ -29,7 +29,7 @@ export default function Sop({ loaderData }: Route.ComponentProps) {
           className="inline-flex items-center gap-1 text-sm text-black/60 hover:text-black"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
-          All concepts
+          Back to the store
         </Link>
         <article
           className="sop mt-6 rounded-xl border border-black/10 bg-white p-6 md:p-10"

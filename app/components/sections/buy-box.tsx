@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Ruler, ShieldCheck, X } from "lucide-react";
-import type { Bundle, ConceptSlug, Offer, PdpContent } from "~/content/types";
+import type { Bundle, Offer, PdpContent } from "~/content/types";
 import { getBundle, pricing } from "~/content/offers";
 import { sizeGuide } from "~/content/product";
 import { COLOURS, SIZES, colourByName, isSoldOut, money } from "~/data/catalog";
@@ -25,11 +25,7 @@ export const colourImg = (name: string) =>
 
 export type BuyState = ReturnType<typeof useBuyState>;
 
-export function useBuyState(
-  offer: Offer,
-  concept: ConceptSlug,
-  productName: string,
-) {
+export function useBuyState(offer: Offer, productName: string) {
   const [bundleId, setBundleId] = useState<Bundle["id"]>(offer.defaultBundle);
   const [colours, setColours] = useState<string[]>(
     DEFAULT_SLOTS.slice(0, MAX_UNITS),
@@ -75,6 +71,12 @@ export function useBuyState(
         setActiveSlot(0);
       },
       setActiveSlot,
+      /** Start every tank in one colour (from the shop page's ?colour=). */
+      startWith: (name: string) => {
+        if (!COLOURS.some((c) => c.name === name)) return;
+        setColours((prev) => prev.map(() => name));
+        setActiveSlot(0);
+      },
       /** Paint the active tank, then move on to the next one. */
       pickColour: (name: string) => {
         const slot = Math.min(activeSlot, n - 1);
@@ -110,7 +112,6 @@ export function useBuyState(
           return false;
         }
         cart.add({
-          concept,
           offer: offer.id,
           bundleId: bundle.id,
           title: n === 1 ? productName : `${productName} · ${n}-pack`,
@@ -132,7 +133,6 @@ export function useBuyState(
     sizes,
     needSize,
     cart,
-    concept,
     productName,
   ]);
 }
@@ -236,111 +236,6 @@ function TierCard({
           You save {money(p.saving)}
         </span>
       )}
-    </button>
-  );
-}
-
-/** Side-by-side column (Daywell): the pack size and price lead. */
-function TierColumn({
-  offer,
-  bundle,
-  selected,
-  onSelect,
-  thumb,
-  badge,
-}: TierProps) {
-  const p = pricing(offer, bundle);
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={selected}
-      onClick={onSelect}
-      data-bundle={bundle.id}
-      className={`relative flex flex-col items-center rounded-card border-2 bg-surface px-1.5 pb-3 pt-4 text-center transition ${
-        selected
-          ? "border-brand bg-brand/[0.04]"
-          : "border-line hover:border-muted"
-      }`}
-    >
-      {badge && (
-        <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand-ink">
-          {badge}
-        </span>
-      )}
-      <span className="size-14 overflow-hidden rounded-[calc(var(--r-card)*0.8)] bg-surface-2">
-        <Picture image={colourImg(thumb)} fit="contain" />
-      </span>
-      <span className="display mt-2 text-xl leading-none">
-        {bundle.units}-pack
-      </span>
-      <span className="mt-1 text-[11px] leading-tight text-muted">
-        {bundle.units === 1 ? "Single" : bundle.deal}
-      </span>
-      <span className="mt-2 text-lg font-bold leading-none">
-        {money(p.total)}
-      </span>
-      {p.saving > 0 ? (
-        <s className="mt-0.5 text-[11px] text-muted">{money(p.was)}</s>
-      ) : (
-        <span className="mt-0.5 text-[11px]">&nbsp;</span>
-      )}
-      <span
-        className={`mt-1.5 rounded-full px-2 py-0.5 text-[11px] font-bold ${p.saving > 0 ? "bg-highlight text-highlight-ink" : "text-muted"}`}
-      >
-        {p.saving > 0 ? `Save ${money(p.saving)}` : `${money(p.perUnit)} each`}
-      </span>
-    </button>
-  );
-}
-
-/** Hairline row (Oriel): quiet, typographic, nothing filled in. */
-function TierRow({ offer, bundle, selected, onSelect, badge }: TierProps) {
-  const p = pricing(offer, bundle);
-  const name =
-    bundle.units === 1
-      ? "Single"
-      : bundle.units === 3
-        ? "Set of three"
-        : "Set of five";
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={selected}
-      onClick={onSelect}
-      data-bundle={bundle.id}
-      className={`flex w-full items-center gap-4 border-b border-line py-4 text-left transition first:border-t ${selected ? "" : "opacity-75 hover:opacity-100"}`}
-    >
-      <span
-        aria-hidden="true"
-        className={`grid size-4 shrink-0 place-items-center rounded-full border ${selected ? "border-ink" : "border-muted"}`}
-      >
-        {selected && <span className="size-2 rounded-full bg-ink" />}
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="display block text-xl leading-tight">
-          {name}
-          {badge && (
-            <span className="eyebrow ml-2 align-middle text-[10px] font-medium uppercase tracking-[0.2em] text-brand">
-              {badge}
-            </span>
-          )}
-        </span>
-        <span className="block text-xs text-muted">
-          {bundle.units > 1
-            ? `${bundle.deal} · ${money(p.perUnit)} per tank`
-            : "One tank"}
-        </span>
-      </span>
-      <span className="text-right tabular-nums">
-        <span className="block text-[15px] font-medium">{money(p.total)}</span>
-        {p.saving > 0 && (
-          <span className="block text-[11px] text-muted">
-            Saves {money(p.saving)}
-          </span>
-        )}
-      </span>
     </button>
   );
 }
@@ -638,21 +533,13 @@ export function BuyBox({
   buy,
   state,
   atcRef,
-  variant,
 }: {
   buy: PdpContent["buy"];
   state: BuyState;
   atcRef: RefObject<HTMLButtonElement | null>;
-  variant: "stack" | "columns" | "rows";
 }) {
   const [guide, setGuide] = useState(false);
   const { offer } = buy;
-  const Tier =
-    variant === "columns"
-      ? TierColumn
-      : variant === "rows"
-        ? TierRow
-        : TierCard;
   // The bundle the offer leads with wears the brand's badge.
   const badgeFor = (b: Bundle) =>
     b.id === offer.defaultBundle ? buy.leadBadge : undefined;
@@ -673,17 +560,9 @@ export function BuyBox({
         >
           {buy.steps.bundle}
         </StepLabel>
-        <div
-          className={
-            variant === "columns"
-              ? "grid grid-cols-3 gap-2 pt-2"
-              : variant === "rows"
-                ? ""
-                : "space-y-3 pt-1"
-          }
-        >
+        <div className="space-y-3 pt-1">
           {offer.bundles.map((b) => (
-            <Tier
+            <TierCard
               key={b.id}
               offer={offer}
               bundle={b}

@@ -1,7 +1,7 @@
 /**
- * Joins a brand concept, the shared product facts and an offer into the
- * content one product page renders. Facts and photos come from product.ts and
- * offers.ts, so the three concepts can only differ in words and look.
+ * Joins the brand, the product facts and an offer into the content one
+ * product page renders. Facts and photos come from product.ts and offers.ts;
+ * the brand file only words them.
  */
 import type { Concept, OfferId, PdpContent, Slide } from "~/content/types";
 import { offers, pricing, getBundle } from "~/content/offers";
@@ -22,27 +22,13 @@ import {
 } from "~/content/product";
 import { DEMO_VIDEO } from "~/lib/images";
 import { money } from "~/data/catalog";
-import { fillPrices } from "~/content/concepts";
+import { fillPrices } from "~/content/store";
 
-/** Who each concept's review wall leads with: the quotes that match its voice. */
-const REVIEW_LEADS: Record<Concept["slug"], string[]> = {
-  soft: ["Victoria", "Carol", "Yutta", "Cathy", "Becki"],
-  premium: ["Heather Kurtin", "Annmarie", "Diane", "Laurel", "Yutta"],
-  contemporary: ["Eileen", "Esskaye", "Laurel", "Barb", "Yutta"],
-  bold: ["Barb", "Esskaye", "Becki", "Eileen", "Yutta"],
-  calm: ["Diane", "Annmarie", "Heather Kurtin", "Cathy", "Yutta"],
-  heritage: ["Victoria", "Becki", "Carol", "Laurel", "Yutta"],
-};
+/** Who the review wall leads with: the quotes that match Hallie's voice. */
+const REVIEW_LEADS = ["Victoria", "Carol", "Yutta", "Cathy", "Becki"];
 
 /** The quote under the button: short, about comfort, from a real review. */
-const UNDER_BUTTON_REVIEW: Record<Concept["slug"], string> = {
-  soft: "Cathy",
-  premium: "Diane",
-  contemporary: "Eileen",
-  bold: "Barb",
-  calm: "Annmarie",
-  heritage: "Carol",
-};
+const UNDER_BUTTON_REVIEW = "Cathy";
 
 export function gallery(concept: Concept): Slide[] {
   const g = concept.pdp.gallery;
@@ -130,7 +116,7 @@ export function pageContent(concept: Concept, offerId: OfferId): PdpContent {
         body: `If it doesn't fit the way you hoped, tell us within ${GUARANTEE_DAYS} days of delivery and we'll send a different size, free. You keep the first one; there's nothing to post back.`,
         flag: GUARANTEE_FLAG,
       },
-      review: reviewBy(UNDER_BUTTON_REVIEW[concept.slug]),
+      review: reviewBy(UNDER_BUTTON_REVIEW),
     },
 
     accordions: [p.accordionIntro, fitAccordion, care],
@@ -138,7 +124,7 @@ export function pageContent(concept: Concept, offerId: OfferId): PdpContent {
 
     reviews: {
       ...p.reviews,
-      items: reviewsLedBy(REVIEW_LEADS[concept.slug]).slice(0, reviews.length),
+      items: reviewsLedBy(REVIEW_LEADS).slice(0, reviews.length),
     },
     valueProps: p.valueProps,
     howItWorks: {

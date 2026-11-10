@@ -305,7 +305,7 @@ export function SlideView({
               className="size-[3cqw]"
               fill="currentColor"
             />
-            Demo
+            Video
           </span>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-[6cqw] pt-[16cqw] text-white">
             {slide.eyebrow && (
@@ -432,5 +432,5 @@ export const SLIDE_LABELS: Record<Slide["kind"], string> = {
 };
 
 /** Where `npm run gallery:export` writes each slide (public/ is served as-is). */
-export const exportPath = (slug: string, n: number, kind: string) =>
-  `/gallery/${slug}/${String(n).padStart(2, "0")}-${kind}.jpg`;
+export const exportPath = (n: number, kind: string) =>
+  `/gallery/hallie/${String(n).padStart(2, "0")}-${kind}.jpg`;

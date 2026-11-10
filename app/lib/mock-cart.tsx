@@ -7,20 +7,20 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Bundle, ConceptSlug, OfferId } from "~/content/types";
+import type { Bundle, OfferId } from "~/content/types";
 import type { Img } from "~/lib/images";
 
 /**
- * In-browser cart standing in for a Shopify cart. Nothing leaves the browser:
- * checkout opens a demo. Each line carries the concept and the offer, the
- * values a Shopify build would send as cart attributes (pdp_variant, offer).
+ * In-browser cart standing in for a Shopify cart. Nothing leaves the browser.
+ * Each line carries its offer, the value a Shopify build would send as a cart
+ * attribute, so a Black Friday bundle keeps its price in the cart and at
+ * checkout whichever page you're on.
  */
 
 export type UnitChoice = { colour: string; size: string };
 
 export type CartLine = {
   key: string;
-  concept: ConceptSlug;
   offer: OfferId;
   bundleId: Bundle["id"];
   title: string;
@@ -35,20 +35,21 @@ export type CartLine = {
 
 type CartApi = {
   lines: CartLine[];
+  /** False until the saved cart has been read after hydration. */
+  ready: boolean;
   open: boolean;
-  checkoutOpen: boolean;
   add: (line: Omit<CartLine, "key" | "qty">) => void;
   setQty: (key: string, qty: number) => void;
   remove: (key: string) => void;
+  clear: () => void;
   setOpen: (open: boolean) => void;
-  setCheckoutOpen: (open: boolean) => void;
   subtotal: number;
   wasTotal: number;
   /** Number of tanks in the cart. */
   count: number;
 };
 
-const STORAGE_KEY = "tanks-lp-cart";
+const STORAGE_KEY = "hallie-cart";
 const CartContext = createContext<CartApi | null>(null);
 
 function load(): CartLine[] {
@@ -56,7 +57,7 @@ function load(): CartLine[] {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const lines = raw ? (JSON.parse(raw) as CartLine[]) : [];
     return Array.isArray(lines)
-      ? lines.filter((l) => l && Array.isArray(l.units))
+      ? lines.filter((l) => l && Array.isArray(l.units) && l.qty > 0)
       : [];
   } catch {
     return [];
@@ -75,34 +76,34 @@ function save(lines: CartLine[]) {
 export const describeUnits = (units: UnitChoice[]) =>
   units.map((u) => `${u.colour}/${u.size}`).join(", ");
 
-export function CartProvider({
-  concept,
-  children,
-}: {
-  concept: ConceptSlug;
-  children: ReactNode;
-}) {
-  const [all, setAll] = useState<CartLine[]>([]);
+export const cents = (n: number) => Math.round(n * 100) / 100;
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [lines, setLines] = useState<CartLine[]>([]);
   const [open, setOpen] = useState(false);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
 
   // Load after hydration so the prerendered HTML matches the first render.
   useEffect(() => {
-    setAll(load());
-    setLoaded(true);
+    setLines(load());
+    setReady(true);
+    // Another tab changed the cart: follow it.
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY) setLines(load());
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   useEffect(() => {
-    if (loaded) save(all);
-  }, [all, loaded]);
+    if (ready) save(lines);
+  }, [lines, ready]);
 
   const add = useCallback<CartApi["add"]>((line) => {
-    setAll((prev) => {
+    setLines((prev) => {
       // The same bundle with the same choices just goes up by one.
       const same = prev.find(
         (l) =>
-          l.concept === line.concept &&
           l.offer === line.offer &&
           l.bundleId === line.bundleId &&
           describeUnits(l.units) === describeUnits(line.units),
@@ -118,35 +119,38 @@ export function CartProvider({
   }, []);
 
   const setQty = useCallback((key: string, qty: number) => {
-    setAll((prev) =>
+    setLines((prev) =>
       qty <= 0
         ? prev.filter((l) => l.key !== key)
-        : prev.map((l) => (l.key === key ? { ...l, qty } : l)),
+        : prev.map((l) =>
+            l.key === key ? { ...l, qty: Math.min(qty, 20) } : l,
+          ),
     );
   }, []);
 
   const remove = useCallback(
-    (key: string) => setAll((prev) => prev.filter((l) => l.key !== key)),
+    (key: string) => setLines((prev) => prev.filter((l) => l.key !== key)),
     [],
   );
 
-  const api = useMemo<CartApi>(() => {
-    // Each brand keeps its own cart, so switching concepts doesn't mix them.
-    const lines = all.filter((l) => l.concept === concept);
-    return {
+  const clear = useCallback(() => setLines([]), []);
+
+  const api = useMemo<CartApi>(
+    () => ({
       lines,
+      ready,
       open,
-      checkoutOpen,
       add,
       setQty,
       remove,
+      clear,
       setOpen,
-      setCheckoutOpen,
-      subtotal: lines.reduce((s, l) => s + l.price * l.qty, 0),
-      wasTotal: lines.reduce((s, l) => s + l.was * l.qty, 0),
+      subtotal: cents(lines.reduce((s, l) => s + l.price * l.qty, 0)),
+      wasTotal: cents(lines.reduce((s, l) => s + l.was * l.qty, 0)),
       count: lines.reduce((s, l) => s + l.units.length * l.qty, 0),
-    };
-  }, [all, concept, open, checkoutOpen, add, setQty, remove]);
+    }),
+    [lines, ready, open, add, setQty, remove, clear],
+  );
 
   return <CartContext.Provider value={api}>{children}</CartContext.Provider>;
 }

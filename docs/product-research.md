@@ -1,6 +1,6 @@
 # Product research
 
-What we know about the product, where each fact comes from, and what has to be confirmed before a real store. The shared product data lives in `app/content/product.ts` and `app/content/offers.ts`; concept files add words, never facts.
+What we know about the product, where each fact comes from, and what has to be confirmed before a real store. The shared product data lives in `app/content/product.ts` and `app/content/offers.ts`; the brand file (`app/content/hallie.ts`) adds words, never facts.
 
 ## The product
 

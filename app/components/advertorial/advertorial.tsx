@@ -6,7 +6,7 @@ import type {
   OfferId,
   Review,
 } from "~/content/types";
-import { conceptPath, fillPrices } from "~/content/concepts";
+import { fillPrices, storePath } from "~/content/store";
 import { offers, pricing } from "~/content/offers";
 import { GUARANTEE_FLAG, photos } from "~/content/product";
 import { money } from "~/data/catalog";
@@ -15,17 +15,12 @@ import { StoreShell } from "~/components/store/shell";
 import { Picture, ReviewSource, Stars } from "~/components/ui";
 
 /*
- * The advertorial: an article that introduces the problem, explains the
- * product, answers objections and hands over to the offer. Every concept has
- * its own copy and one of three layouts:
- *   letter     Hallie: a personal note, one narrow column
- *   editorial  Oriel: a journal long-read with a margin column and big type
- *   magazine   Daywell: a numbered explainer, image beside text
- * It is labelled "Brand content" and every button goes to that concept's
- * product page, keeping the offer. No journalists, experts or studies.
+ * The advertorial ("A note from Hallie"): a personal letter in one narrow
+ * column that introduces the problem, explains the product, answers
+ * objections and hands over to the offer. It is labelled "Brand content" and
+ * every button goes to the product page, keeping the offer. No journalists,
+ * experts or studies.
  */
-
-type Variant = Concept["layout"]["advertorial"];
 
 export function AdvertorialPage({
   concept,
@@ -38,9 +33,8 @@ export function AdvertorialPage({
   const copy = concept.offers[offerId];
   return (
     <StoreShell
-      concept={concept}
       offerId={offerId}
-      page="advertorial"
+      page="story"
       announcement={fillPrices(copy.banner, offer)}
     >
       <Article concept={concept} offerId={offerId} />
@@ -50,36 +44,20 @@ export function AdvertorialPage({
 
 function Article({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
   const a = concept.advertorial;
-  const v = concept.layout.advertorial;
-  const productHref = conceptPath(concept.slug, { offer: offerId }) + "#buy";
-  const wide = v === "editorial";
+  const productHref = storePath("product", offerId) + "#buy";
 
   return (
-    <article className="bg-bg pb-20" data-advertorial={v}>
-      <header
-        className={`px-4 pt-10 md:pt-16 ${wide ? "mx-auto max-w-5xl" : v === "magazine" ? "mx-auto max-w-4xl" : "mx-auto max-w-2xl text-center"}`}
-      >
-        <p className="eyebrow flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
-          <span className={v === "letter" ? "mx-auto" : ""}>{a.kicker}</span>
+    <article className="bg-bg pb-20" data-advertorial="letter">
+      <header className="mx-auto max-w-2xl px-4 pt-10 text-center md:pt-16">
+        <p className="eyebrow text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+          {a.kicker}
         </p>
-        <h1
-          className={`display mt-4 ${
-            v === "editorial"
-              ? "text-[2.6rem] leading-[1.02] md:text-[5.2rem]"
-              : v === "magazine"
-                ? "text-[2.3rem] md:text-[3.8rem]"
-                : "text-[2.1rem] md:text-[3.1rem]"
-          }`}
-        >
+        <h1 className="display mt-4 text-[2.1rem] md:text-[3.1rem]">
           {a.headline}
         </h1>
+        <p className="mt-5 text-lg text-muted md:text-xl">{a.dek}</p>
         <p
-          className={`mt-5 text-lg text-muted md:text-xl ${wide ? "max-w-3xl" : ""}`}
-        >
-          {a.dek}
-        </p>
-        <p
-          className={`mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted ${v === "letter" ? "justify-center" : ""}`}
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted"
           data-testid="byline"
         >
           <span className="rounded-full border border-line px-2 py-0.5 font-semibold uppercase tracking-wide text-ink">
@@ -91,12 +69,8 @@ function Article({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         </p>
       </header>
 
-      <figure
-        className={`mt-8 px-4 md:mt-12 ${wide ? "mx-auto max-w-6xl" : "mx-auto max-w-3xl"}`}
-      >
-        <div
-          className={`overflow-hidden rounded-card ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
-        >
+      <figure className="mx-auto mt-8 max-w-3xl px-4 md:mt-12">
+        <div className="aspect-[4/3] overflow-hidden rounded-card">
           <Picture image={a.lead} priority className="object-[center_30%]" />
         </div>
         <figcaption className="mt-2 text-xs text-muted">
@@ -104,174 +78,74 @@ function Article({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
         </figcaption>
       </figure>
 
-      <div
-        className={`px-4 ${wide ? "mx-auto grid max-w-5xl gap-10 md:grid-cols-[200px_1fr]" : "mx-auto max-w-2xl"}`}
-      >
-        {wide && (
-          <aside className="hidden pt-12 text-xs text-muted md:block">
-            <div className="sticky top-24 space-y-3 border-t border-ink pt-4">
-              <p className="eyebrow font-semibold uppercase tracking-[0.18em] text-ink">
-                {a.byline}
-              </p>
-              <p>{a.readTime}</p>
-              <Link
-                to={productHref}
-                className="inline-flex items-center gap-1 font-semibold text-ink underline underline-offset-4"
-              >
-                {concept.brand.productName}{" "}
-                <ArrowRight aria-hidden="true" className="size-3" />
-              </Link>
-            </div>
-          </aside>
-        )}
-        <div className="min-w-0">
-          <div
-            className={`mt-10 space-y-5 text-[17px] leading-[1.75] md:text-lg ${v === "letter" ? "first-letter-drop" : ""}`}
-          >
-            {a.intro.map((p, i) => (
-              <p
-                key={i}
-                className={
-                  i === 0 && v !== "magazine" ? "text-ink" : "text-ink/85"
-                }
-              >
-                {p}
-              </p>
-            ))}
-          </div>
-
-          {a.sections.map((s, i) => (
-            <div key={s.title}>
-              <SectionBlock section={s} variant={v} index={i} />
-              {i === 1 && (
-                <ProductCard
-                  concept={concept}
-                  offerId={offerId}
-                  href={productHref}
-                  variant={v}
-                />
-              )}
-            </div>
-          ))}
-
-          <OfferHandOff
-            concept={concept}
-            offerId={offerId}
-            href={productHref}
-            variant={v}
-          />
-
-          {v === "letter" && (
-            <p className="mt-12 text-center text-lg italic text-muted [font-family:var(--f-display)]">
-              With warmth, the {concept.brand.name} team
+      <div className="mx-auto max-w-2xl px-4">
+        <div className="first-letter-drop mt-10 space-y-5 text-[17px] leading-[1.75] md:text-lg">
+          {a.intro.map((p, i) => (
+            <p key={i} className={i === 0 ? "text-ink" : "text-ink/85"}>
+              {p}
             </p>
-          )}
-          <p className="mt-12 border-t border-line pt-4 text-xs leading-relaxed text-muted">
-            Brand content from {concept.brand.name}. Quoted reviews are from
-            verified buyers of the original built-in bra tank.
-          </p>
+          ))}
         </div>
+
+        {a.sections.map((s, i) => (
+          <div key={s.title}>
+            <SectionBlock section={s} />
+            {i === 1 && (
+              <ProductCard
+                concept={concept}
+                offerId={offerId}
+                href={productHref}
+              />
+            )}
+          </div>
+        ))}
+
+        <OfferHandOff concept={concept} offerId={offerId} href={productHref} />
+
+        <p className="mt-12 text-center text-lg italic text-muted [font-family:var(--f-display)]">
+          With warmth, the {concept.brand.name} team
+        </p>
+        <p className="mt-12 border-t border-line pt-4 text-xs leading-relaxed text-muted">
+          Brand content from {concept.brand.name}. Quoted reviews are from
+          verified buyers of the original built-in bra tank.
+        </p>
       </div>
     </article>
   );
 }
 
-function SectionBlock({
-  section: s,
-  variant: v,
-  index,
-}: {
-  section: AdvertorialSection;
-  variant: Variant;
-  index: number;
-}) {
-  const magazine = v === "magazine";
+function SectionBlock({ section: s }: { section: AdvertorialSection }) {
   return (
     <section className="mt-14 md:mt-16">
-      {magazine ? (
-        <h2 className="display flex items-start gap-4 text-[1.8rem] md:text-[2.4rem]">
-          <span className="text-[3.2rem] leading-[0.8] text-brand md:text-[4.4rem]">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span>{s.title.replace(/^\d+\.\s*/, "")}</span>
-        </h2>
-      ) : (
-        <h2
-          className={`display ${v === "editorial" ? "border-t border-ink pt-5 text-[1.9rem] md:text-[2.5rem]" : "text-[1.7rem] md:text-[2.1rem]"}`}
-        >
-          {s.title}
-        </h2>
-      )}
-      <div
-        className={
-          magazine && s.image
-            ? "mt-5 grid gap-6 md:grid-cols-[1fr_1fr] md:items-start"
-            : ""
-        }
-      >
-        <div className="mt-4 space-y-4 text-[17px] leading-[1.75] text-ink/85 md:text-lg">
-          {s.body.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-        {s.image && (
-          <figure className={magazine ? "md:mt-4" : "mt-6"}>
-            <div
-              className={`overflow-hidden rounded-card ${magazine ? "aspect-square" : "aspect-[4/3]"}`}
-            >
-              <Picture image={s.image} />
-            </div>
-            {s.caption && (
-              <figcaption className="mt-2 text-xs text-muted">
-                {s.caption}
-              </figcaption>
-            )}
-          </figure>
-        )}
+      <h2 className="display text-[1.7rem] md:text-[2.1rem]">{s.title}</h2>
+      <div className="mt-4 space-y-4 text-[17px] leading-[1.75] text-ink/85 md:text-lg">
+        {s.body.map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
       </div>
-      {s.list && <List items={s.list} variant={v} />}
-      {s.pullQuote && <PullQuote review={s.pullQuote} variant={v} />}
+      {s.image && (
+        <figure className="mt-6">
+          <div className="aspect-[4/3] overflow-hidden rounded-card">
+            <Picture image={s.image} />
+          </div>
+          {s.caption && (
+            <figcaption className="mt-2 text-xs text-muted">
+              {s.caption}
+            </figcaption>
+          )}
+        </figure>
+      )}
+      {s.list && <List items={s.list} />}
+      {s.pullQuote && <PullQuote review={s.pullQuote} />}
     </section>
   );
 }
 
 function List({
   items,
-  variant: v,
 }: {
   items: NonNullable<AdvertorialSection["list"]>;
-  variant: Variant;
 }) {
-  if (v === "editorial")
-    return (
-      <dl className="mt-6 divide-y divide-line border-y border-line">
-        {items.map((it) => (
-          <div
-            key={it.label}
-            className="grid gap-1 py-4 md:grid-cols-[180px_1fr] md:gap-6"
-          >
-            <dt className="display text-xl">{it.label}</dt>
-            <dd className="text-[16px] leading-relaxed text-muted">
-              {it.text}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    );
-  if (v === "magazine")
-    return (
-      <ul className="mt-6 overflow-hidden rounded-card border border-line">
-        {items.map((it) => (
-          <li
-            key={it.label}
-            className="grid grid-cols-[minmax(0,130px)_1fr] gap-4 border-b border-line bg-surface p-4 text-[15px] last:border-0"
-          >
-            <strong className="font-bold">{it.label}</strong>
-            <span className="text-muted">{it.text}</span>
-          </li>
-        ))}
-      </ul>
-    );
   return (
     <ul className="mt-6 space-y-3">
       {items.map((it) => (
@@ -292,36 +166,16 @@ function List({
   );
 }
 
-function PullQuote({
-  review,
-  variant: v,
-}: {
-  review: Review;
-  variant: Variant;
-}) {
+function PullQuote({ review }: { review: Review }) {
   return (
-    <figure
-      className={`mt-8 ${
-        v === "editorial"
-          ? "border-y border-ink py-8 text-center"
-          : v === "magazine"
-            ? "rounded-card bg-brand p-6 text-brand-ink"
-            : "rounded-card bg-highlight/60 p-6"
-      }`}
-    >
+    <figure className="mt-8 rounded-card bg-highlight/60 p-6">
       <Stars rating={review.rating} className="size-4" />
-      <blockquote
-        className={`display mt-3 leading-snug ${v === "editorial" ? "text-[1.9rem] italic md:text-[2.4rem]" : "text-[1.4rem]"}`}
-      >
+      <blockquote className="display mt-3 text-[1.4rem] leading-snug">
         “{review.text}”
       </blockquote>
-      <figcaption
-        className={`mt-4 flex flex-wrap items-center gap-2 text-sm ${v === "editorial" ? "justify-center" : ""}`}
-      >
+      <figcaption className="mt-4 flex flex-wrap items-center gap-2 text-sm">
         <strong>{review.name}</strong>
-        <span className={v === "magazine" ? "[&_*]:!text-brand-ink/80" : ""}>
-          <ReviewSource review={review} />
-        </span>
+        <ReviewSource review={review} />
       </figcaption>
     </figure>
   );
@@ -332,18 +186,16 @@ function ProductCard({
   concept,
   offerId,
   href,
-  variant: v,
 }: {
   concept: Concept;
   offerId: OfferId;
   href: string;
-  variant: Variant;
 }) {
   const offer = offers[offerId];
   const single = pricing(offer, offer.bundles[0]);
   return (
     <aside
-      className={`mt-12 grid overflow-hidden border border-line bg-surface sm:grid-cols-[200px_1fr] ${v === "editorial" ? "" : "rounded-card"}`}
+      className="mt-12 grid overflow-hidden rounded-card border border-line bg-surface sm:grid-cols-[200px_1fr]"
       data-testid="product-card"
     >
       <div className="aspect-square bg-surface-2 sm:aspect-auto">
@@ -389,19 +241,17 @@ function OfferHandOff({
   concept,
   offerId,
   href,
-  variant: v,
 }: {
   concept: Concept;
   offerId: OfferId;
   href: string;
-  variant: Variant;
 }) {
   const offer = offers[offerId];
   const copy = concept.offers[offerId];
   const c = concept.advertorial.closing;
   return (
     <section
-      className={`mt-16 bg-accent p-6 text-accent-ink md:p-10 ${v === "editorial" ? "" : "rounded-card"}`}
+      className="mt-16 rounded-card bg-accent p-6 text-accent-ink md:p-10"
       data-testid="offer-handoff"
     >
       <p className="eyebrow text-xs font-semibold uppercase tracking-[0.2em] opacity-80">
