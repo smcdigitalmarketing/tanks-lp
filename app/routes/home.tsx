@@ -2,7 +2,12 @@ import { Link } from "react-router";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import type { Route } from "./+types/home";
 import type { Concept, OfferId } from "~/content/types";
-import { concepts, conceptPath, fillPrices } from "~/content/concepts";
+import {
+  concepts,
+  conceptPath,
+  fillPrices,
+  type PageKind,
+} from "~/content/concepts";
 import { gallery } from "~/content/page";
 import { OFFER_IDS, offers, pricing } from "~/content/offers";
 import { lifestyle } from "~/content/product";
@@ -54,6 +59,12 @@ const ROWS: { label: string; cell: (c: Concept) => string }[] = [
         offers["early-black-friday"],
       ),
   },
+  {
+    label: "Christmas",
+    cell: (c) => fillPrices(c.offers.christmas.banner, offers.christmas),
+  },
+  { label: "Homepage hero", cell: (c) => c.home.hero.headline },
+  { label: "7 Reasons headline", cell: (c) => c.sevenReasons.base.headline },
   { label: "Guarantee headline", cell: (c) => c.pdp.guarantee.headline },
   { label: "Advertorial headline", cell: (c) => c.advertorial.headline },
   { label: "Closing line", cell: (c) => c.pdp.closing.headline },
@@ -349,11 +360,7 @@ export default function Home() {
 
 function ConceptCard({ concept: c }: { concept: Concept }) {
   const slide = gallery(c)[0];
-  const link = (
-    label: string,
-    page: "product" | "advertorial",
-    offer: OfferId,
-  ) => (
+  const link = (label: string, page: PageKind, offer: OfferId) => (
     <Link
       to={conceptPath(c.slug, { page, offer })}
       className="flex items-center justify-between gap-2 rounded-btn border border-line bg-surface px-3 py-2.5 text-sm font-semibold transition hover:border-ink"
@@ -439,10 +446,18 @@ function ConceptCard({ concept: c }: { concept: Concept }) {
       </div>
 
       <div className="mt-auto grid grid-cols-2 gap-2 p-5">
+        {link("Homepage", "home", "standard")}
         {link("Product page", "product", "standard")}
-        {link("Advertorial", "advertorial", "standard")}
+        {link("7 Reasons · Black Friday", "reasons", "early-black-friday")}
+        {link("7 Reasons", "reasons", "standard")}
+        {link("Homepage · Christmas", "home", "christmas")}
+        {link("7 Reasons · Christmas", "reasons", "christmas")}
+        {link("Homepage · Early BF", "home", "early-black-friday")}
         {link("Early BF page", "product", "early-black-friday")}
+        {link("Advertorial", "advertorial", "standard")}
         {link("Early BF advertorial", "advertorial", "early-black-friday")}
+        {link("Christmas page", "product", "christmas")}
+        {link("Christmas advertorial", "advertorial", "christmas")}
       </div>
     </article>
   );

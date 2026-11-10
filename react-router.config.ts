@@ -6,19 +6,21 @@ const CONCEPTS = ["soft", "premium", "contemporary"];
 export default {
   ssr: true,
   presets: [vercelPreset()],
-  // Every page is static: the hub, the gallery, the SOP and four pages per concept.
+  // Every page is static: the hub, the gallery, the SOP and, per concept, four
+  // pages (product, home, 7 Reasons, advertorial) in three offers.
   // The 1600 px gallery render route stays dynamic (only the export script uses it).
   async prerender() {
     return [
       "/",
       "/gallery",
       "/sop",
-      ...CONCEPTS.flatMap((c) => [
-        `/${c}`,
-        `/${c}/early-black-friday`,
-        `/${c}/advertorial`,
-        `/${c}/advertorial/early-black-friday`,
-      ]),
+      ...CONCEPTS.flatMap((c) =>
+        ["", "/home", "/7-reasons", "/advertorial"].flatMap((page) =>
+          ["", "/early-black-friday", "/christmas"].map(
+            (offer) => `/${c}${page}${offer}`,
+          ),
+        ),
+      ),
     ];
   },
 } satisfies Config;

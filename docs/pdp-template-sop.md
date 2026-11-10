@@ -75,7 +75,7 @@ Three more rules apply everywhere:
 Every concept presents the same offers from `app/content/offers.ts`:
 
 - **Standard**: the everyday bundle prices. Savings are measured against buying single items, never against an invented compare-at price.
-- **Early Black Friday** (or any sale): its own URL (`/<concept>/early-black-friday`), its own announcement bar, an offer block above the buy box, and the struck-through Standard price beside the sale price. While prices are not final, they carry a "Provisional price" flag everywhere, including the cart. No end date unless there is a real one.
+- **Early Black Friday** and **Christmas** (or any sale): its own URL (`/<concept>/early-black-friday`), its own announcement bar, an offer block above the buy box, and the struck-through Standard price beside the sale price. While prices are not final, they carry a "Provisional price" flag everywhere, including the cart. No end date unless there is a real one.
 
 Offer copy uses price tokens (`{price:five}`, `{each:trio}`, `{save:single}`) so banners can never disagree with the buy box.
 
@@ -92,6 +92,13 @@ Each concept has an advertorial at `/<concept>/advertorial` (and an Early Black 
 7. **Hand-off**: the offer with real prices from `offers.ts`, and buttons to that concept's product page, keeping the offer.
 
 Labelled **"Brand content"**. No invented journalists, experts, studies or testimonials; quotes are real reviews with their source.
+
+### Homepage and 7 Reasons
+
+Two more page types share the advertorial's rules (no invented people, studies or testimonials; real reviews with their source; no urgency):
+
+- **Homepage** (`/<concept>/home`): promise → why bras stop working (design, not body) → value props → the product page's buy box → reviews → how it works → comparison → guarantee → FAQ → close. Christmas adds a three-point gifting section.
+- **7 Reasons** (`/<concept>/7-reasons`): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
 
 ## 6. Adding a concept
 

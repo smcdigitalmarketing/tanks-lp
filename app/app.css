@@ -171,6 +171,28 @@
   --accent-ink: #f6dccf;
 }
 
+/*
+ * Christmas: the same brand with a deep evergreen accent for the
+ * announcement bar and offer blocks. Colours only, no snow or sparkle.
+ */
+[data-offer="christmas"] {
+  --accent: #1f3b30;
+  --accent-ink: #fdf8ef;
+}
+[data-theme="soft"][data-offer="christmas"] {
+  --accent: #2f4a3c;
+  --accent-ink: #fbf6ef;
+  --highlight: #f3e1d6;
+}
+[data-theme="premium"][data-offer="christmas"] {
+  --accent: #1c2b24;
+  --accent-ink: #efe6d6;
+}
+[data-theme="contemporary"][data-offer="christmas"] {
+  --accent: #1d3b2f;
+  --accent-ink: #f6dccf;
+}
+
 /* Headline type follows the concept: weight, case and tracking are tokens too. */
 @utility display {
   font-family: var(--f-display);

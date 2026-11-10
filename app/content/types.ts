@@ -109,7 +109,7 @@ export type Review = {
 
 // ── Offers ─────────────────────────────────────────────────────────────────
 
-export type OfferId = "standard" | "early-black-friday";
+export type OfferId = "standard" | "early-black-friday" | "christmas";
 
 export type Bundle = {
   id: "single" | "trio" | "five";
@@ -281,6 +281,10 @@ export type Concept = {
   pdp: ConceptPdp;
   offers: Record<OfferId, OfferCopy>;
   advertorial: Advertorial;
+  /** The brand homepage (/<slug>/home). */
+  home: ConceptHome;
+  /** The "7 reasons" listicle (/<slug>/7-reasons). */
+  sevenReasons: ConceptReasons;
 };
 
 /** The parts of a product page a brand writes for itself. */
@@ -320,4 +324,81 @@ export type ConceptPdp = {
   faq: { headline: string; sub: string };
   closing: { headline: string; body: string; cta: string };
   footerBlurb: string;
+};
+
+// ── Brand homepage ─────────────────────────────────────────────────────────
+
+export type HomeHero = {
+  eyebrow: string;
+  headline: string;
+  sub: string;
+  cta: string;
+};
+
+/** Copy for the homepage. Reasons, steps, reviews and FAQ reuse the product page's. */
+export type ConceptHome = {
+  hero: HomeHero;
+  /** "It's not your body, it's the design": why bras stop working. */
+  problem: {
+    eyebrow?: string;
+    headline: string;
+    body: string[];
+    points: { label: string; text: string }[];
+  };
+  /** Heading over the buy box on the homepage. */
+  shop: { eyebrow?: string; headline: string; sub: string };
+  /** Early Black Friday: a different hero, the rest stays. */
+  blackFriday: { hero: HomeHero };
+  /** Christmas: a gifting hero, a gifting section and a gifting close. */
+  christmas: {
+    hero: HomeHero;
+    gift: {
+      eyebrow?: string;
+      headline: string;
+      sub: string;
+      points: { title: string; text: string; flag?: Flag }[];
+    };
+    closing: { headline: string; body: string; cta: string };
+  };
+};
+
+// ── 7 Reasons listicle ─────────────────────────────────────────────────────
+
+export type Reason = {
+  /** Short label above the reason, like a section tag. */
+  tag: string;
+  title: string;
+  body: string[];
+  image: Img;
+  flag?: Flag;
+};
+
+export type ReasonsCopy = {
+  kicker: string;
+  headline: string;
+  dek: string;
+  intro: string[];
+  /** Exactly seven. */
+  reasons: Reason[];
+  /** Button labels for the calls to action after reasons 2, 4 and 6. */
+  ctas: [string, string, string];
+  closing: { eyebrow: string; headline: string; body: string; cta: string };
+};
+
+/**
+ * The listicle's copy. Early Black Friday is the lead version; Christmas swaps
+ * the framing and some reasons for gifting ones. Standard uses `base`.
+ */
+export type ConceptReasons = {
+  byline: string;
+  readTime: string;
+  /** The real review quoted near the end (by reviewer name). */
+  review: string;
+  base: ReasonsCopy;
+  blackFriday: Partial<Omit<ReasonsCopy, "reasons">> & {
+    reasons?: Partial<Record<number, Reason>>;
+  };
+  christmas: Partial<Omit<ReasonsCopy, "reasons">> & {
+    reasons?: Partial<Record<number, Reason>>;
+  };
 };

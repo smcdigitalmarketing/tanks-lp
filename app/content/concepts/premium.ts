@@ -1,5 +1,5 @@
 import type { Concept } from "~/content/types";
-import { photos, reviewBy } from "~/content/product";
+import { GUARANTEE_FLAG, photos, reviewBy, sizeGuide } from "~/content/product";
 
 /**
  * Concept B · Modern Premium Essentials.
@@ -174,6 +174,14 @@ export const premium: Concept = {
       cta: "Add to bag",
       badge: "The set of five",
     },
+    christmas: {
+      banner: "The Christmas edit · The gift set of three, {price:trio}",
+      eyebrow: "The Christmas edit",
+      headline: "The Support Tank, to give",
+      sub: "Seasonal pricing on every set, for giving or for keeping.",
+      cta: "Add to bag",
+      badge: "The gift set",
+    },
   },
   advertorial: {
     kicker: "Oriel Journal · On dressing",
@@ -263,6 +271,223 @@ export const premium: Concept = {
       headline: "The Support Tank",
       body: "Thirteen colourways, sizes S to 4XL, and a fit guarantee if the size isn't right.",
       cta: "Discover the Support Tank",
+    },
+  },
+  home: {
+    hero: {
+      eyebrow: "Oriel · The Support Tank",
+      headline: "The bra, built into the tank",
+      sub: "Soft cups, broad straps and a clean line. No wire, no hooks, no band: one layer that does the work of two.",
+      cta: "Shop the Support Tank",
+    },
+    problem: {
+      eyebrow: "The design problem",
+      headline: "It was never your body. It was the architecture.",
+      body: [
+        "Most bras hold you the same way: two narrow straps, one tight band, often a wire. The support is real, but it is concentrated into a few thin lines.",
+        "Those lines are what you feel by the afternoon: marks on the shoulder, a band to adjust, hooks to reach for at the end of the day. Change the architecture and the feeling changes with it.",
+      ],
+      points: [
+        {
+          label: "Straps",
+          text: "Thin straps carry everything along two narrow lines. Ours are broad and lie flat.",
+        },
+        {
+          label: "Band",
+          text: "An elastic band wraps the ribs all day. The Support Tank has none.",
+        },
+        {
+          label: "Hardware",
+          text: "Wires, hooks and clasps press where they sit. There are none here.",
+        },
+      ],
+    },
+    shop: {
+      eyebrow: "The Support Tank",
+      headline: "Select your set",
+      sub: "Each tank in a set is chosen by colourway and size. Thirteen colourways, S to 4XL.",
+    },
+    blackFriday: {
+      hero: {
+        eyebrow: "Early Black Friday",
+        headline: "The Support Tank, at its Black Friday price",
+        sub: "Early access to seasonal pricing on every set. The same tank: soft cups, broad straps, and no wire, hooks or band.",
+        cta: "Shop Black Friday sets",
+      },
+    },
+    christmas: {
+      hero: {
+        eyebrow: "The Christmas edit",
+        headline: "A considered gift: comfort, built in",
+        sub: "The Support Tank in thirteen colourways, sized by a single measurement. A gift that is worn, rather than kept in a drawer.",
+        cta: "Shop gift sets",
+      },
+      gift: {
+        eyebrow: "Giving",
+        headline: "Easy to choose. Easy to change.",
+        sub: "Three reasons the Support Tank works as a gift.",
+        points: [
+          {
+            title: "Sized like a shirt",
+            text: "S to 4XL, by bust measurement. If you know her usual size, you are most of the way there.",
+            flag: sizeGuide.flag,
+          },
+          {
+            title: "A free size exchange",
+            text: "If the size is wrong, one free exchange within 90 days of delivery. She keeps the first.",
+            flag: GUARANTEE_FLAG,
+          },
+          {
+            title: "Thirteen colourways",
+            text: "From nude and black to softer shades. Choose one for each tank in a set.",
+          },
+        ],
+      },
+      closing: {
+        headline: "Give less to wear. Nothing to fasten.",
+        body: "The Support Tank in a gift set of three or five, each tank in its own colourway and size.",
+        cta: "Shop gift sets",
+      },
+    },
+  },
+  sevenReasons: {
+    byline: "Oriel Journal",
+    readTime: "4 min read",
+    review: "Heather Kurtin",
+    base: {
+      kicker: "Oriel Journal · Seven reasons",
+      headline: "Seven reasons the Support Tank replaces the bra",
+      dek: "A design case in seven parts: what the built-in tank removes, what it keeps, and why it is worth the change.",
+      intro: [
+        "The bra has barely changed in a century. Two straps, a band, hooks at the back, and often a wire.",
+        "The Support Tank starts somewhere else: with a tank you would wear anyway, and the support built into it. Here is the case for it, in seven parts.",
+      ],
+      reasons: [
+        {
+          tag: "Construction",
+          title: "Nothing rigid against the body",
+          body: [
+            "No underwire, no hooks, no clasps. The support comes from soft cups set inside the front panel, so nothing hard presses where it sits.",
+            "By mid-afternoon, that is the difference you notice.",
+          ],
+          image: photos.cupDetail,
+        },
+        {
+          tag: "Dressing",
+          title: "It goes on over the head",
+          body: [
+            "Like any tank: pull it on, and the support is already in place. No reaching behind your back, no fastening, no adjusting in the mirror.",
+            "Dressing becomes one movement rather than several.",
+          ],
+          image: photos.pullOn,
+        },
+        {
+          tag: "Sizing",
+          title: "One size, not a band and a cup",
+          body: [
+            "Seven sizes, S to 4XL, chosen by a single bust measurement taken over your usual bra. No band numbers and no cup letters.",
+            "Between two sizes, choose the larger.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        {
+          tag: "The layer",
+          title: "One layer instead of two",
+          body: [
+            "A bra under a tank is two garments doing one job. The Support Tank is both: a single smooth layer, worn alone or beneath a shirt or a knit.",
+            "Cut long enough to tuck in, for an uninterrupted line.",
+          ],
+          image: photos.brownPair,
+        },
+        {
+          tag: "The strap",
+          title: "Broad straps that lie flat",
+          body: [
+            "The straps are wide and soft, so the support is carried across the shoulder rather than along two narrow lines.",
+            "There are no sliders, and nothing to adjust.",
+          ],
+          image: photos.strap,
+        },
+        {
+          tag: "The band",
+          title: "No band around the ribs",
+          body: [
+            "Most bras rely on a tight elastic band, worn around the ribs for the whole day. The Support Tank has none.",
+            "Nothing to dig in, and nothing to unfasten when you get home.",
+          ],
+          image: photos.back,
+        },
+        {
+          tag: "The fit",
+          title: "A fit guarantee, if the size is wrong",
+          body: [
+            "Choosing a size from a screen is difficult. If it isn't right, tell us within 90 days of delivery and we will send another size, at no cost.",
+            "You keep the first. There is nothing to post back.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      ],
+      ctas: [
+        "Discover the Support Tank",
+        "Select your set",
+        "Select your colourways",
+      ],
+      closing: {
+        eyebrow: "The Support Tank",
+        headline: "Less to wear. Nothing to fasten.",
+        body: "Sets of three and five, each tank chosen by colourway and size. Buy two, receive a third: {price:trio} for the set.",
+        cta: "Select your set",
+      },
+    },
+    blackFriday: {
+      kicker: "Early Black Friday · Oriel Journal",
+      dek: "A design case in seven parts, with early access to Black Friday pricing on every set.",
+      closing: {
+        eyebrow: "Early Black Friday",
+        headline: "The Support Tank, at its Black Friday price",
+        body: "The set of five for {price:five}, {each:five} a tank. Every set, priced early.",
+        cta: "Shop Black Friday sets",
+      },
+    },
+    christmas: {
+      kicker: "The Christmas edit · Oriel Journal",
+      headline: "Seven reasons the Support Tank is this year's gift",
+      dek: "A gift that is worn rather than kept: the built-in tank, in seven parts.",
+      intro: [
+        "Most gifts of clothing are a guess. The Support Tank is less of one: sized like a shirt, in thirteen colourways, with a free size exchange if the guess is wrong.",
+        "Here is the case for giving it, in seven parts.",
+      ],
+      reasons: {
+        2: {
+          tag: "Choosing",
+          title: "Easy to buy for someone else",
+          body: [
+            "Seven sizes, S to 4XL, chosen the way you would choose a shirt. If you know her usual size, you are most of the way there.",
+            "For a closer match, the size guide gives the bust range for each size.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        6: {
+          tag: "If it's wrong",
+          title: "A size exchange, without the awkwardness",
+          body: [
+            "If the size isn't right, she tells us within 90 days of delivery and we send another, at no cost.",
+            "She keeps the first. Nothing to post back, nothing to explain.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      },
+      ctas: ["Discover the gift", "Select a gift set", "Select colourways"],
+      closing: {
+        eyebrow: "The Christmas edit",
+        headline: "The Support Tank, to give",
+        body: "The gift set of three for {price:trio}, {each:trio} a tank, each in its own colourway and size.",
+        cta: "Shop gift sets",
+      },
     },
   },
 };

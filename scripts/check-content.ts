@@ -127,10 +127,18 @@ if (offers.standard.provisional)
   fail("the Standard offer should be the verified source pricing");
 if (!offers["early-black-friday"].provisional)
   fail("Early Black Friday prices must stay marked provisional");
+if (!offers.christmas.provisional)
+  fail("Christmas prices must stay marked provisional");
+
+const SUFFIX: Record<string, string> = {
+  standard: "",
+  "early-black-friday": "/early-black-friday",
+  christmas: "/christmas",
+};
 
 for (const c of CONCEPTS) {
-  for (const offer of ["standard", "early-black-friday"]) {
-    const suffix = offer === "standard" ? "" : "/early-black-friday";
+  for (const offer of Object.keys(SUFFIX)) {
+    const suffix = SUFFIX[offer];
 
     const pdpPath = `/${c}${suffix}`;
     const pdp = await page(pdpPath);
@@ -151,7 +159,7 @@ for (const c of CONCEPTS) {
     if (/aria-checked="true"[^>]*>\s*(S|M|L|XL|2XL|3XL|4XL)\s*</.test(pdp))
       fail(`${pdpPath}: a size is preselected`);
     if (offer !== "standard" && !pdp.includes('data-flag="provisional"'))
-      fail(`${pdpPath}: Early BF prices not flagged provisional`);
+      fail(`${pdpPath}: ${offer} prices not flagged provisional`);
     if (offer === "standard" && pdp.includes('data-flag="provisional"'))
       fail(`${pdpPath}: Standard prices flagged provisional`);
 
@@ -167,6 +175,34 @@ for (const c of CONCEPTS) {
     ];
     if (!adv.includes(`href="/${c}${suffix}#buy"`) || ctas.length < 2)
       fail(`${advPath}: CTAs don't all lead to /${c}${suffix}#buy`);
+
+    // Brand homepage: its own buy box, real reviews, offer prices flagged.
+    const homePath = `/${c}/home${suffix}`;
+    const home = await page(homePath);
+    lint(homePath, home);
+    if (!home.includes('data-testid="add-to-cart"'))
+      fail(`${homePath}: no buy box`);
+    if ((home.match(/data-flag="competitor-review"/g) ?? []).length < 7)
+      fail(`${homePath}: reviews not all labelled competitor reviews`);
+    if ((offer !== "standard") !== home.includes('data-flag="provisional"'))
+      fail(`${homePath}: provisional flag wrong for ${offer}`);
+
+    // 7 Reasons: brand content, seven reasons, every CTA to the product page.
+    const rPath = `/${c}/7-reasons${suffix}`;
+    const reasons = await page(rPath);
+    lint(rPath, reasons);
+    if (!toText(reasons).includes("Brand content"))
+      fail(`${rPath}: not labelled Brand content`);
+    if ((reasons.match(/data-testid="reason"/g) ?? []).length !== 7)
+      fail(`${rPath}: should have seven reasons`);
+    const rCtas = [...reasons.matchAll(/<a[^>]*data-testid="reasons-cta"[^>]*>/g)];
+    if (
+      rCtas.length !== 4 ||
+      !rCtas.every((m) => m[0].includes(`href="/${c}${suffix}#buy"`))
+    )
+      fail(`${rPath}: CTAs don't all lead to /${c}${suffix}#buy`);
+    if ((offer !== "standard") !== reasons.includes('data-flag="provisional"'))
+      fail(`${rPath}: provisional flag wrong for ${offer}`);
   }
 }
 

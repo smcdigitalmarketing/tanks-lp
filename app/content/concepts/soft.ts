@@ -1,5 +1,5 @@
 import type { Concept } from "~/content/types";
-import { photos, reviewBy } from "~/content/product";
+import { GUARANTEE_FLAG, photos, reviewBy, sizeGuide } from "~/content/product";
 
 /**
  * Concept A · Soft Everyday Comfort.
@@ -190,6 +190,14 @@ export const soft: Concept = {
       cta: "Add to cart",
       badge: "Best value",
     },
+    christmas: {
+      banner: "Christmas gifting: 3 Everyday Tanks for {price:trio}",
+      eyebrow: "Christmas gifting",
+      headline: "A comfy gift she'll actually wear",
+      sub: "Gift pricing on every bundle, for the women on your list (and you).",
+      cta: "Add to cart",
+      badge: "Most gifted",
+    },
   },
   advertorial: {
     kicker: "A note from Hallie",
@@ -280,6 +288,219 @@ export const soft: Concept = {
       headline: "Ready to try the Everyday Tank?",
       body: "Choose your colours, check your size with the guide, and if it doesn't fit we'll send another size free.",
       cta: "See the Everyday Tank",
+    },
+  },
+  home: {
+    hero: {
+      eyebrow: "The Hallie Everyday Tank",
+      headline: "The comfy tank with the bra already inside",
+      sub: "Pull it on in the morning and get on with your day. No hooks to reach for, no wire, no band digging in by lunchtime.",
+      cta: "Find your Everyday Tank",
+    },
+    problem: {
+      eyebrow: "Sound familiar?",
+      headline: "It's not you. Most bras just weren't made for your day.",
+      body: [
+        "If you can't wait to take your bra off when you get home, you're not alone, and you're not doing anything wrong.",
+        "Most bras put all the work on a few small places: two thin straps, one tight band, sometimes a wire. That's where you feel it, hour after hour.",
+      ],
+      points: [
+        {
+          label: "The straps",
+          text: "Thin straps can leave marks on your shoulders. Ours are wide and soft, and sit flat.",
+        },
+        {
+          label: "The band",
+          text: "A tight band around your ribs all day. The Everyday Tank doesn't have one.",
+        },
+        {
+          label: "The hooks",
+          text: "Reaching behind your back to do them up. Here, there's nothing to fasten.",
+        },
+      ],
+    },
+    shop: {
+      eyebrow: "Choose your tanks",
+      headline: "Pick your bundle, colours and size",
+      sub: "Choose a colour for each tank, then your size. Seven sizes, S to 4XL.",
+    },
+    blackFriday: {
+      hero: {
+        eyebrow: "Early Black Friday",
+        headline: "Stock up on your comfiest tank, a little early",
+        sub: "Black Friday pricing on every bundle, right now. The same soft tank with the support built in: no hooks, no wire, no band.",
+        cta: "See Black Friday bundles",
+      },
+    },
+    christmas: {
+      hero: {
+        eyebrow: "Christmas gifting",
+        headline: "A gift of comfort she'll wear every day",
+        sub: "The Everyday Tank has the support built in, so getting dressed is the easy part of her day. Thirteen colours, sizes S to 4XL.",
+        cta: "Shop gift bundles",
+      },
+      gift: {
+        eyebrow: "Gifting made easy",
+        headline: "Simple to choose, simple to swap",
+        sub: "Buying clothes for someone else can feel like a guess. Here's why this one is easier.",
+        points: [
+          {
+            title: "Buy it like a T-shirt",
+            text: "Sizes run S to 4XL. If you know her usual top size, start there, or check the size guide.",
+            flag: sizeGuide.flag,
+          },
+          {
+            title: "A free size swap",
+            text: "If it doesn't fit, she tells us within 90 days of delivery and we send a different size, free. She keeps the first one.",
+            flag: GUARANTEE_FLAG,
+          },
+          {
+            title: "A colour for everyone",
+            text: "Thirteen colours, from soft nudes to deeper shades. Pick a different one for each tank.",
+          },
+        ],
+      },
+      closing: {
+        headline: "Give her the comfiest part of her day",
+        body: "Bundle three or five Everyday Tanks, each in its own colour and size.",
+        cta: "Shop gift bundles",
+      },
+    },
+  },
+  sevenReasons: {
+    byline: "The Hallie team",
+    readTime: "4 min read",
+    review: "Carol",
+    base: {
+      kicker: "From the Hallie team",
+      headline: "7 reasons to swap your bra for the Everyday Tank",
+      dek: "Small, everyday reasons that add up to a much more comfortable day.",
+      intro: [
+        "Most of us have a drawer of bras that were supposed to fit. And most of us know the feeling of finally taking one off at the end of the day.",
+        "The Everyday Tank is a soft tank with the support built in. Here are seven reasons it might be the easiest change you make this year.",
+      ],
+      reasons: [
+        {
+          tag: "No more digging in",
+          title: "No hooks, no wire, no band",
+          body: [
+            "There's nothing hard in the Everyday Tank. No underwire under your bust, no hooks at your back, no tight band around your ribs.",
+            "So there's nothing to dig in by lunchtime, and nothing you're waiting to take off.",
+          ],
+          image: photos.cupDetail,
+        },
+        {
+          tag: "Getting dressed",
+          title: "It goes on over your head, like any tank",
+          body: [
+            "No reaching behind your back to do up hooks. You just pull it on, and the support is already where it should be.",
+            "If fiddly fastenings have ever made you sigh in the morning, this one's for you.",
+          ],
+          image: photos.pullOn,
+        },
+        {
+          tag: "Sizing",
+          title: "Pick your size like a T-shirt",
+          body: [
+            "No band numbers, no cup letters. Seven sizes, S to 4XL, chosen from one bust measurement taken over your usual bra.",
+            "In between sizes? Go for the larger one.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        {
+          tag: "One layer",
+          title: "Your tank and your bra in one",
+          body: [
+            "No more bra plus a cami. The Everyday Tank is one soft, smooth layer you can wear on its own or under your favourite tops.",
+            "It's long enough to tuck into high-waisted trousers, so it looks neat under everything.",
+          ],
+          image: photos.brownPair,
+        },
+        {
+          tag: "Your shoulders",
+          title: "Wide, soft straps that sit flat",
+          body: [
+            "Thin straps can leave little red lines on your shoulders by the end of the day. These straps are wide and soft, and they sit flat.",
+            "There are no sliders, and nothing to adjust.",
+          ],
+          image: photos.strap,
+        },
+        {
+          tag: "Your back",
+          title: "Nothing tight around your ribs",
+          body: [
+            "A regular bra holds you with a tight band that wraps around you all day long. The Everyday Tank doesn't have one.",
+            "Just a soft tank, from your shoulders down.",
+          ],
+          image: photos.back,
+        },
+        {
+          tag: "Peace of mind",
+          title: "A free size swap if it doesn't fit",
+          body: [
+            "Choosing a size online can be hard. If yours doesn't fit the way you hoped, tell us within 90 days of delivery and we'll send a different size, free.",
+            "You keep the first one. There's nothing to post back.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      ],
+      ctas: ["See the Everyday Tank", "Choose your colours", "Find your size"],
+      closing: {
+        eyebrow: "Bundle and save",
+        headline: "Buy 2, get 1 free",
+        body: "Three Everyday Tanks for {price:trio}, {each:trio} each. Pick a colour and size for every tank.",
+        cta: "Shop the Everyday Tank",
+      },
+    },
+    blackFriday: {
+      kicker: "Early Black Friday · From the Hallie team",
+      dek: "Small, everyday reasons that add up to a much more comfortable day, with Black Friday pricing on every bundle.",
+      closing: {
+        eyebrow: "Early Black Friday",
+        headline: "Stock up a little early",
+        body: "Five Everyday Tanks for {price:five}, just {each:five} each. Black Friday pricing on every bundle, now.",
+        cta: "See Black Friday bundles",
+      },
+    },
+    christmas: {
+      kicker: "Christmas gifting · From the Hallie team",
+      headline: "7 reasons the Everyday Tank makes a lovely gift",
+      dek: "For your mum, your sister, your best friend, or you: a gift of comfort she'll actually wear.",
+      intro: [
+        "Clothes can be a tricky gift. You're never quite sure about the size, and you never know if they'll get worn.",
+        "The Everyday Tank is a soft tank with the support built in, easy to size and easy to swap. Here are seven reasons it's on our gift list this year.",
+      ],
+      reasons: {
+        2: {
+          tag: "Buying for someone else",
+          title: "Easy to size, even as a surprise",
+          body: [
+            "Sizes run S to 4XL, just like her T-shirts. If you know her usual size, that's a great place to start.",
+            "Want to be sure? The size guide shows the bust range for every size.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        6: {
+          tag: "No awkward returns",
+          title: "If it doesn't fit, she swaps it free",
+          body: [
+            "If the size isn't quite right, she tells us within 90 days of delivery and we'll send a different size, free.",
+            "She keeps the first one, and nobody has to post anything back.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      },
+      ctas: ["See the Everyday Tank", "Choose gift colours", "Shop gift bundles"],
+      closing: {
+        eyebrow: "Christmas gifting",
+        headline: "A comfy gift she'll actually wear",
+        body: "Three Everyday Tanks for {price:trio}, {each:trio} each. Choose a colour and size for every tank.",
+        cta: "Shop gift bundles",
+      },
     },
   },
 };

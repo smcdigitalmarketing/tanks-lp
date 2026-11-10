@@ -2,12 +2,21 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router";
 import { ArrowLeft, Menu, ShoppingBag, X } from "lucide-react";
 import type { Concept, OfferId } from "~/content/types";
-import { concepts, conceptPath } from "~/content/concepts";
+import { concepts, conceptPath, type PageKind } from "~/content/concepts";
+import { OFFER_IDS, OFFER_LABEL } from "~/content/offers";
 import { CartProvider, useCart } from "~/lib/mock-cart";
 import { Wordmark } from "~/components/ui";
 import { CartDrawer, CheckoutDemo } from "./cart";
 
-type PageKind = "product" | "advertorial";
+/** Pages that carry their own buy box, so "#buy" links stay on the page. */
+const hasBuyBox = (page: PageKind) => page === "product" || page === "home";
+
+const PAGE_LABEL: Record<PageKind, string> = {
+  product: "Product page",
+  home: "Homepage",
+  reasons: "7 Reasons",
+  advertorial: "Advertorial",
+};
 
 /**
  * A brand's storefront chrome (announcement bar, header, footer) around a
@@ -34,7 +43,7 @@ export function StoreShell({
         data-offer={offerId}
         className="min-h-dvh bg-bg font-sans text-ink antialiased"
       >
-        {page === "product" && (
+        {hasBuyBox(page) && (
           <a
             href="#buy"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-btn focus:bg-surface focus:px-4 focus:py-2"
@@ -46,9 +55,9 @@ export function StoreShell({
         <Announcement
           text={announcement}
           href={
-            page === "advertorial"
-              ? conceptPath(concept.slug, { offer: offerId }) + "#buy"
-              : "#buy"
+            hasBuyBox(page)
+              ? "#buy"
+              : conceptPath(concept.slug, { offer: offerId }) + "#buy"
           }
         />
         <Header concept={concept} offerId={offerId} page={page} />
@@ -128,14 +137,14 @@ function PreviewStrip({
         role="group"
         aria-label="Page"
       >
-        {(["product", "advertorial"] as const).map((p) => (
+        {(["home", "product", "reasons", "advertorial"] as const).map((p) => (
           <Link
             key={p}
             to={conceptPath(concept.slug, { page: p, offer: offerId })}
             className={pill(p === page)}
             aria-current={p === page ? "page" : undefined}
           >
-            {p === "product" ? "Product page" : "Advertorial"}
+            {PAGE_LABEL[p]}
           </Link>
         ))}
       </span>
@@ -144,14 +153,14 @@ function PreviewStrip({
         role="group"
         aria-label="Offer"
       >
-        {(["standard", "early-black-friday"] as const).map((o) => (
+        {OFFER_IDS.map((o) => (
           <Link
             key={o}
             to={conceptPath(concept.slug, { page, offer: o })}
             className={pill(o === offerId)}
             aria-current={o === offerId ? "page" : undefined}
           >
-            {o === "standard" ? "Standard" : "Early Black Friday"}
+            {OFFER_LABEL[o]}
           </Link>
         ))}
       </span>
@@ -183,8 +192,9 @@ function Announcement({ text, href }: { text: string; href: string }) {
 }
 
 function navFor(concept: Concept, offerId: OfferId, page: PageKind) {
-  const product =
-    page === "product" ? "" : conceptPath(concept.slug, { offer: offerId });
+  const product = hasBuyBox(page)
+    ? ""
+    : conceptPath(concept.slug, { offer: offerId });
   return [
     { href: `${product}#buy`, label: "Shop" },
     { href: `${product}#how`, label: "How it works" },
@@ -214,9 +224,9 @@ function Header({
   const logo = (
     <a
       href={
-        page === "product"
+        page === "home"
           ? "#top"
-          : conceptPath(concept.slug, { offer: offerId })
+          : conceptPath(concept.slug, { page: "home", offer: offerId })
       }
       className="shrink-0"
       aria-label={`${concept.brand.name} home`}
@@ -301,6 +311,10 @@ function Footer({ concept, offerId }: { concept: Concept; offerId: OfferId }) {
       links: [
         { href: `${product}#buy`, label: concept.brand.productName },
         { href: `${product}#compare`, label: "How it compares" },
+        {
+          href: conceptPath(concept.slug, { page: "reasons", offer: offerId }),
+          label: "7 reasons to switch",
+        },
         {
           href: conceptPath(concept.slug, {
             page: "advertorial",

@@ -10,7 +10,9 @@ All three concepts share the same product facts, photos and prices, so the diffe
 | B       | Oriel                | Modern Premium Essentials | `/premium`      | `/premium/advertorial`      |
 | C       | Daywell              | Contemporary Comfortwear  | `/contemporary` | `/contemporary/advertorial` |
 
-Add `/early-black-friday` to any product or advertorial URL for the Early Black Friday version (`/soft/early-black-friday`, `/soft/advertorial/early-black-friday`). Other pages:
+Each brand also has a **homepage** (`/<concept>/home`: hero, why bras stop working, reasons, the buy box, reviews, how it works, comparison, guarantee, FAQ) and a **7 Reasons** listicle (`/<concept>/7-reasons`, labelled "Brand content", signed by the brand, every button to the product page).
+
+Add `/early-black-friday` or `/christmas` to any of the four page URLs for that offer (`/soft/early-black-friday`, `/premium/7-reasons/early-black-friday`, `/contemporary/home/christmas`). The 7 Reasons page leads with its Early Black Friday version; Christmas swaps the framing and two reasons for gifting ones. Other pages:
 
 | URL        | What                                                                                              |
 | ---------- | ------------------------------------------------------------------------------------------------- |
@@ -18,7 +20,7 @@ Add `/early-black-friday` to any product or advertorial URL for the Early Black 
 | `/gallery` | All 21 gallery slides plus the demo video, downloadable                                           |
 | `/sop`     | The product landing page SOP, rendered from [docs/pdp-template-sop.md](docs/pdp-template-sop.md)  |
 
-A dark strip at the top of every page switches concept (A/B/C), page (product/advertorial) and offer (Standard/Early Black Friday) while keeping your place. Its **Flags** switch (off by default) shows the amber tags that mark claims we can't make yet.
+A dark strip at the top of every page switches concept (A/B/C), page (homepage/product/7 Reasons/advertorial) and offer (Standard/Early Black Friday/Christmas) while keeping your place. Its **Flags** switch (off by default) shows the amber tags that mark claims we can't make yet.
 
 ## Docs
 
@@ -35,15 +37,16 @@ npm install
 npm run dev -- --port 5207
 ```
 
-`npm run typecheck` checks types. `npm run build` prerenders all 15 pages.
+`npm run typecheck` checks types. `npm run build` prerenders every page (36 concept pages plus the hub, gallery and SOP).
 
 ## Where things live
 
 Product facts, offers and brands are kept apart:
 
 - `app/content/product.ts`: facts about the tank, every one carrying its source status (source claim, conflict, to confirm), plus photos, size guide, reviews, comparison and FAQ. Concepts never add facts.
-- `app/content/offers.ts`: Standard and Early Black Friday bundles and prices, and the savings maths. Change a price here and every page, banner and cart follows.
-- `app/content/concepts/{soft,premium,contemporary}.ts`: one file per brand: name, palette, fonts, voice, layout options, product page copy, offer copy, advertorial.
+- `app/content/offers.ts`: Standard, Early Black Friday and Christmas bundles and prices, and the savings maths. Change a price here and every page, banner and cart follows.
+- `app/content/concepts/{soft,premium,contemporary}.ts`: one file per brand: name, palette, fonts, voice, layout options, product page copy, offer copy, advertorial, homepage (`home`) and 7 Reasons (`sevenReasons`) copy.
+- `app/components/home/brand-home.tsx`: the brand homepage; `app/components/listicle/seven-reasons.tsx`: the 7 Reasons listicle. `app/content/reasons.ts` lays each offer's framing over the base copy.
 - `app/content/page.ts`: joins a concept, the product facts and an offer into what a product page renders, including the gallery slides.
 - `app/app.css`: theme tokens; each concept is one `[data-theme]` block, plus Early Black Friday overrides.
 - `app/components/pdp-template.tsx`: the seven SOP sections in order; sections are in `app/components/sections/`.

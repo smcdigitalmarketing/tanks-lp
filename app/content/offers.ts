@@ -6,8 +6,9 @@
  * in app/data/catalog.json). Savings are worked out against buying the same
  * number of single tanks, never against the store's $84.95 compare-at price.
  *
- * Early Black Friday: PROVISIONAL numbers for this concept test only. They
- * are labelled on every page. No timers, no stock claims, no end date.
+ * Early Black Friday and Christmas: PROVISIONAL numbers for this concept
+ * test only. They are labelled on every page. No timers, no stock claims, no
+ * end date (and no shipping cut-off until there is a real one).
  */
 import type { Bundle, Offer, OfferId } from "~/content/types";
 
@@ -56,12 +57,52 @@ export const offers: Record<OfferId, Offer> = {
       },
     ],
   },
+  christmas: {
+    id: "christmas",
+    name: "Christmas",
+    provisional: true,
+    basis:
+      "Provisional gifting prices set for this POC, between the Standard and Early Black Friday bundles. Not live anywhere.",
+    defaultBundle: "trio",
+    bundles: [
+      { id: "single", units: 1, price: 31.95, deal: "One to give" },
+      {
+        id: "trio",
+        units: 3,
+        price: 62.95,
+        deal: "Gift 3-pack",
+        badge: "Most gifted",
+      },
+      { id: "five", units: 5, price: 89.95, deal: "Gift 5-pack" },
+    ],
+  },
 };
 
-export const OFFER_IDS: OfferId[] = ["standard", "early-black-friday"];
+export const OFFER_IDS: OfferId[] = ["standard", "early-black-friday", "christmas"];
 
 export const isOfferId = (v: string | undefined): v is OfferId =>
-  v === "standard" || v === "early-black-friday";
+  v === "standard" || v === "early-black-friday" || v === "christmas";
+
+/** The URL segment each offer adds to a page ("" for Standard). */
+export const OFFER_SEGMENT: Record<OfferId, string> = {
+  standard: "",
+  "early-black-friday": "/early-black-friday",
+  christmas: "/christmas",
+};
+
+/** Short label for switches and links. */
+export const OFFER_LABEL: Record<OfferId, string> = {
+  standard: "Standard",
+  "early-black-friday": "Early Black Friday",
+  christmas: "Christmas",
+};
+
+/** Offer id from a URL segment (undefined → Standard; unknown → null). */
+export function offerFromSegment(seg: string | undefined): OfferId | null {
+  if (!seg) return "standard";
+  if (seg === "standard") return null;
+  return isOfferId(seg) ? seg : null;
+}
 
 export const getBundle = (offer: Offer, id: Bundle["id"]) =>
   offer.bundles.find((b) => b.id === id) ?? offer.bundles[0];

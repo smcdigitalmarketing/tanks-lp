@@ -25,7 +25,12 @@ const { values: args } = parseArgs({
 });
 const BASE = args.base!.replace(/\/$/, "");
 const CONCEPTS = ["soft", "premium", "contemporary"] as const;
-const OFFERS = ["standard", "early-black-friday"] as const;
+const OFFERS = ["standard", "early-black-friday", "christmas"] as const;
+const SEGMENT: Record<(typeof OFFERS)[number], string> = {
+  standard: "",
+  "early-black-friday": "/early-black-friday",
+  christmas: "/christmas",
+};
 const SOP_ORDER = [
   "above-the-fold",
   "buy-box",
@@ -37,12 +42,12 @@ const SOP_ORDER = [
 ];
 
 const money = (n: number) => `$${n.toFixed(2).replace(/\.00$/, "")}`;
-const productPath = (c: string, o: string) =>
-  o === "standard" ? `/${c}` : `/${c}/early-black-friday`;
-const advertorialPath = (c: string, o: string) =>
-  o === "standard"
-    ? `/${c}/advertorial`
-    : `/${c}/advertorial/early-black-friday`;
+type OfferKey = (typeof OFFERS)[number];
+const productPath = (c: string, o: OfferKey) => `/${c}${SEGMENT[o]}`;
+const advertorialPath = (c: string, o: OfferKey) =>
+  `/${c}/advertorial${SEGMENT[o]}`;
+const homePath = (c: string, o: OfferKey) => `/${c}/home${SEGMENT[o]}`;
+const reasonsPath = (c: string, o: OfferKey) => `/${c}/7-reasons${SEGMENT[o]}`;
 
 let failures = 0;
 let passes = 0;
@@ -281,7 +286,7 @@ async function productPage(
 async function advertorialPage(
   page: Page,
   concept: string,
-  offerId: string,
+  offerId: OfferKey,
   errors: string[],
 ) {
   const path = advertorialPath(concept, offerId);
@@ -299,6 +304,69 @@ async function advertorialPage(
     `${path}: every CTA goes to ${target} (saw ${ctas.join(", ")})`,
   );
   await page.getByTestId("advertorial-cta").last().click();
+  await page.waitForURL(`**${productPath(concept, offerId)}*`);
+  check(
+    new URL(page.url()).pathname === productPath(concept, offerId),
+    `${path}: CTA lands on the product page`,
+  );
+  check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
+}
+
+/** The brand homepage: hero, its own buy box, a working add to cart. */
+async function homePage(
+  page: Page,
+  concept: string,
+  offerId: OfferKey,
+  errors: string[],
+) {
+  const path = homePath(concept, offerId);
+  await open(page, path, errors);
+  check(
+    (await page.getByTestId("home-cta").getAttribute("href")) === "#buy",
+    `${path}: hero button goes to the buy box`,
+  );
+  check(
+    (await page.locator("#buy [data-testid=add-to-cart]").count()) === 1,
+    `${path}: buy box on the page`,
+  );
+  check(
+    offerId !== "christmas" ||
+      (await page.getByTestId("gift-points").count()) === 1,
+    `${path}: Christmas gifting section`,
+  );
+  const first = offers[offerId].bundles[0];
+  await page.locator(`[data-bundle="${first.id}"]`).first().click();
+  check(
+    (await page.getByTestId("total").first().textContent())?.includes(
+      money(first.price),
+    ),
+    `${path}: bundle price ${money(first.price)} in the buy box`,
+  );
+  check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
+}
+
+/** The 7 Reasons listicle: seven reasons, every CTA to the product page with the offer. */
+async function reasonsPage(
+  page: Page,
+  concept: string,
+  offerId: OfferKey,
+  errors: string[],
+) {
+  const path = reasonsPath(concept, offerId);
+  await open(page, path, errors);
+  check(
+    (await page.getByTestId("reason").count()) === 7,
+    `${path}: seven reasons`,
+  );
+  const hrefs = await page
+    .getByTestId("reasons-cta")
+    .evaluateAll((els) => els.map((e) => e.getAttribute("href")));
+  const target = `${productPath(concept, offerId)}#buy`;
+  check(
+    hrefs.length === 4 && hrefs.every((h) => h === target),
+    `${path}: 4 CTAs to ${target} (got ${hrefs.join(", ")})`,
+  );
+  await page.getByTestId("reasons-cta").last().click();
   await page.waitForURL(`**${productPath(concept, offerId)}*`);
   check(
     new URL(page.url()).pathname === productPath(concept, offerId),
@@ -336,7 +404,7 @@ for (const [label, viewport] of [
     "hub shows three concepts",
   );
   for (const c of CONCEPTS)
-    for (const p of ["product", "advertorial"])
+    for (const p of ["product", "advertorial", "home", "reasons"])
       for (const o of OFFERS)
         check(
           (await page.getByTestId(`hub-link-${c}-${p}-${o}`).count()) === 1,
@@ -353,6 +421,8 @@ for (const [label, viewport] of [
       for (const run of [
         () => productPage(page, c, o, label === "phone", errors),
         () => advertorialPage(page, c, o, errors),
+        () => homePage(page, c, o, errors),
+        () => reasonsPage(page, c, o, errors),
       ]) {
         try {
           await run();

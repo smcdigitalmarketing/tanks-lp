@@ -1,5 +1,5 @@
 import type { Concept } from "~/content/types";
-import { photos, reviewBy } from "~/content/product";
+import { GUARANTEE_FLAG, photos, reviewBy, sizeGuide } from "~/content/product";
 
 /**
  * Concept C · Contemporary Comfortwear.
@@ -178,6 +178,14 @@ export const contemporary: Concept = {
       cta: "Add to cart",
       badge: "Best deal",
     },
+    christmas: {
+      banner: "Holiday packs: 3 tanks for {price:trio} ({each:trio} each)",
+      eyebrow: "Holiday packs",
+      headline: "The gift that replaces two layers",
+      sub: "Holiday pricing on every pack.",
+      cta: "Add to cart",
+      badge: "Top gift",
+    },
   },
   advertorial: {
     kicker: "Daywell Explains",
@@ -256,6 +264,213 @@ export const contemporary: Concept = {
       headline: "Try the Daywell Bra Tank",
       body: "Pick a pack, pick your colours, measure for your size. Wrong size? We swap it free.",
       cta: "Shop the Bra Tank",
+    },
+  },
+  home: {
+    hero: {
+      eyebrow: "The Daywell Bra Tank",
+      headline: "Your tank and your bra. Now one piece.",
+      sub: "Support built into a tank you'll wear all day. No underwire. No hooks. No band. Pull it on and go.",
+      cta: "Shop the Bra Tank",
+    },
+    problem: {
+      eyebrow: "The problem",
+      headline: "Most bras put the load on three thin lines",
+      body: [
+        "Two straps. One band. Often a wire. That's how most bras work, and it's why you feel them by 3pm.",
+        "Your body isn't the problem. The build is. Remove the parts that dig in, keep the support.",
+      ],
+      points: [
+        {
+          label: "Straps",
+          text: "Thin and adjustable → wide, soft, nothing to adjust.",
+        },
+        { label: "Band", text: "Tight elastic around the ribs → no band at all." },
+        { label: "Hardware", text: "Wire, hooks, clasps → zero." },
+      ],
+    },
+    shop: {
+      eyebrow: "Packs",
+      headline: "Build your pack",
+      sub: "Choose a pack, a colour per tank, then your size. 13 colours. S–4XL.",
+    },
+    blackFriday: {
+      hero: {
+        eyebrow: "Early Black Friday",
+        headline: "Black Friday pricing on the Bra Tank. Live now.",
+        sub: "Every pack marked down early. Same tank: support built in, no wire, no hooks, no band.",
+        cta: "Shop Black Friday packs",
+      },
+    },
+    christmas: {
+      hero: {
+        eyebrow: "Holiday packs",
+        headline: "The gift that replaces two layers",
+        sub: "A tank with the bra built in. 13 colours, sizes S–4XL, and a free size swap if it doesn't fit.",
+        cta: "Shop holiday packs",
+      },
+      gift: {
+        eyebrow: "Gifting",
+        headline: "3 reasons it's an easy gift",
+        sub: "No guesswork. No awkward returns.",
+        points: [
+          {
+            title: "Shirt sizing",
+            text: "S–4XL. Know her T-shirt size? You're close. The size guide covers the rest.",
+            flag: sizeGuide.flag,
+          },
+          {
+            title: "Free size swap",
+            text: "Wrong size? One free exchange within 90 days of delivery. She keeps the first.",
+            flag: GUARANTEE_FLAG,
+          },
+          {
+            title: "13 colours",
+            text: "Neutrals to deeper shades. Pick one per tank in a pack.",
+          },
+        ],
+      },
+      closing: {
+        headline: "Gift one piece instead of two",
+        body: "Packs of 3 and 5, each tank in its own colour and size.",
+        cta: "Shop holiday packs",
+      },
+    },
+  },
+  sevenReasons: {
+    byline: "Daywell",
+    readTime: "3 min read",
+    review: "Eileen",
+    base: {
+      kicker: "Daywell Explains",
+      headline: "7 reasons the Bra Tank beats your bra",
+      dek: "What it removes, what it keeps, and what it doesn't do. In seven points.",
+      intro: [
+        "A bra is three parts doing one job: straps, a band and hardware. The Bra Tank does the same job with one piece.",
+        "Here's the breakdown.",
+      ],
+      reasons: [
+        {
+          tag: "Hardware",
+          title: "Zero hardware",
+          body: [
+            "No underwire. No hooks. No clasps. Support comes from soft cups built into the front panel.",
+            "Nothing rigid means nothing pressing in by the afternoon.",
+          ],
+          image: photos.cupDetail,
+        },
+        {
+          tag: "Speed",
+          title: "On in one move",
+          body: [
+            "Pull it over your head. Done. The support is already in place.",
+            "No reaching back, no fastening, no adjusting.",
+          ],
+          image: photos.pullOn,
+        },
+        {
+          tag: "Sizing",
+          title: "No band-and-cup maths",
+          body: [
+            "7 sizes, S to 4XL, from one bust measurement over your bra.",
+            "Between sizes? Size up.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        {
+          tag: "Layers",
+          title: "Two layers become one",
+          body: [
+            "Bra plus tank: two garments. The Bra Tank: one.",
+            "Long enough to tuck into high-waisted bottoms.",
+          ],
+          image: photos.brownPair,
+        },
+        {
+          tag: "Straps",
+          title: "Wide straps, nothing to adjust",
+          body: [
+            "Wide, soft straps spread the support across your shoulders instead of two thin lines.",
+            "No sliders to fiddle with.",
+          ],
+          image: photos.strap,
+        },
+        {
+          tag: "Band",
+          title: "No band around your ribs",
+          body: [
+            "Most bras grip your ribcage with a tight elastic band all day.",
+            "The Bra Tank doesn't have one. That's it.",
+          ],
+          image: photos.back,
+        },
+        {
+          tag: "Risk",
+          title: "Wrong size? Free swap.",
+          body: [
+            "If it doesn't fit, tell us within 90 days of delivery. We send a different size, free.",
+            "Keep the first one. Nothing to return.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      ],
+      ctas: ["Shop the Bra Tank", "Pick your colours", "Build your pack"],
+      closing: {
+        eyebrow: "Packs",
+        headline: "Buy 2, get 1 free",
+        body: "3 tanks for {price:trio}. That's {each:trio} each. Or 5 for {price:five}.",
+        cta: "Build your pack",
+      },
+    },
+    blackFriday: {
+      kicker: "Early Black Friday · Daywell Explains",
+      dek: "What it removes, what it keeps, and what it doesn't do. Plus Black Friday pricing, live now.",
+      closing: {
+        eyebrow: "Early Black Friday",
+        headline: "Black Friday pricing. Live now.",
+        body: "5 tanks for {price:five}. That's {each:five} each. Every pack marked down early.",
+        cta: "Shop Black Friday packs",
+      },
+    },
+    christmas: {
+      kicker: "Holiday packs · Daywell Explains",
+      headline: "7 reasons the Bra Tank is the easiest gift on your list",
+      dek: "Easy to size. Easy to swap. Made for every day.",
+      intro: [
+        "Clothing gifts fail on two things: the size, and whether they get worn.",
+        "The Bra Tank handles the first with shirt sizing and a free swap. Here's the full breakdown.",
+      ],
+      reasons: {
+        2: {
+          tag: "Gifting",
+          title: "Shirt sizing, no guesswork",
+          body: [
+            "S to 4XL. Know her T-shirt size? Start there.",
+            "The size guide gives the bust range for each size.",
+          ],
+          image: photos.front,
+          flag: sizeGuide.flag,
+        },
+        6: {
+          tag: "Returns",
+          title: "Wrong size? She swaps it free.",
+          body: [
+            "One free size exchange within 90 days of delivery.",
+            "She keeps the first. Nothing to send back.",
+          ],
+          image: photos.portrait,
+          flag: GUARANTEE_FLAG,
+        },
+      },
+      ctas: ["Shop the Bra Tank", "Pick gift colours", "Build a holiday pack"],
+      closing: {
+        eyebrow: "Holiday packs",
+        headline: "Gift one piece instead of two",
+        body: "3 tanks for {price:trio}, {each:trio} each. Or 5 for {price:five}.",
+        cta: "Shop holiday packs",
+      },
     },
   },
 };

@@ -1,5 +1,5 @@
 import type { Concept, ConceptSlug, Offer } from "~/content/types";
-import { getBundle, pricing } from "~/content/offers";
+import { OFFER_SEGMENT, getBundle, pricing } from "~/content/offers";
 import { money } from "~/data/catalog";
 import { soft } from "./soft";
 import { premium } from "./premium";
@@ -11,16 +11,24 @@ export const concepts: Concept[] = [soft, premium, contemporary];
 export const conceptBySlug = (slug: string | undefined) =>
   concepts.find((c) => c.slug === (slug as ConceptSlug));
 
-/** URL of a concept page. */
+export type PageKind = "product" | "advertorial" | "home" | "reasons";
+
+const PAGE_PATH: Record<PageKind, string> = {
+  product: "",
+  advertorial: "/advertorial",
+  home: "/home",
+  reasons: "/7-reasons",
+};
+
+/** URL of a concept page, e.g. /premium/7-reasons/early-black-friday. */
 export function conceptPath(
   slug: ConceptSlug,
   {
     page = "product",
     offer = "standard",
-  }: { page?: "product" | "advertorial"; offer?: Offer["id"] } = {},
+  }: { page?: PageKind; offer?: Offer["id"] } = {},
 ) {
-  const base = page === "advertorial" ? `/${slug}/advertorial` : `/${slug}`;
-  return offer === "standard" ? base : `${base}/early-black-friday`;
+  return `/${slug}${PAGE_PATH[page]}${OFFER_SEGMENT[offer]}`;
 }
 
 /**
