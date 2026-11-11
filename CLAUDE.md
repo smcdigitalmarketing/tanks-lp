@@ -12,6 +12,7 @@ Hallie: a test-mode mock store for a built-in-bra tank (homepage, shop, product 
 - **No body-result claims.** No weight loss, lift, slimming, "back bulge", or "years younger". Comparisons name construction (hooks, band, straps), not outcomes.
 - **Flag what isn't ours yet.** Use the `Flag` component (`source`, `conflict`, `provisional`, `competitor-review`, `to-confirm`) for anything unverified, including policies (shipping, refunds, payment). Flags are hidden by default; the "Flags" switch in the test-mode strip shows them. Storefront pages carry no "sample", "placeholder" or "demo" wording.
 - **Test mode stays honest.** Checkout takes no card details and says that nothing is charged or sent; the confirmation says the order was a test. Don't add card fields or claim an email was sent.
+- **Landing pages stay out of the menus.** The 7 Reasons listicle, the advertorial and any later ad landers are reached from ads only. Never link them from the header, phone menu or footer, here or in a Shopify theme or menu built from this store. The test-mode strip links them for reviewers; `npm run check` fails if a menu does.
 - **Prices come from `app/content/offers.ts`.** In copy, use tokens like `{price:five}` rather than typing numbers.
 
 ## Checks

@@ -134,7 +134,8 @@ function useFlagsToggle() {
 
 /**
  * Internal strip above the store: switch the offer (campaign) in place, show
- * verification flags, and reach the gallery and SOP. It also says the store
+ * verification flags, and reach the landing pages (which the store's menus
+ * don't link), the gallery and the SOP. It also says the store
  * is in test mode, so nobody mistakes the checkout for a real one.
  */
 export function PreviewStrip({
@@ -185,6 +186,18 @@ export function PreviewStrip({
         )}
       </span>
       <span className="flex items-center gap-3">
+        <Link
+          to={storePath("reasons", offer)}
+          className="hover:text-white hover:underline"
+        >
+          7 reasons
+        </Link>
+        <Link
+          to={storePath("story", offer)}
+          className="hover:text-white hover:underline"
+        >
+          Letter
+        </Link>
         <Link to="/gallery" className="hover:text-white hover:underline">
           Gallery
         </Link>
@@ -222,12 +235,15 @@ function Announcement({ text, href }: { text: string; href: string }) {
   );
 }
 
+/**
+ * The store's menu. Landing pages (the 7 Reasons listicle, the advertorial
+ * and any later ad landers) are reached from ads only, so they never go in
+ * the header, the phone menu or the footer; the test-mode strip links them.
+ */
 function navFor(offer: OfferId) {
   return [
     { href: storePath("shop", offer), label: "Shop" },
     { href: storePath("product", offer), label: brand.brand.productName },
-    { href: storePath("reasons", offer), label: "Why switch" },
-    { href: storePath("story", offer), label: "Our story" },
     { href: helpPath("faq"), label: "Help" },
   ];
 }
@@ -337,8 +353,6 @@ function Footer({ offer }: { offer: OfferId }) {
       links: [
         { href: storePath("product", offer), label: brand.brand.productName },
         { href: storePath("shop", offer), label: "All colours" },
-        { href: storePath("reasons", offer), label: "7 reasons to switch" },
-        { href: storePath("story", offer), label: "A note from Hallie" },
         { href: "/cart", label: "Your cart" },
       ],
     },

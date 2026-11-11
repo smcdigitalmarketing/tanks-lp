@@ -11,8 +11,8 @@ The store is fully clickable: homepage, shop, product page, cart, a Shopify-styl
 | `/`                                                          | Homepage: hero, why bras stop working, value props, colours, the buy box, reviews, how it works, guarantee, FAQ |
 | `/collections/all`                                           | Shop: every colour; a card opens the product page with that colour chosen                                       |
 | `/products/everyday-tank`                                    | Product page: the SOP's seven sections, bundle → colour per tank → size → add to cart                           |
-| `/pages/7-reasons`                                           | 7 Reasons listicle ("Brand content")                                                                            |
-| `/pages/a-note-from-hallie`                                  | Advertorial: a signed letter ("Brand content")                                                                  |
+| `/pages/7-reasons`                                           | 7 Reasons listicle ("Brand content"); a landing page for ads, not linked from the menus                         |
+| `/pages/a-note-from-hallie`                                  | Advertorial: a signed letter ("Brand content"); a landing page for ads, not linked from the menus               |
 | `/cart`                                                      | Cart page: lines, quantities, savings, checkout                                                                 |
 | `/checkout`                                                  | Checkout: contact, US delivery address, shipping method, test-mode payment; validates every field               |
 | `/checkout/thank-you?order=HL1001`                           | Order confirmation, read from the browser                                                                       |
@@ -21,7 +21,7 @@ The store is fully clickable: homepage, shop, product page, cart, a Shopify-styl
 
 Add `/early-black-friday` or `/christmas` to any of the first five URLs for that offer (`/early-black-friday`, `/products/everyday-tank/christmas`). Pages without prices (help, cart) keep the offer you last browsed. Cart lines keep the offer they were added in, through to the order.
 
-A dark **Test mode** strip at the top of every page switches the offer in place, links to the gallery and SOP, and has a **Flags** switch (off by default) that shows the amber tags on claims and policies we can't make yet. Checkout pages carry their own one-line test-mode notice.
+A dark **Test mode** strip at the top of every page switches the offer in place, links to the two landing pages (which the menus leave out), the gallery and the SOP, and has a **Flags** switch (off by default) that shows the amber tags on claims and policies we can't make yet. Checkout pages carry their own one-line test-mode notice.
 
 Old six-concept links redirect: `/soft/...` goes to the same Hallie page and offer, and the retired concepts go to the homepage.
 

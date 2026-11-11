@@ -11,8 +11,8 @@
  * order confirmation, FAQ, phone menu, sticky bar), the homepage, the shop
  * (colour cards preselect the colour), the 7 Reasons and the advertorial
  * (CTAs keep the offer). Plus the help pages and contact form, the offer
- * switch, old concept URLs redirecting, /gallery, /sop, the 404 page, and
- * every internal link.
+ * switch, old concept URLs redirecting, /gallery, /sop, the 404 page,
+ * every internal link, and no landing page in the header or footer menus.
  */
 import { parseArgs } from "node:util";
 import { chromium, type Page } from "playwright-core";
@@ -78,6 +78,25 @@ async function open(page: Page, path: string, errors: string[]) {
   check(res?.status() === 200, `${path} returns 200 (got ${res?.status()})`);
   await page.waitForTimeout(150); // let hydration finish
   await collectLinks(page);
+  await checkMenus(page, path);
+}
+
+/**
+ * Landing pages (the listicle, the advertorial) are reached from ads only:
+ * the header, phone menu and footer must never link them.
+ */
+const LANDING_PAGES = ["/pages/7-reasons", "/pages/a-note-from-hallie"];
+async function checkMenus(page: Page, at: string) {
+  const hrefs = await page.$$eval("header a[href], footer a[href]", (as) =>
+    as.map((a) => a.getAttribute("href") ?? ""),
+  );
+  const landing = hrefs.filter((h) =>
+    LANDING_PAGES.some((p) => h === p || h.startsWith(`${p}/`)),
+  );
+  check(
+    landing.length === 0,
+    `${at}: landing page linked from the menus (${landing.join(", ")})`,
+  );
 }
 
 async function productPage(
@@ -327,9 +346,10 @@ async function productPage(
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.getByRole("button", { name: "Open menu" }).click();
     check(
-      (await page.locator("#mobile-menu a").count()) === 6,
-      `${at}: phone menu has 6 links`,
+      (await page.locator("#mobile-menu a").count()) === 4,
+      `${at}: phone menu has 4 links`,
     );
+    await checkMenus(page, `${at} phone menu`);
     await page.locator("#mobile-menu a", { hasText: "Help" }).click();
     await page.waitForURL("**/pages/faq");
     await page.waitForTimeout(300);

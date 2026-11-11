@@ -100,6 +100,10 @@ Two more page types share the advertorial's rules (no invented people, studies o
 - **Homepage** (`/`): promise → why bras stop working (design, not body) → value props → colours → the product page's buy box → reviews → how it works → comparison → guarantee → FAQ → close. Christmas adds a three-point gifting section.
 - **7 Reasons** (`/pages/7-reasons`): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
 
+### Landing pages stay out of the menus
+
+The advertorial, the 7 Reasons listicle and any later ad landers are landing pages: traffic reaches them from ads, with UTMs. They are never linked from the store's header, phone menu or footer, in the mock store or in a Shopify theme or menu built from it. A shopper browsing the store doesn't need an ad's warm-up, and a menu link mixes organic visits into the page's numbers (section 7). In the mock store the test-mode strip links them for reviewers, and `npm run check` fails if a menu links one.
+
 ## 6. The rest of the store
 
 The store around the landing pages follows the same rules: facts from `product.ts`, prices from `offers.ts`, and a flag on anything we haven't decided.
