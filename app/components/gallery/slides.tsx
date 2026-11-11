@@ -433,4 +433,4 @@ export const SLIDE_LABELS: Record<Slide["kind"], string> = {
 
 /** Where `npm run gallery:export` writes each slide (public/ is served as-is). */
 export const exportPath = (n: number, kind: string) =>
-  `/gallery/hallie/${String(n).padStart(2, "0")}-${kind}.jpg`;
+  `/gallery/kindwear/${String(n).padStart(2, "0")}-${kind}.jpg`;

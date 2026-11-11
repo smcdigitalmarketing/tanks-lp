@@ -4,13 +4,13 @@ import type { Review } from "~/content/types";
 import type { Img } from "~/lib/images";
 import { Flag } from "~/components/flag";
 
-/** The Hallie wordmark: lowercase DM Serif Display with a rose full stop. */
+/** The Kindwear wordmark: lowercase DM Serif Display with a rose full stop. */
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
       className={`inline-flex items-baseline font-[DM_Serif_Display,Georgia,serif] text-[1.9rem] leading-none tracking-[-0.01em] text-ink ${className}`}
     >
-      hallie<span className="text-brand">.</span>
+      kindwear<span className="text-brand">.</span>
     </span>
   );
 }

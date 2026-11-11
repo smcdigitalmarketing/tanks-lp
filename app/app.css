@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Store pages set data-theme="soft" (Hallie) on their wrapper, and an offer
+ * Store pages set data-theme="soft" (Kindwear) on their wrapper, and an offer
  * sets data-offer. The utilities below read the scoped custom properties.
  */
 @theme inline {
@@ -60,7 +60,7 @@
   --r-btn: 12px;
 }
 
-/* ── Hallie: warm cream, muted rose, soft and rounded ────────────────────── */
+/* ── Kindwear: warm cream, muted rose, soft and rounded ────────────────────── */
 [data-theme="soft"] {
   --bg: #fbf6ef;
   --surface: #ffffff;
@@ -151,7 +151,7 @@ html[data-flags="off"] [data-flag] {
   display: none !important;
 }
 
-/* Hallie's letter: a drop cap on the first paragraph. */
+/* Kindwear's letter: a drop cap on the first paragraph. */
 .first-letter-drop > p:first-child::first-letter {
   float: left;
   margin: 0.08em 0.12em 0 0;

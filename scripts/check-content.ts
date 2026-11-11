@@ -164,19 +164,6 @@ const PRODUCT = "/products/everyday-tank";
     if (offer === "standard" && pdp.includes('data-flag="provisional"'))
       fail(`${pdpPath}: Standard prices flagged provisional`);
 
-    const advPath = `/pages/a-note-from-hallie${suffix}`;
-    const adv = await page(advPath);
-    lint(advPath, adv);
-    if (!toText(adv).includes("Brand content"))
-      fail(`${advPath}: not labelled Brand content`);
-    const ctas = [
-      ...adv.matchAll(
-        /data-testid="advertorial-cta"[^>]*|href="([^"]+)"[^>]*data-testid="advertorial-cta"/g,
-      ),
-    ];
-    if (!adv.includes(`href="${buy}"`) || ctas.length < 2)
-      fail(`${advPath}: CTAs don't all lead to ${buy}`);
-
     // Homepage: its own buy box, real reviews, offer prices flagged.
     const homePath = suffix || "/";
     const home = await page(homePath);
@@ -187,23 +174,6 @@ const PRODUCT = "/products/everyday-tank";
       fail(`${homePath}: reviews not all labelled competitor reviews`);
     if ((offer !== "standard") !== home.includes('data-flag="provisional"'))
       fail(`${homePath}: provisional flag wrong for ${offer}`);
-
-    // 7 Reasons: brand content, seven reasons, every CTA to the product page.
-    const rPath = `/pages/7-reasons${suffix}`;
-    const reasons = await page(rPath);
-    lint(rPath, reasons);
-    if (!toText(reasons).includes("Brand content"))
-      fail(`${rPath}: not labelled Brand content`);
-    if ((reasons.match(/data-testid="reason"/g) ?? []).length !== 7)
-      fail(`${rPath}: should have seven reasons`);
-    const rCtas = [...reasons.matchAll(/<a[^>]*data-testid="reasons-cta"[^>]*>/g)];
-    if (
-      rCtas.length !== 4 ||
-      !rCtas.every((m) => m[0].includes(`href="${buy}"`))
-    )
-      fail(`${rPath}: CTAs don't all lead to ${buy}`);
-    if ((offer !== "standard") !== reasons.includes('data-flag="provisional"'))
-      fail(`${rPath}: provisional flag wrong for ${offer}`);
 
     // Shop: every colour, offer prices flagged.
     const shopPath = `/collections/all${suffix}`;

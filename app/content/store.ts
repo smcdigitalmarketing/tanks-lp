@@ -1,10 +1,10 @@
 import type { Offer, OfferId } from "~/content/types";
 import { OFFER_SEGMENT, getBundle, pricing } from "~/content/offers";
 import { money } from "~/data/catalog";
-import { hallie } from "~/content/hallie";
+import { kindwear } from "~/content/kindwear";
 
 /** The store's one brand. Components still take it as a `concept` prop. */
-export const brand = hallie;
+export const brand = kindwear;
 
 /** The one product's handle, as Shopify would have it. */
 export const PRODUCT_HANDLE = "everyday-tank";
@@ -14,19 +14,30 @@ export const PRODUCT_HANDLE = "everyday-tank";
  * campaign link (/early-black-friday, /products/everyday-tank/christmas)
  * opens the page with that offer's prices and words.
  */
-export type PageKind = "home" | "product" | "shop" | "reasons" | "story";
+export type PageKind = "home" | "product" | "shop";
 
 const PAGE_PATH: Record<PageKind, string> = {
   home: "",
   product: `/products/${PRODUCT_HANDLE}`,
   shop: "/collections/all",
-  reasons: "/pages/7-reasons",
-  story: "/pages/a-note-from-hallie",
 };
+
+/** The live Shopify store, where the landing pages live. */
+export const SHOPIFY_STORE = "https://h3q1rr-0w.myshopify.com";
+
+/**
+ * The ad landing pages (the 7 Reasons listicle and the letter) live on the
+ * Shopify store only. This mock's old URLs redirect there; the store's menus
+ * never link them.
+ */
+export const LANDING_PAGES = {
+  reasons: `${SHOPIFY_STORE}/pages/7-reasons`,
+  letter: `${SHOPIFY_STORE}/pages/a-note-from-kindwear`,
+} as const;
 
 export const PAGE_KINDS = Object.keys(PAGE_PATH) as PageKind[];
 
-/** URL of a store page in an offer, e.g. /pages/7-reasons/early-black-friday. */
+/** URL of a store page in an offer, e.g. /products/everyday-tank/christmas. */
 export function storePath(page: PageKind, offer: OfferId = "standard") {
   return `${PAGE_PATH[page]}${OFFER_SEGMENT[offer]}` || "/";
 }

@@ -1,6 +1,6 @@
 # Product research
 
-What we know about the product, where each fact comes from, and what has to be confirmed before a real store. The shared product data lives in `app/content/product.ts` and `app/content/offers.ts`; the brand file (`app/content/hallie.ts`) adds words, never facts.
+What we know about the product, where each fact comes from, and what has to be confirmed before a real store. The shared product data lives in `app/content/product.ts` and `app/content/offers.ts`; the brand file (`app/content/kindwear.ts`) adds words, never facts.
 
 ## The product
 
@@ -89,5 +89,5 @@ See [competitor-analysis.md](competitor-analysis.md#reviews-in-detail). Summary:
 6. **Policies:** guarantee terms (free exchange? refunds?), shipping cost and times, returns address, carrier.
 7. **Pricing:** confirm Standard pricing and margins at $20.97 a tank (5-pack); set the real Black Friday discount and dates.
 8. **Colour range:** 13 colours × 7 sizes is 91 SKUs. Consider launching with fewer. "Pastel Blue" photographs as royal blue.
-9. **Brand:** trademark and domain checks for the chosen name (Hallie, Oriel and Daywell are working names).
+9. **Brand:** trademark and domain checks for the chosen name (Kindwear, Oriel and Daywell are working names).
 10. **Legal:** clear any copy that came from research; nothing on these pages is copied, but the comparison table structure and the FAQ topics are derived from the competitor.

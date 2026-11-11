@@ -1,14 +1,9 @@
-import type { Route } from "./+types/advertorial";
-import { brand } from "~/content/store";
-import { loadOffer, offerPageMeta } from "~/lib/store-route";
-import { AdvertorialPage } from "~/components/advertorial/advertorial";
+import { redirect } from "react-router";
+import { LANDING_PAGES } from "~/content/store";
 
-/** /pages/a-note-from-hallie (the advertorial), plus an offer segment. */
-export const loader = ({ params }: Route.LoaderArgs) => loadOffer(params.offer);
+/** The letter (with or without an offer) lives on the Shopify store now. */
+export const loader = () => redirect(LANDING_PAGES.letter, 302);
 
-export const meta: Route.MetaFunction = ({ data }) =>
-  offerPageMeta("story", data?.offerId);
-
-export default function Page({ loaderData }: Route.ComponentProps) {
-  return <AdvertorialPage concept={brand} offerId={loaderData.offerId} />;
+export default function Page() {
+  return null;
 }

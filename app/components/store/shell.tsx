@@ -10,6 +10,7 @@ import { Menu, ShoppingBag, X } from "lucide-react";
 import type { OfferId } from "~/content/types";
 import {
   HELP_PAGES,
+  LANDING_PAGES,
   brand,
   fillPrices,
   helpPath,
@@ -23,7 +24,7 @@ import { Wordmark } from "~/components/ui";
 import { CartDrawer } from "./cart";
 
 /*
- * The Hallie storefront chrome: a dark preview strip (internal: offer switch,
+ * The Kindwear storefront chrome: a dark preview strip (internal: offer switch,
  * flags, gallery and SOP), the announcement bar, the header with the cart,
  * and the footer.
  *
@@ -32,7 +33,7 @@ import { CartDrawer } from "./cart";
  * and "continue shopping" stay in the same campaign.
  */
 
-const OFFER_KEY = "hallie-offer";
+const OFFER_KEY = "kindwear-offer";
 const OfferContext = createContext<OfferId>("standard");
 
 /** The offer the current page is in (its own, or the one last browsed). */
@@ -134,8 +135,8 @@ function useFlagsToggle() {
 
 /**
  * Internal strip above the store: switch the offer (campaign) in place, show
- * verification flags, and reach the landing pages (which the store's menus
- * don't link), the gallery and the SOP. It also says the store
+ * verification flags, and reach the landing pages (on the Shopify store;
+ * the menus never link them), the gallery and the SOP. It also says the store
  * is in test mode, so nobody mistakes the checkout for a real one.
  */
 export function PreviewStrip({
@@ -186,18 +187,18 @@ export function PreviewStrip({
         )}
       </span>
       <span className="flex items-center gap-3">
-        <Link
-          to={storePath("reasons", offer)}
+        <a
+          href={LANDING_PAGES.reasons}
           className="hover:text-white hover:underline"
         >
           7 reasons
-        </Link>
-        <Link
-          to={storePath("story", offer)}
+        </a>
+        <a
+          href={LANDING_PAGES.letter}
           className="hover:text-white hover:underline"
         >
           Letter
-        </Link>
+        </a>
         <Link to="/gallery" className="hover:text-white hover:underline">
           Gallery
         </Link>
@@ -236,9 +237,9 @@ function Announcement({ text, href }: { text: string; href: string }) {
 }
 
 /**
- * The store's menu. Landing pages (the 7 Reasons listicle, the advertorial
- * and any later ad landers) are reached from ads only, so they never go in
- * the header, the phone menu or the footer; the test-mode strip links them.
+ * The store's menu. Landing pages (the 7 Reasons listicle, the letter and
+ * any later ad landers) live on the Shopify store and are reached from ads
+ * only, so they never go in the header, the phone menu or the footer.
  */
 function navFor(offer: OfferId) {
   return [

@@ -5,7 +5,7 @@ import type { IconName } from "~/components/icons";
  * Three layers, kept apart on purpose:
  *   product.ts   facts about the tank, each with its source status (shared)
  *   offers.ts    prices and bundles for the Standard, Early Black Friday and Christmas offers
- *   hallie.ts    the brand: name, look, voice and copy
+ *   kindwear.ts    the brand: name, look, voice and copy
  * page.ts joins them into the PdpContent one product page renders.
  */
 
@@ -214,32 +214,6 @@ export type PdpContent = {
   closing: { headline: string; body: string; cta: string };
 };
 
-// ── Advertorial ────────────────────────────────────────────────────────────
-
-export type AdvertorialSection = {
-  title: string;
-  body: string[];
-  image?: Img;
-  caption?: string;
-  /** A short highlighted list: objections answered, or bra vs tank. */
-  list?: { label: string; text: string }[];
-  pullQuote?: Review;
-};
-
-export type Advertorial = {
-  kicker: string;
-  headline: string;
-  dek: string;
-  byline: string;
-  readTime: string;
-  lead: Img;
-  leadCaption: string;
-  intro: string[];
-  sections: AdvertorialSection[];
-  /** The hand-off into the offer, then the button to the product page. */
-  closing: { headline: string; body: string; cta: string };
-};
-
 // ── Concepts ───────────────────────────────────────────────────────────────
 
 /** The theme name in app.css (data-theme="soft"). */
@@ -270,11 +244,8 @@ export type Concept = {
   /** Copy for the product page; facts come from product.ts. */
   pdp: ConceptPdp;
   offers: Record<OfferId, OfferCopy>;
-  advertorial: Advertorial;
   /** The homepage (/). */
   home: ConceptHome;
-  /** The "7 reasons" listicle (/pages/7-reasons). */
-  sevenReasons: ConceptReasons;
 };
 
 /** The parts of a product page a brand writes for itself. */
@@ -349,46 +320,5 @@ export type ConceptHome = {
       points: { title: string; text: string; flag?: Flag }[];
     };
     closing: { headline: string; body: string; cta: string };
-  };
-};
-
-// ── 7 Reasons listicle ─────────────────────────────────────────────────────
-
-export type Reason = {
-  /** Short label above the reason, like a section tag. */
-  tag: string;
-  title: string;
-  body: string[];
-  image: Img;
-  flag?: Flag;
-};
-
-export type ReasonsCopy = {
-  kicker: string;
-  headline: string;
-  dek: string;
-  intro: string[];
-  /** Exactly seven. */
-  reasons: Reason[];
-  /** Button labels for the calls to action after reasons 2, 4 and 6. */
-  ctas: [string, string, string];
-  closing: { eyebrow: string; headline: string; body: string; cta: string };
-};
-
-/**
- * The listicle's copy. Early Black Friday is the lead version; Christmas swaps
- * the framing and some reasons for gifting ones. Standard uses `base`.
- */
-export type ConceptReasons = {
-  byline: string;
-  readTime: string;
-  /** The real review quoted near the end (by reviewer name). */
-  review: string;
-  base: ReasonsCopy;
-  blackFriday: Partial<Omit<ReasonsCopy, "reasons">> & {
-    reasons?: Partial<Record<number, Reason>>;
-  };
-  christmas: Partial<Omit<ReasonsCopy, "reasons">> & {
-    reasons?: Partial<Record<number, Reason>>;
   };
 };

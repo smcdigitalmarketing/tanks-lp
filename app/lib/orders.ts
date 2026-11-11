@@ -19,7 +19,7 @@ export type Address = {
 };
 
 export type Order = {
-  /** "HL1001": shown to the shopper. */
+  /** "KW1001": shown to the shopper. */
   number: string;
   placedAt: string;
   email: string;
@@ -32,10 +32,10 @@ export type Order = {
   savings: number;
   total: number;
   /** Cart attributes a Shopify build would record with the order. */
-  attributes: { pdp_variant: "hallie"; offers: string[] };
+  attributes: { pdp_variant: "kindwear"; offers: string[] };
 };
 
-const KEY = "hallie-orders";
+const KEY = "kindwear-orders";
 const FIRST_NUMBER = 1001;
 
 export function loadOrders(): Order[] {
@@ -62,7 +62,7 @@ export function saveOrder(order: Omit<Order, "number" | "placedAt">): Order {
   );
   const full: Order = {
     ...order,
-    number: `HL${last + 1}`,
+    number: `KW${last + 1}`,
     placedAt: new Date().toISOString(),
   };
   try {
@@ -71,7 +71,7 @@ export function saveOrder(order: Omit<Order, "number" | "placedAt">): Order {
     // Storage blocked: the confirmation page falls back to sessionStorage.
   }
   try {
-    window.sessionStorage.setItem("hallie-last-order", JSON.stringify(full));
+    window.sessionStorage.setItem("kindwear-last-order", JSON.stringify(full));
   } catch {
     // Nothing more to try.
   }
@@ -83,7 +83,7 @@ export function lastPlacedOrder(number: string | null): Order | undefined {
   const saved = findOrder(number);
   if (saved) return saved;
   try {
-    const raw = window.sessionStorage.getItem("hallie-last-order");
+    const raw = window.sessionStorage.getItem("kindwear-last-order");
     const o = raw ? (JSON.parse(raw) as Order) : undefined;
     return o && (!number || o.number === number) ? o : undefined;
   } catch {

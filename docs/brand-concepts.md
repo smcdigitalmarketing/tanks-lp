@@ -1,8 +1,8 @@
-# Brand: Hallie
+# Brand: Kindwear
 
-Hallie is the chosen brand for the built-in bra tank. It was concept A ("Soft Everyday Comfort") of six directions tested on the same product page; the other five (Oriel, Daywell, Juno, Linnea, Mabel & Co.) were retired and can be found in git history at commit `d3d8cbe`.
+Kindwear is the chosen brand for the built-in bra tank. Until 12 Nov 2026 it was called Hallie; the name changed and the look, voice and copy stayed. It was concept A ("Soft Everyday Comfort") of six directions tested on the same product page; the other five (Oriel, Daywell, Juno, Linnea, Mabel & Co.) were retired and can be found in git history at commit `d3d8cbe`.
 
-The name is a **working name**: no trademark, domain or social-handle check yet.
+The name is a **working name**: no trademark, domain or social-handle check yet (kindwear.com is taken).
 
 | | |
 | --- | --- |
@@ -15,11 +15,11 @@ The name is a **working name**: no trademark, domain or social-handle check yet.
 | Bundle picker | Stacked cards with thumbnails |
 | Reviews | Soft tilted paper notes |
 | Value props | Three photo cards |
-| Advertorial | A personal letter, drop cap, signed ("A note from Hallie") |
+| Landing pages | The 7 Reasons listicle and a signed letter ("A note from Kindwear"), on the Shopify store only (theme-kindwear) |
 
-The brand lives in `app/content/hallie.ts` (words) and the `[data-theme="soft"]` block in `app/app.css` (look).
+The brand lives in `app/content/kindwear.ts` (words) and the `[data-theme="soft"]` block in `app/app.css` (look).
 
-## Hallie: Soft Everyday Comfort
+## Kindwear: Soft Everyday Comfort
 
 **Feeling:** a comfortable everyday essential that makes getting dressed easier.
 **Positioning:** for women who are done with hooks and digging straps, sold with warmth and reassurance rather than hype.
@@ -33,7 +33,7 @@ The brand lives in `app/content/hallie.ts` (words) and the `[data-theme="soft"]`
 | Oat        | `#F3E9DF` | Alternate sections  |
 | Cocoa      | `#3B2F2C` | Text, footer        |
 
-**Wordmark:** lowercase "hallie" in DM Serif Display with a rose full stop.
+**Wordmark:** lowercase "kindwear" in DM Serif Display with a rose full stop.
 **Voice:** warm, personal, plain-spoken. Second person, short sentences, the small details of an ordinary day; never gushing.
 
 > "A soft tank with the support already inside. Pull it on in the morning and get on with your day: no hooks to reach for, no wire, no band digging in by lunchtime."

@@ -24,7 +24,7 @@ import { DEMO_VIDEO } from "~/lib/images";
 import { money } from "~/data/catalog";
 import { fillPrices } from "~/content/store";
 
-/** Who the review wall leads with: the quotes that match Hallie's voice. */
+/** Who the review wall leads with: the quotes that match Kindwear's voice. */
 const REVIEW_LEADS = ["Victoria", "Carol", "Yutta", "Cathy", "Becki"];
 
 /** The quote under the button: short, about comfort, from a real review. */

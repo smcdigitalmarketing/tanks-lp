@@ -1,7 +1,7 @@
 /**
  * Facts about the tank. Every one comes from the competitor's live pages
  * (maggies-tanks.com, snapshot in app/data/) and carries its status. The
- * brand file (hallie.ts) never adds facts: it only words them.
+ * brand file (kindwear.ts) never adds facts: it only words them.
  *
  * The full claims register, with sources, is docs/product-research.md.
  */

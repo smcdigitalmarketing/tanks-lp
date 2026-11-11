@@ -15,7 +15,7 @@ import { Flag } from "~/components/flag";
 import { CheckoutChrome, OrderSummary } from "~/components/store/checkout";
 
 /**
- * /checkout/thank-you?order=HL1001: the order confirmation. The order lives
+ * /checkout/thank-you?order=KW1001: the order confirmation. The order lives
  * in this browser (lib/orders.ts), so the page reads it after hydration.
  */
 export const meta: Route.MetaFunction = () => storeMeta("Thank you");

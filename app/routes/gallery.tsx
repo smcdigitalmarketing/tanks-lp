@@ -15,7 +15,7 @@ import { Lightbox } from "~/components/gallery/lightbox";
 import { Wordmark } from "~/components/ui";
 
 export const meta: Route.MetaFunction = () => [
-  { title: "Gallery images · Hallie" },
+  { title: "Gallery images · Kindwear" },
   { name: "robots", content: "noindex, nofollow" },
   { tagName: "link", rel: "stylesheet", href: fontHref(HUB_FONTS) },
 ];

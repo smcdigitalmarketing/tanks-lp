@@ -174,7 +174,7 @@ type TierProps = {
 
 const unitsLabel = (n: number) => (n === 1 ? "1 tank" : `${n} tanks`);
 
-/** Stacked card (Hallie): thumbnail, deal, price and the dollar saving. */
+/** Stacked card (Kindwear): thumbnail, deal, price and the dollar saving. */
 function TierCard({
   offer,
   bundle,

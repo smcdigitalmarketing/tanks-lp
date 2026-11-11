@@ -5,7 +5,7 @@ export const HUB_FONTS = "family=Inter:wght@400;500;600;700";
 
 /**
  * Store pages stay out of search while the store is in test mode: noindex.
- * Hallie's fonts load site-wide from root.tsx.
+ * Kindwear's fonts load site-wide from root.tsx.
  */
 export function pageMeta({ title, description }: { title: string; description: string }) {
   return [

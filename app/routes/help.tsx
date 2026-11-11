@@ -415,7 +415,7 @@ function ContactPage() {
             <Field
               label="Order number (optional)"
               name="order"
-              placeholder="HL1001"
+              placeholder="KW1001"
             />
             <Field
               label="Message"

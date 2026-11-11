@@ -34,7 +34,7 @@ import { Divider } from "~/components/sections/divider";
  * The homepage (/): the landing page cold traffic arrives on. It follows
  * the competitor's homepage journey (promise → why bras stop working → the
  * product → colours → buy → proof → how → compare → guarantee → FAQ), in
- * Hallie's words, with the product page's buy box built in so nobody has to click
+ * Kindwear's words, with the product page's buy box built in so nobody has to click
  * through to order. Early Black Friday and Christmas change the hero, the
  * offer block and (Christmas) add a gifting section; facts never change.
  */

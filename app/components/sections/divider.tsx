@@ -1,4 +1,4 @@
-/** Hallie's soft wave between major sections. */
+/** Kindwear's soft wave between major sections. */
 export function Divider() {
   return (
     <div aria-hidden="true" className="bg-bg text-surface-2">

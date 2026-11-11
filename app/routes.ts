@@ -1,9 +1,10 @@
 import { type RouteConfig, route } from "@react-router/dev/routes";
 
 /*
- * The Hallie store. Pages with prices take an optional offer segment
+ * The Kindwear store. Pages with prices take an optional offer segment
  * (/early-black-friday or /christmas), so every campaign page has its own
  * shareable URL. Help, cart and checkout pages have no prices of their own.
+ * The landing pages (7 Reasons, the letter) redirect to the Shopify store.
  * /gallery and /sop are internal.
  */
 export default [
@@ -11,7 +12,10 @@ export default [
   route("products/everyday-tank/:offer?", "routes/product.tsx"),
   route("collections/all/:offer?", "routes/shop.tsx"),
   route("pages/7-reasons/:offer?", "routes/seven-reasons.tsx"),
-  route("pages/a-note-from-hallie/:offer?", "routes/advertorial.tsx"),
+  route("pages/a-note-from-hallie/:offer?", "routes/advertorial.tsx", {
+    id: "letter-old",
+  }),
+  route("pages/a-note-from-kindwear/:offer?", "routes/advertorial.tsx"),
   route("pages/:help", "routes/help.tsx"),
   route("cart", "routes/cart.tsx"),
   route("checkout", "routes/checkout.tsx"),

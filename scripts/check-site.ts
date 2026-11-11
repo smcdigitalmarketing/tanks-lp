@@ -1,5 +1,5 @@
 /**
- * Clicks through the whole Hallie store in a real browser, at desktop and
+ * Clicks through the whole Kindwear store in a real browser, at desktop and
  * phone width, and exits non-zero if anything fails.
  *
  *   npm run dev                                         # in one terminal
@@ -9,14 +9,19 @@
  * prices, colour and size selection, size gating, size guide, cart drawer,
  * quantity, cart page, the full test-mode checkout with validation and the
  * order confirmation, FAQ, phone menu, sticky bar), the homepage, the shop
- * (colour cards preselect the colour), the 7 Reasons and the advertorial
- * (CTAs keep the offer). Plus the help pages and contact form, the offer
+ * (colour cards preselect the colour). Plus the help pages and contact form, the offer
  * switch, old concept URLs redirecting, /gallery, /sop, the 404 page,
- * every internal link, and no landing page in the header or footer menus.
+ * every internal link, no landing page in the header or footer menus, and
+ * the landing pages' old URLs redirecting to the Shopify store.
  */
 import { parseArgs } from "node:util";
 import { chromium, type Page } from "playwright-core";
 import { offers, pricing } from "../app/content/offers.ts";
+
+/** Where the landing pages live (app/content/store.ts LANDING_PAGES). */
+const SHOPIFY_STORE = "https://h3q1rr-0w.myshopify.com";
+const SHOPIFY_REASONS = `${SHOPIFY_STORE}/pages/7-reasons`;
+const SHOPIFY_LETTER = `${SHOPIFY_STORE}/pages/a-note-from-kindwear`;
 
 const { values: args } = parseArgs({
   options: {
@@ -46,10 +51,7 @@ const SOP_ORDER = [
 const money = (n: number) => `$${n.toFixed(2).replace(/\.00$/, "")}`;
 type OfferKey = (typeof OFFERS)[number];
 const productPath = (o: OfferKey) => `/products/everyday-tank${SEGMENT[o]}`;
-const advertorialPath = (o: OfferKey) =>
-  `/pages/a-note-from-hallie${SEGMENT[o]}`;
 const homePath = (o: OfferKey) => SEGMENT[o] || "/";
-const reasonsPath = (o: OfferKey) => `/pages/7-reasons${SEGMENT[o]}`;
 const shopPath = (o: OfferKey) => `/collections/all${SEGMENT[o]}`;
 
 let failures = 0;
@@ -82,17 +84,16 @@ async function open(page: Page, path: string, errors: string[]) {
 }
 
 /**
- * Landing pages (the listicle, the advertorial) are reached from ads only:
- * the header, phone menu and footer must never link them.
+ * Landing pages (the listicle, the letter) live on the Shopify store and are
+ * reached from ads only: the header, phone menu and footer must never link
+ * them, by a path here or by their Shopify URL.
  */
-const LANDING_PAGES = ["/pages/7-reasons", "/pages/a-note-from-hallie"];
+const LANDING_PATH = /\/pages\/(7-reasons|a-note-from-[a-z-]+)(\/|$|\?)/;
 async function checkMenus(page: Page, at: string) {
   const hrefs = await page.$$eval("header a[href], footer a[href]", (as) =>
     as.map((a) => a.getAttribute("href") ?? ""),
   );
-  const landing = hrefs.filter((h) =>
-    LANDING_PAGES.some((p) => h === p || h.startsWith(`${p}/`)),
-  );
+  const landing = hrefs.filter((h) => LANDING_PATH.test(h));
   check(
     landing.length === 0,
     `${at}: landing page linked from the menus (${landing.join(", ")})`,
@@ -249,7 +250,7 @@ async function productPage(
   await page.waitForURL("**/checkout");
   const form = page.getByTestId("checkout-form");
   check(
-    (await form.getAttribute("data-pdp-variant")) === "hallie",
+    (await form.getAttribute("data-pdp-variant")) === "kindwear",
     `${at}: checkout tags pdp_variant`,
   );
   check(
@@ -283,11 +284,11 @@ async function productPage(
   );
   await page.fill("[name=zip]", "97201");
   await page.getByTestId("place-order").click();
-  await page.waitForURL("**/checkout/thank-you?order=HL*");
+  await page.waitForURL("**/checkout/thank-you?order=KW*");
   const conf = page.getByTestId("order-confirmation");
   await conf.waitFor();
   check(
-    /^HL\d{4,}$/.test((await page.getByTestId("order-number").textContent()) ?? ""),
+    /^KW\d{4,}$/.test((await page.getByTestId("order-number").textContent()) ?? ""),
     `${at}: confirmation shows an order number`,
   );
   check(
@@ -361,34 +362,6 @@ async function productPage(
   check(errors.length === 0, `${at}: no page errors (${errors.join(" | ")})`);
 }
 
-async function advertorialPage(
-  page: Page,
-  offerId: OfferKey,
-  errors: string[],
-) {
-  const path = advertorialPath(offerId);
-  await open(page, path, errors);
-  check(
-    (await page.getByTestId("byline").textContent())?.includes("Brand content"),
-    `${path}: labelled Brand content`,
-  );
-  const ctas = await page
-    .getByTestId("advertorial-cta")
-    .evaluateAll((as) => as.map((a) => a.getAttribute("href")));
-  const target = productPath(offerId) + "#buy";
-  check(
-    ctas.length >= 2 && ctas.every((h) => h === target),
-    `${path}: every CTA goes to ${target} (saw ${ctas.join(", ")})`,
-  );
-  await page.getByTestId("advertorial-cta").last().click();
-  await page.waitForURL(`**${productPath(offerId)}*`);
-  check(
-    new URL(page.url()).pathname === productPath(offerId),
-    `${path}: CTA lands on the product page`,
-  );
-  check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
-}
-
 /** The homepage: hero, its own buy box, colour cards. */
 async function homePage(
   page: Page,
@@ -422,35 +395,6 @@ async function homePage(
   check(
     colourHref?.startsWith(`${productPath(offerId)}?colour=`),
     `${path}: colour cards open the product page in the offer (${colourHref})`,
-  );
-  check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
-}
-
-/** The 7 Reasons listicle: seven reasons, every CTA to the product page with the offer. */
-async function reasonsPage(
-  page: Page,
-  offerId: OfferKey,
-  errors: string[],
-) {
-  const path = reasonsPath(offerId);
-  await open(page, path, errors);
-  check(
-    (await page.getByTestId("reason").count()) === 7,
-    `${path}: seven reasons`,
-  );
-  const hrefs = await page
-    .getByTestId("reasons-cta")
-    .evaluateAll((els) => els.map((e) => e.getAttribute("href")));
-  const target = `${productPath(offerId)}#buy`;
-  check(
-    hrefs.length === 4 && hrefs.every((h) => h === target),
-    `${path}: 4 CTAs to ${target} (got ${hrefs.join(", ")})`,
-  );
-  await page.getByTestId("reasons-cta").last().click();
-  await page.waitForURL(`**${productPath(offerId)}*`);
-  check(
-    new URL(page.url()).pathname === productPath(offerId),
-    `${path}: CTA lands on the product page`,
   );
   check(errors.length === 0, `${path}: no page errors (${errors.join(" | ")})`);
 }
@@ -503,9 +447,7 @@ for (const [label, viewport] of [
   for (const o of OFFERS) {
     for (const run of [
       () => productPage(page, o, label === "phone", errors),
-      () => advertorialPage(page, o, errors),
       () => homePage(page, o, errors),
-      () => reasonsPage(page, o, errors),
       () => shopPage(page, o, errors),
     ]) {
       try {
@@ -518,9 +460,9 @@ for (const [label, viewport] of [
 
   // The preview strip switches offer in place; help pages remember it.
   try {
-    await open(page, "/pages/a-note-from-hallie", errors);
+    await open(page, "/collections/all", errors);
     await page.getByRole("link", { name: "Early Black Friday" }).click();
-    await page.waitForURL("**/pages/a-note-from-hallie/early-black-friday");
+    await page.waitForURL("**/collections/all/early-black-friday");
     await open(page, "/pages/shipping", errors);
     await page.waitForTimeout(200);
     check(
@@ -565,12 +507,28 @@ for (const [label, viewport] of [
   // Old six-concept URLs redirect.
   for (const [from, to] of [
     ["/soft", "/products/everyday-tank"],
-    ["/soft/advertorial/christmas", "/pages/a-note-from-hallie/christmas"],
     ["/soft/home/early-black-friday", "/early-black-friday"],
     ["/premium/7-reasons", "/"],
   ]) {
     await page.goto(BASE + from);
     check(new URL(page.url()).pathname === to, `${from} redirects to ${to} (got ${new URL(page.url()).pathname})`);
+  }
+
+  // The landing pages live on the Shopify store: every old URL sends people there.
+  for (const [from, to] of [
+    ["/pages/7-reasons", SHOPIFY_REASONS],
+    ["/pages/7-reasons/christmas", SHOPIFY_REASONS],
+    ["/pages/a-note-from-kindwear", SHOPIFY_LETTER],
+    ["/pages/a-note-from-hallie", SHOPIFY_LETTER],
+    ["/pages/a-note-from-hallie/early-black-friday", SHOPIFY_LETTER],
+    ["/soft/7-reasons", SHOPIFY_REASONS],
+    ["/soft/advertorial/christmas", SHOPIFY_LETTER],
+  ]) {
+    const res = await fetch(BASE + from, { redirect: "manual" });
+    check(
+      [301, 302].includes(res.status) && res.headers.get("location") === to,
+      `${from} redirects to ${to} (got ${res.status} ${res.headers.get("location")})`,
+    );
   }
 
   await open(page, "/gallery", errors);
@@ -583,7 +541,7 @@ for (const [label, viewport] of [
   const missing = await page.goto(`${BASE}/not-a-page`);
   check(missing?.status() === 404, "unknown page is a 404");
   check(
-    (await page.getByRole("link", { name: "Back to Hallie" }).count()) === 1,
+    (await page.getByRole("link", { name: "Back to Kindwear" }).count()) === 1,
     "404 links back to the store",
   );
   await context.close();

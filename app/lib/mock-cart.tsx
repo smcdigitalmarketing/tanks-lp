@@ -49,7 +49,7 @@ type CartApi = {
   count: number;
 };
 
-const STORAGE_KEY = "hallie-cart";
+const STORAGE_KEY = "kindwear-cart";
 const CartContext = createContext<CartApi | null>(null);
 
 function load(): CartLine[] {

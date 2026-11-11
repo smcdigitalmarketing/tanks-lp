@@ -104,7 +104,7 @@ export default function Checkout() {
       savings: totals.savings,
       total: totals.total,
       attributes: {
-        pdp_variant: "hallie",
+        pdp_variant: "kindwear",
         offers: [...new Set(lines.map((l) => l.offer))],
       },
     });
@@ -159,7 +159,7 @@ export default function Checkout() {
           className="space-y-9 px-4 py-8 md:border-r md:border-line md:py-12 md:pr-12"
           data-testid="checkout-form"
           // The cart attributes a Shopify build would send with this order.
-          data-pdp-variant="hallie"
+          data-pdp-variant="kindwear"
           data-offer-ids={[...new Set(lines.map((l) => l.offer))].join(",")}
         >
           <fieldset className="space-y-3">

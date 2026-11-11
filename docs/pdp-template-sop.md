@@ -1,6 +1,6 @@
 # Product Landing Page SOP
 
-Every product landing page we build uses one seven-section structure, so we can launch pages fast and test one idea at a time. It follows Arsh Sanwarwala's framework in [How To Build a Product Page SO Premium They Beg You To Buy](https://www.youtube.com/watch?v=ngXi-No3s2o), as first written up for the [RescUAid concepts](https://rescuaid-lp.vercel.app/sop). This copy is adapted for the Hallie built-in bra tank store in this repo, and adds rules for offers, advertorials and honest proof.
+Every product landing page we build uses one seven-section structure, so we can launch pages fast and test one idea at a time. It follows Arsh Sanwarwala's framework in [How To Build a Product Page SO Premium They Beg You To Buy](https://www.youtube.com/watch?v=ngXi-No3s2o), as first written up for the [RescUAid concepts](https://rescuaid-lp.vercel.app/sop). This copy is adapted for the Kindwear built-in bra tank store in this repo, and adds rules for offers, advertorials and honest proof.
 
 The video defines a premium page as one people want to buy from, and that comes down to trust. Four things build it:
 
@@ -33,7 +33,7 @@ Build the gallery as if no one will read anything else on the page. It is the mo
 
 | #   | Image           | What it shows                                              | In this repo                                                                                    |
 | --- | --------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| 1   | Main benefit    | A big benefit headline over the product being worn         | "The bra, built into your favourite tank" (Hallie)                                              |
+| 1   | Main benefit    | A big benefit headline over the product being worn         | "The bra, built into your favourite tank" (Kindwear)                                              |
 | 2   | Lifestyle       | The product worn in a real setting, with a benefit overlay | Mirror shot, "One soft layer instead of two"                                                    |
 | 3   | Vs the old way  | The product against what it replaces                       | A traditional bra and the tank, from behind, labelled by **construction** (hooks, band, straps) |
 | 4   | What's included | The product and its details, labelled                      | Built-in cups, wide straps, longer length                                                       |
@@ -50,7 +50,7 @@ Image rules:
 
 After the seven images, a short silent **demo video** loops as the eighth item. It never replaces one of the seven.
 
-`npm run gallery:export -- --base <dev server URL>` saves every slide as a 1600 × 1600 JPG in `public/gallery/hallie/`; `/gallery` lists them for download.
+`npm run gallery:export -- --base <dev server URL>` saves every slide as a 1600 × 1600 JPG in `public/gallery/kindwear/`; `/gallery` lists them for download.
 
 ## 3. Copy rules
 
@@ -58,7 +58,7 @@ Most shoppers read only the headlines, so each headline has to carry the benefit
 
 | Rule                              | Write                                                          | Not                            |
 | --------------------------------- | -------------------------------------------------------------- | ------------------------------ |
-| Stack the benefit into the title  | Hallie Everyday Tank: Gentle support, with no bra to fuss with | Built-in Bra Tank Top          |
+| Stack the benefit into the title  | Kindwear Everyday Tank: Gentle support, with no bra to fuss with | Built-in Bra Tank Top          |
 | Be specific and vivid             | No band digging in by lunchtime                                | All-day comfort                |
 | Name the moment, not the category | You walk through the door and reach for the hooks              | Bras can be uncomfortable      |
 | One fluent sentence per idea      | Pull it on over your head; the support is already inside       | Easy. Comfortable. Supportive. |
@@ -81,7 +81,7 @@ Offer copy uses price tokens (`{price:five}`, `{each:trio}`, `{save:single}`) so
 
 ## 5. Advertorials
 
-The advertorial is at `/pages/a-note-from-hallie` (and a version per offer). Its job is to warm up cold traffic before the product page.
+The advertorial is at `/pages/a-note-from-kindwear` on the Shopify store (theme-kindwear), one page whose offer box follows the store's current offer. Its job is to warm up cold traffic before the product page.
 
 1. **Headline**: an editorial angle, not a product name.
 2. **Relatable problem**: the customer's own pain point, in their words (taken from research, rewritten).
@@ -98,11 +98,16 @@ Labelled **"Brand content"**. No invented journalists, experts, studies or testi
 Two more page types share the advertorial's rules (no invented people, studies or testimonials; real reviews with their source; no urgency):
 
 - **Homepage** (`/`): promise → why bras stop working (design, not body) → value props → colours → the product page's buy box → reviews → how it works → comparison → guarantee → FAQ → close. Christmas adds a three-point gifting section.
-- **7 Reasons** (`/pages/7-reasons`): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
+- **7 Reasons** (`/pages/7-reasons`, on the Shopify store): an editorial listicle, labelled "Brand content" and signed by the brand. Seven reasons, each a construction fact from `product.ts`; a button after reasons 2, 4 and 6; one real review; the offer from `offers.ts`. The Early Black Friday version is the lead; Christmas swaps reasons 3 and 7 for gifting ones (sizing for someone else, the size swap).
 
-### Landing pages stay out of the menus
+### Landing pages: on Shopify, no menus
 
-The advertorial, the 7 Reasons listicle and any later ad landers are landing pages: traffic reaches them from ads, with UTMs. They are never linked from the store's header, phone menu or footer, in the mock store or in a Shopify theme or menu built from it. A shopper browsing the store doesn't need an ad's warm-up, and a menu link mixes organic visits into the page's numbers (section 7). In the mock store the test-mode strip links them for reviewers, and `npm run check` fails if a menu links one.
+The advertorial, the 7 Reasons listicle and any later ad landers are landing pages: traffic reaches them from ads, with UTMs. They follow theme-flashpuff's advertorial:
+
+- **On the Shopify store only.** They are built in the theme, not in this mock; the mock's old URLs redirect there.
+- **No store chrome.** The page draws no header, menus, announcement or offer bar, and no footer, so the only way on is the page's own buttons to the product page.
+- **Never in a menu.** No header, phone menu or footer links them. A shopper browsing the store doesn't need an ad's warm-up, and a menu link mixes organic visits into the page's numbers (section 7).
+- **Small print at the foot.** "This page is an advertisement…", © the shop name, and the Terms, Privacy and Refund policy links.
 
 ## 6. The rest of the store
 
@@ -110,7 +115,7 @@ The store around the landing pages follows the same rules: facts from `product.t
 
 - **Shop** (`/collections/all`): every colour; a card opens the product page with that colour chosen for every tank.
 - **Cart** (`/cart`) and **checkout** (`/checkout`): Shopify's one-page layout (contact, delivery, shipping method, payment, order summary). Every required field is validated with the error under the field, and focus moves to the first one. Cart lines keep their offer through to the order.
-- **Test mode:** no card fields, nothing charged or sent. The checkout and the confirmation say so in plain words; orders are saved in the browser and numbered from HL1001.
+- **Test mode:** no card fields, nothing charged or sent. The checkout and the confirmation say so in plain words; orders are saved in the browser and numbered from KW1001.
 - **Help pages** (`/pages/faq`, `size-guide`, `shipping`, `returns`, `contact`): built only from `product.ts`. Shipping cost, refunds, payment methods, tracking emails and support hours carry a "To confirm" flag until they are decided.
 
 ## 7. Measuring which page wins
