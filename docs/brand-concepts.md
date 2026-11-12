@@ -34,6 +34,8 @@ The brand lives in `app/content/kindwear.ts` (words) and the `[data-theme="soft"
 | Cocoa      | `#3B2F2C` | Text, footer        |
 
 **Wordmark:** lowercase "kindwear" in DM Serif Display with a rose full stop.
+
+**Logo on the Shopify store (12 Nov 2026):** the store's mark is the same idea drawn in the theme's Lora 600: "kindwear." with tighter letter-spacing and a dusty rose (`#8E5466`) full stop, a "k." monogram for the favicon and square icon, and a 1200 × 630 share card with the tagline. It was picked from three directions (refined serif, soft sans, neckline line). The SVG masters and rendered PNGs live in theme-kindwear (`setup/brand/`, `setup/render-brand.ts`); this mock uses the same favicon and iPhone icon (`public/`).
 **Voice:** warm, personal, plain-spoken. Second person, short sentences, the small details of an ordinary day; never gushing.
 
 > "A soft tank with the support already inside. Pull it on in the morning and get on with your day: no hooks to reach for, no wire, no band digging in by lunchtime."
